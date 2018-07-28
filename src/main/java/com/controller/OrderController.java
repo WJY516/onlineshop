@@ -115,29 +115,5 @@ public class OrderController {
 				e.printStackTrace();
 			}
 	}
-	@RequestMapping("/addorder")
-	public void addorder(HttpServletRequest request,HttpServletResponse response){
-		long fund=orderservice.addorder(request, response);
-		if(fund==0){
-			
-			try {
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
-		} else
-			try {
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
-	}
+	
 }

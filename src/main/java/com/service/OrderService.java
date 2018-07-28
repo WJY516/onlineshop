@@ -12,5 +12,5 @@ public interface OrderService {
 		public long refund(HttpServletRequest request,HttpServletResponse response);             //申请退款
 		public long admitrefund(HttpServletRequest request,HttpServletResponse response);       //同意退款
 		public long faultrefund(HttpServletRequest request,HttpServletResponse response);         //拒绝退款
-		public long addorder(HttpServletRequest request,HttpServletResponse response);           //增加订单
+		
 }

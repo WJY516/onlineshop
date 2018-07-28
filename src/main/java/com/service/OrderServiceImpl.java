@@ -73,24 +73,6 @@ public class OrderServiceImpl implements OrderService{
 		return i;
 	}
 
-	@Override
-	public long addorder(HttpServletRequest request,
-			HttpServletResponse response) {
-		// TODO 自动生成的方法存根
-		Timestamp dateNow=new Timestamp(System.currentTimeMillis());
-		HttpSession session=request.getSession();
-		int i=1;
-		TbOrder order=ordermapper.selectByPrimaryKey(i);
-		order.setOrderId(null);
-		order.setAddress(request.getParameter("address"));
-		order.setOrderPrice(request.getParameter("orderprice"));
-		order.setOrderStatus("paying");
-		//order.setUsername((String)session.getAttribute("username"));
-		order.setUsername("admin");
-		order.setOrderTime(dateNow);
-		long t=ordermapper.insert(order);
-		return t;
-	}
 	
 	
 
