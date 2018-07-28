@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.OrederGoodsMapper;
 import com.dao.TbGoodsMapper;
+import com.dao.TbOrderMapper;
 import com.domain.TbGoods;
 import com.domain.TbGoodsExample;
 import com.domain.TbGoodsExample.Criteria;
