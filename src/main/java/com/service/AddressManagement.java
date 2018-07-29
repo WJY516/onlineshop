@@ -12,6 +12,6 @@ public interface AddressManagement {
 	public int DeleteAddress(String username,String address);
 	public int UpdateAddress(String username,String address,String address_id);
 	public List SelectAddressByUser(String username);
-	public List SelectAddressById(String address_id);
+	public List SelectAddressById(int address_id);
 
 }
