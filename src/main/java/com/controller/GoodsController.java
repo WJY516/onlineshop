@@ -48,15 +48,25 @@ public class GoodsController {
 	@RequestMapping("/queryname")
 	@ResponseBody
 	public List<TbGoods> goodsQueryByName(String goodsname,HttpServletRequest request){
-		String name = request.getParameter("name");
-		try {
-			byte[] b = name.getBytes("ISO-8859-1");
-			goodsname = new String(b,"utf-8"); 
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			request.setCharacterEncoding("UTF-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
+		String name = request.getParameter("name");
+		
+		System.out.println(name);
+		goodsname = name;
+//		try {
+//			byte[] b = name.getBytes("ISO-8859-1");
+//			goodsname = new String(b,"utf-8"); 
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		// goodsname = name;
 		//		goodsname = request.getParameter("name");
 		System.out.println(goodsname);
 		List<TbGoods> goodslistByName = goodsService.queryGoodsByName(goodsname);
