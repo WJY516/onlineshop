@@ -138,7 +138,7 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<TbGoods> queryGoodsByType(String name) {
 		TbGoodsExample ex = new TbGoodsExample();
 		Criteria cr = ex.createCriteria();
-		cr.andGoodsTypeLike(name);
+		cr.andGoodsTypeLike("%"+name+";"+"%");
 		List<TbGoods> goodslistByType = goods.selectByExample(ex);
 		//System.out.println(goodslistByName);
 		return goodslistByType;
