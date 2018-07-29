@@ -1,5 +1,9 @@
 package com.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.domain.TbComment;
 import com.service.CommentService;
 
 
@@ -63,5 +68,39 @@ public class CommentController {
 		int comment_type=Integer.valueOf(request.getParameter("comment_type"));
 		String goods_id=request.getParameter("goods_id");
 		int success=commentservice.DeleteCommentByType(comment_type,goods_id);
+	}
+	
+	
+
+	@RequestMapping("updatebyorder")                   //根据订单修改评论
+	public void UpdateCommentByOrder(HttpServletRequest request,
+			HttpServletResponse response){
+		HttpSession session=request.getSession();
+		String comment=request.getParameter("comment");
+		int id=Integer.valueOf(request.getParameter("comment_id"));
+		int comment_type=Integer.valueOf(request.getParameter("comment_type"));
+		int success=commentservice.UpdateCommentByOrder(id,comment,comment_type);
+	}
+	
+	
+	@RequestMapping("selectbyuser")            //根据用户搜索
+	public void selectByUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<TbComment> list=commentservice.SelectCommentByUser(request,response);
+		request.setAttribute("selectbyuser_list", list);
+	}
+	@RequestMapping("selectbyorder")            //根据订单搜索
+	public void selectByOrder(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<TbComment> list=commentservice.SelectCommentByOrder(request,response);
+		request.setAttribute("selectbyorder_list", list);
+	}
+	@RequestMapping("selectbygoods")            //根据货物编号搜索
+	public void selectByGoods(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<TbComment> list=commentservice.SelectCommentByGoods(request,response);
+		request.setAttribute("selectbygoods_list", list);
+	}
+	@RequestMapping("selectbytype")            //根据类型搜索
+	public void selectByType(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<TbComment> list=commentservice.SelectCommentByType(request,response);
+		request.setAttribute("selectbytype_list", list);
 	}
 }

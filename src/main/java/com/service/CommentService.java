@@ -15,7 +15,7 @@ public interface CommentService {
 	public int DeleteCommentByUser(String username);
 	public int DeleteCommentByType(int comment_type,String goods_id);
 	
-	public int UpdateCommentByOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public int UpdateCommentByOrder(int id,String comment,int comment_type);
 	
 	public List SelectCommentByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	public List SelectCommentByGoods(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

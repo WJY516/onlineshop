@@ -136,34 +136,32 @@ public class CommentServicelmpl implements CommentService{
 	}
 
 	@Override
-	public int UpdateCommentByOrder(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public int UpdateCommentByOrder(int id,String comment,int comment_type){
 		long count=0;
-		int id =0;
-		int comment_type = 1;
+		
+		int comment_type1 = 1;
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		String comment=request.getParameter("comment");
-		if(request.getParameter("comment_type") != "")
-			comment_type = Integer.valueOf(request.getParameter("comment_type"));
+		if(comment_type==1||comment_type==0||comment_type==-1)
+			comment_type1=Integer.valueOf(comment_type);
+		else return 2;
 		Timestamp comment_time=new Timestamp(System.currentTimeMillis());             
 		cr.andIdEqualTo(id);
 		count=commentmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/delete_comment_error.jsp").forward(request, response);
+			return 0;
 		}
 		else
 		{
 			
 			TbComment record = new TbComment();
 			record.setComment(comment);
-			record.setCommentType(comment_type);
+			record.setCommentType(comment_type1);
 			record.setCommentTime(comment_time);
 			count=commentmapper.updateByExampleSelective(record, ex);
-			request.getRequestDispatcher("/delete_comment_success.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
 	}
 
 	@Override
