@@ -39,10 +39,12 @@ public class LoginoutServiceImpl implements LoginoutService{
 		String password=request.getParameter("password");
 		cr.andUsernameEqualTo(username);
 		cr.andPasswordEqualTo(password);
+		System.out.println(username);
 		count=usermapper.countByExample(ex);
 		TbMember user=usermapper.selectByPrimaryKey(username);
 		if(count!=0){
 			session.setAttribute("username",username);
+			
 			session.setAttribute("type",user.getType());
 			}
 		

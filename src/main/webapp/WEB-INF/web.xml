@@ -42,4 +42,34 @@
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  
+  
+  <filter>
+		<filter-name>MakesureFilter</filter-name>
+		<filter-class>filter.MakesureFilter</filter-class>
+  </filter>
+	<filter-mapping>
+    <filter-name>MakesureFilter</filter-name>
+    <url-pattern>/person/*</url-pattern>
+
+  </filter-mapping>  
+  
+  
+  
+  <filter>
+		<filter-name>EcodingFilter</filter-name>
+		<filter-class>filter.EcodingFilter</filter-class>
+		 <init-param>
+      <param-name>charset</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+  </filter>
+	<filter-mapping>
+    <filter-name>EcodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+
+  </filter-mapping>  
+  
+
 </web-app>
