@@ -122,12 +122,25 @@ public class GoodsServiceImpl implements GoodsService{
 	 */
 	@Override
 	public List<TbGoods> queryGoodsByName(String name) {
-		// TODO Auto-generated method stub
 		TbGoodsExample ex = new TbGoodsExample();
 		Criteria cr = ex.createCriteria();
 		cr.andGoodsNameLike("%"+name+"%");
 		List<TbGoods> goodslistByName = goods.selectByExample(ex);
 		//System.out.println(goodslistByName);
 		return goodslistByName;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.service.GoodsService#queryGoodsByType()
+	 */
+	@Override
+	public List<TbGoods> queryGoodsByType(String name) {
+		TbGoodsExample ex = new TbGoodsExample();
+		Criteria cr = ex.createCriteria();
+		cr.andGoodsTypeLike(name);
+		List<TbGoods> goodslistByType = goods.selectByExample(ex);
+		//System.out.println(goodslistByName);
+		return goodslistByType;
 	}
 }
