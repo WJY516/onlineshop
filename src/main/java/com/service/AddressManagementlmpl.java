@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.dao.TbAddressMapper;
 import com.domain.TbAddress;
 import com.domain.TbAddressExample;
 import com.domain.TbAddressExample.Criteria;
 
+
+@Service
 public class AddressManagementlmpl implements AddressManagement{
 
 	@Autowired
