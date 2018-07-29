@@ -21,19 +21,14 @@ public class CommentServicelmpl implements CommentService{
 	TbCommentMapper commentmapper;
 
 	@Override
-	public int InsertCommentByOrder(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
+	public int InsertCommentByOrder(String username,String order_id,String goods_id,String comment,String comment_type){
+		
 		long count=0;
-		int comment_type = 1;
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		String username=(String) session.getAttribute("username");
-		String order_id=request.getParameter("order_id");
-		String goods_id=request.getParameter("goods_id");
-		String comment=request.getParameter("comment");
-		if(request.getParameter("comment_type") != "")
-			comment_type = Integer.valueOf(request.getParameter("comment_type"));
+		int comment_type1=1;
+		if(comment_type != "")
+			comment_type = String.valueOf(comment_type);
 		Timestamp comment_time=new Timestamp(System.currentTimeMillis());             
 		cr.andUsernameEqualTo(username);
 		cr.andOrderIdEqualTo(order_id);
@@ -44,7 +39,7 @@ public class CommentServicelmpl implements CommentService{
 		count=commentmapper.countByExample(ex);
 		if(count == 1)
 		{
-			request.getRequestDispatcher("/insert_comment_error.jsp").forward(request, response);
+			return 0;
 		}
 		else
 		{
@@ -54,103 +49,90 @@ public class CommentServicelmpl implements CommentService{
 			record.setOrderId(order_id);
 			record.setGoodsId(goods_id);
 			record.setComment(comment);
-			record.setCommentType(comment_type);
+			record.setCommentType(comment_type1);
 			record.setCommentTime(comment_time);
 			count=commentmapper.insert(record);
-			request.getRequestDispatcher("/insert_comment_success.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
+		
 	}
 
 	@Override
-	public int DeleteCommentByOrder(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public int DeleteCommentByOrder(int order_id){
 		long count=0;
-		int id = 0;
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		if(request.getParameter("id") != "")
-			id = Integer.valueOf(request.getParameter("id"));
-		cr.andIdEqualTo(id);
+		cr.andIdEqualTo(order_id);
 		count=commentmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/delete_comment_error.jsp").forward(request, response);
+			return (int) count;
 		}
 		else
 		{
-			count=commentmapper.deleteByPrimaryKey(id);
-			request.getRequestDispatcher("/dlete_comment_success.jsp").forward(request, response);
+			count=commentmapper.deleteByPrimaryKey(order_id);
+			return (int) count;
 		}
-		return (int) count;
 	}
 
 	@Override
-	public int DeleteCommentByGoods(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public int DeleteCommentByGoods(String goods_id){
 		long count=0;
 		TbCommentExample ex = new TbCommentExample();
-		Criteria cr = ex.createCriteria();
-		String goods_id=request.getParameter("goods_id");            
+		Criteria cr = ex.createCriteria();           
 		cr.andGoodsIdEqualTo(goods_id);
 		count=commentmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/delete_comment_error.jsp").forward(request, response);
+			return (int) count;
 		}
 		else
 		{
 			count=commentmapper.deleteByExample(ex);
-			request.getRequestDispatcher("/delete_comment_success.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
+		
 	}
 
 	@Override
-	public int DeleteCommentByUser(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
+	public int DeleteCommentByUser(String username){
 		long count=0;
 		TbCommentExample ex = new TbCommentExample();
-		Criteria cr = ex.createCriteria();
-		String username=(String) session.getAttribute("username");          
+		Criteria cr = ex.createCriteria();         
 		cr.andUsernameEqualTo(username);
 		count=commentmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/delete_comment_error.jsp").forward(request, response);
+			return (int) count;
 		}
 		else
 		{
 			count=commentmapper.deleteByExample(ex);
-			request.getRequestDispatcher("/delete_comment_success.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
 	}
 
 	@Override
-	public int DeleteCommentByType(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public int DeleteCommentByType(int comment_type,String goods_id){
 		long count=0;
-		int comment_type = 2;
+		int comment_type1 = 2;
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		String goods_id=request.getParameter("goods_id");
-		if(request.getParameter("comment_type") != "")
-			comment_type = Integer.valueOf(request.getParameter("comment_type"));
+		if(comment_type==1||comment_type==0||comment_type==-1)
+			comment_type1=Integer.valueOf(comment_type);
+		else return 0;
 		cr.andGoodsIdEqualTo(goods_id);
-		cr.andCommentTypeEqualTo(comment_type);
+		cr.andCommentTypeEqualTo(comment_type1);
 		count=commentmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/delete_comment_error.jsp").forward(request, response);
+			return 0;
 		}
 		else
 		{
 			count=commentmapper.deleteByExample(ex);
-			request.getRequestDispatcher("/delete_comment_success.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
 	}
 
 	@Override

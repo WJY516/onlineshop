@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface CommentService {
-	public int InsertCommentByOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public int InsertCommentByOrder(String username,String order_id,String goods_id,String comment,String comment_type);
 	
-	public int DeleteCommentByOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public int DeleteCommentByGoods(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public int DeleteCommentByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public int DeleteCommentByType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public int DeleteCommentByOrder(int order_id);
+	public int DeleteCommentByGoods(String goods_id);
+	public int DeleteCommentByUser(String username);
+	public int DeleteCommentByType(int comment_type,String goods_id);
 	
 	public int UpdateCommentByOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
