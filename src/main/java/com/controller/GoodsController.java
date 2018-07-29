@@ -32,39 +32,35 @@ public class GoodsController {
 	GoodsService goodsService;
 
 	@RequestMapping("/query")
-	public void goodsQueryById(int goodsId,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+	public TbGoods goodsQueryById(int goodsId){
 		TbGoods goods = goodsService.queryGoodsById(goodsId);
-		request.setAttribute("goods", goods);
-		System.out.println(goods.getGoodsName());
-		request.getRequestDispatcher("index.jsp").forward(request,response);
+		return goods;
 	}
 	
 	@RequestMapping("/list")
-	public void goodsQueryAll(HttpServletRequest request,HttpServletResponse response){
+	public List<TbGoods> goodsQueryAll(){
 		List<TbGoods> goodslist = goodsService.queryGoodsAll();
-		request.setAttribute("goodslist", goodslist);
-		System.out.println(goodsService.queryGoodsAll());
+		return goodslist;
 	}
 	
 	@RequestMapping("/queryname")
-	public void goodsQueryByName(String goodsname,HttpServletRequest request,HttpServletResponse response){
+	public List<TbGoods> goodsQueryByName(String goodsname){
 		List<TbGoods> goodslistByName = goodsService.queryGoodsByName(goodsname);
-		request.setAttribute("goodslistByName", goodslistByName);
-		System.out.println(goodsService.queryGoodsByName(null));
+		return goodslistByName;
 	}
 	
 	@RequestMapping("/insert")
-	public void goodsInsert(){
-		//TODO
+	public void goodsInsert(TbGoods tbgoods){
+		goodsService.insertGoods(tbgoods);
 	}
 	
 	@RequestMapping("/delete")
-	public void goodsDelete(){
-		//TODO
+	public void goodsDelete(int goodsid){
+		goodsService.deleteGoodsById(goodsid);
 	}
 	
 	@RequestMapping("/update")
-	public void goodsUpdate(){
-		//TODO
+	public void goodsUpdate(TbGoods tbgoods){
+		goodsService.updateGoods(tbgoods);
 	}
 }

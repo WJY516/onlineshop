@@ -50,27 +50,27 @@ public class GoodsServiceImpl implements GoodsService{
 		String configLocation  = "springmvc.xml";
 		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(configLocation);
 		GoodsService service = ac.getBean(GoodsService.class);
-		System.out.println(service);
-		System.out.println("getGoodsPrice()"+service.queryGoodsById(0).getGoodsPrice());
-		TbGoods tbgoods = new TbGoods();
-		List<TbGoods> goodslist = service.queryGoodsAll();
-		System.out.println("queryGoodsAll()");
-		for (TbGoods tbGoods : goodslist) {
-			System.out.print(tbGoods.getGoodsId());
-			System.out.print(" ");
-			System.out.print(tbGoods.getGoodsName());
-			System.out.print(" ");
-			System.out.print(tbGoods.getGoodsType());
-			System.out.print(" ");
-			System.out.print(tbGoods.getGoodsPrice());
-			System.out.print(" ");
-			System.out.print(tbGoods.getGoodsFreenum());
-			System.out.print(" ");
-			System.out.print(tbGoods.getGoodsDiscribes());
-			System.out.println();
-		}
+//		System.out.println(service);
+//		System.out.println("getGoodsPrice()"+service.queryGoodsById(0).getGoodsPrice());
+//		TbGoods tbgoods = new TbGoods();
+//		List<TbGoods> goodslist = service.queryGoodsAll();
+//		System.out.println("queryGoodsAll()");
+//		for (TbGoods tbGoods : goodslist) {
+//			System.out.print(tbGoods.getGoodsId());
+//			System.out.print(" ");
+//			System.out.print(tbGoods.getGoodsName());
+//			System.out.print(" ");
+//			System.out.print(tbGoods.getGoodsType());
+//			System.out.print(" ");
+//			System.out.print(tbGoods.getGoodsPrice());
+//			System.out.print(" ");
+//			System.out.print(tbGoods.getGoodsFreenum());
+//			System.out.print(" ");
+//			System.out.print(tbGoods.getGoodsDiscribes());
+//			System.out.println();
+//		}
 		
-		System.out.println(service.queryGoodsByName("测试样例2"));
+		System.out.println(service.queryGoodsByName("测试"));
 		System.out.println("jaslkdfjslakdjflksadjflksadjflksdjflk");
 	}
 
@@ -101,8 +101,8 @@ public class GoodsServiceImpl implements GoodsService{
 	 * @see com.service.GoodsService#deleteGoods()
 	 */
 	@Override
-	public int deleteGoodsById(TbGoods tbgoods) {
-		flag = goods.deleteByPrimaryKey(tbgoods.getGoodsId());
+	public int deleteGoodsById(int goodsId) {
+		flag = goods.deleteByPrimaryKey(goodsId);
 		return flag;
 	}
 
@@ -125,7 +125,7 @@ public class GoodsServiceImpl implements GoodsService{
 		// TODO Auto-generated method stub
 		TbGoodsExample ex = new TbGoodsExample();
 		Criteria cr = ex.createCriteria();
-		cr.andGoodsDiscribesLike(name);
+		cr.andGoodsNameLike("%"+name+"%");
 		List<TbGoods> goodslistByName = goods.selectByExample(ex);
 		//System.out.println(goodslistByName);
 		return goodslistByName;

@@ -21,5 +21,5 @@ public interface GoodsService {
 	public List<TbGoods> queryGoodsAll();
 	public int insertGoods(TbGoods tbgoods);
 	public int updateGoods(TbGoods tbgoods);
-	public int deleteGoodsById(TbGoods tbgoods);
+	public int deleteGoodsById(int goodsId);
 }
