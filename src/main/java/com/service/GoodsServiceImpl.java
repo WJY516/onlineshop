@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.dao.TbGoodsMapper;
 import com.domain.TbGoods;
 import com.domain.TbGoodsExample;
+import com.domain.TbGoodsExample.Criteria;
 
 /**
  * @author wujiayi
@@ -45,13 +46,14 @@ public class GoodsServiceImpl implements GoodsService{
 	
 	@Test
 	public void test(){
-		List<TbGoods> goodslist;
+		
 		String configLocation  = "springmvc.xml";
 		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(configLocation);
-		GoodsServiceImpl service = ac.getBean(GoodsServiceImpl.class);
+		GoodsService service = ac.getBean(GoodsService.class);
+		System.out.println(service);
 		System.out.println("getGoodsPrice()"+service.queryGoodsById(0).getGoodsPrice());
 		TbGoods tbgoods = new TbGoods();
-		goodslist = service.queryGoodsAll();
+		List<TbGoods> goodslist = service.queryGoodsAll();
 		System.out.println("queryGoodsAll()");
 		for (TbGoods tbGoods : goodslist) {
 			System.out.print(tbGoods.getGoodsId());
@@ -67,6 +69,8 @@ public class GoodsServiceImpl implements GoodsService{
 			System.out.print(tbGoods.getGoodsDiscribes());
 			System.out.println();
 		}
+		
+		System.out.println(service.queryGoodsByName("测试样例2"));
 		System.out.println("jaslkdfjslakdjflksadjflksadjflksdjflk");
 	}
 
@@ -119,6 +123,11 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public List<TbGoods> queryGoodsByName(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		TbGoodsExample ex = new TbGoodsExample();
+		Criteria cr = ex.createCriteria();
+		cr.andGoodsDiscribesLike(name);
+		List<TbGoods> goodslistByName = goods.selectByExample(ex);
+		//System.out.println(goodslistByName);
+		return goodslistByName;
 	}
 }

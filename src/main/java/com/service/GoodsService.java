@@ -5,6 +5,8 @@ package com.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.domain.TbGoods;
 
 /**
@@ -12,6 +14,7 @@ import com.domain.TbGoods;
  * @date2018年7月27日 下午9:37:03
  *
  */
+
 public interface GoodsService {
 	public TbGoods queryGoodsById(int goodsId);
 	public List<TbGoods> queryGoodsByName(String name);
