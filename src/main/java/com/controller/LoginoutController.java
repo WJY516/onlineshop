@@ -24,9 +24,7 @@ public class LoginoutController {
 	public void login(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		
 		int count=loginoutService.Login(request,response);
-		
-		
-		System.out.println("Test1.test1()"+count);
+		if(count!=0) request.getRequestDispatcher("/home/home1.jsp").forward(request, response);
 	}
 	@RequestMapping(value="/logout") 
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{

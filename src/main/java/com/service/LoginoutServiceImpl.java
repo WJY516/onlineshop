@@ -45,7 +45,7 @@ public class LoginoutServiceImpl implements LoginoutService{
 			session.setAttribute("username",username);
 			session.setAttribute("type",user.getType());
 			}
-		request.getRequestDispatcher("/index.jsp").forward(request,response);
+		
 		
 		// TODO 自动生成的方法存根
 		

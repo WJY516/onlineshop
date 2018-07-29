@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.dao.TbCommentMapper;
 import com.domain.TbComment;
 import com.domain.TbCommentExample;
 import com.domain.TbCommentExample.Criteria;
 
+@Service
 public class CommentServicelmpl implements CommentService{
 	@Autowired
 	TbCommentMapper commentmapper;
