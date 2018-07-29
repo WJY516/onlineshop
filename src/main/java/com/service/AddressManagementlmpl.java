@@ -94,13 +94,12 @@ public class AddressManagementlmpl implements AddressManagement{
 	}
 
 	@Override
-	public List SelectAddress(String username,String address) {	
+	public List SelectAddressByUser(String username) {	
 		long count=0;
 		TbAddressExample ex = new TbAddressExample();
 		List list = null ;
 		Criteria cr = ex.createCriteria();
 		cr.andUsernameEqualTo(username);
-		cr.andAddressEqualTo(address);
 		count=addressmapper.countByExample(ex);
 		if(count == 0)
 		{
@@ -109,9 +108,33 @@ public class AddressManagementlmpl implements AddressManagement{
 		else
 		{
 			
-			TbAddress record = new TbAddress();
+			/*TbAddress record = new TbAddress();
 			record.setAddress(address);
-			record.setUsername(username);
+			record.setUsername(username);*/
+			list = addressmapper.selectByExample(ex);
+			return list;
+		}
+		
+	}
+	
+	@Override
+	public List SelectAddressById(int address_id) {	
+		long count=0;
+		TbAddressExample ex = new TbAddressExample();
+		List list = null ;
+		Criteria cr = ex.createCriteria();
+		cr.andAddressIdEqualTo(adderss_id)
+		count=addressmapper.countByExample(ex);
+		if(count == 0)
+		{
+			return list;
+		}
+		else
+		{
+			
+			/*TbAddress record = new TbAddress();
+			record.setAddress(address);
+			record.setUsername(username);*/
 			list = addressmapper.selectByExample(ex);
 			return list;
 		}
