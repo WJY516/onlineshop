@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface AddressManagement {
-	public int InsertAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public int DeleteAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public int UpdateAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public List SelectAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public int InsertAddress(String username,String address);
+	public int DeleteAddress(String username,String address);
+	public int UpdateAddress(String username,String address,String address_id);
+	public List SelectAddress(String username,String address);
 
 }

@@ -20,20 +20,16 @@ public class AddressManagementlmpl implements AddressManagement{
 	@Autowired
 	TbAddressMapper addressmapper;
 	@Override
-	public int InsertAddress(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
+	public int InsertAddress(String username,String address){
 		long count=0;
 		TbAddressExample ex = new TbAddressExample();
 		Criteria cr = ex.createCriteria();
-		String username=request.getParameter("username");
-		String address=request.getParameter("address");
 		cr.andUsernameEqualTo(username);
 		cr.andAddressEqualTo(address);
 		count=addressmapper.countByExample(ex);
 		if(count == 1)
-		{
-			request.getRequestDispatcher("/insertaddresserror.jsp").forward(request, response);
+		{	
+			return 0;
 		}
 		else
 		{
@@ -42,79 +38,70 @@ public class AddressManagementlmpl implements AddressManagement{
 			record.setAddress(address);
 			record.setUsername(username);
 			count=addressmapper.insert(record);
-			request.getRequestDispatcher("/insertaddresssuccess.jsp").forward(request, response);
+
+			return (int) count;
 		}
-		return (int) count;
 
 	}
 
 	@Override
-	public int DeleteAddress(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
+	public int DeleteAddress(String username,String address){
 		long count=0;
 		TbAddressExample ex = new TbAddressExample();
 		Criteria cr = ex.createCriteria();
-		String username=request.getParameter("username");
-		String address=request.getParameter("address");
 		cr.andUsernameEqualTo(username);
 		cr.andAddressEqualTo(address);
 		count=addressmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/deleteaddresserror.jsp").forward(request, response);
+			return (int) count;
 		}
 		else
 		{
 			count=addressmapper.deleteByExample(ex);
-			request.getRequestDispatcher("/deleteaddresssuccess.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
+		
 	}
 
 	@Override
-	public int UpdateAddress(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
+	public int UpdateAddress(String username,String address,String address_id){
 		long count=0;
 		TbAddressExample ex = new TbAddressExample();
 		Criteria cr = ex.createCriteria();
-		String username=request.getParameter("username");
-		String address=request.getParameter("address");
 		cr.andUsernameEqualTo(username);
-		cr.andAddressEqualTo(address);
+		Integer address_1 = address_id != null && !address_id.equals("") ? Integer.parseInt(address_id) : null;
+
+		cr.andAddressIdEqualTo(address_1);
 		count=addressmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/updateaddresserror.jsp").forward(request, response);
+			return (int) count;
 		}
 		else
 		{
 			TbAddress record = new TbAddress();
 			record.setAddress(address);
 			record.setUsername(username);
+			record.setAddressId(address_1);
 			count=addressmapper.updateByExample(record, ex);
-			request.getRequestDispatcher("/updateaddresssuccess.jsp").forward(request, response);
+			return (int) count;
 		}
-		return (int) count;
+		
 	}
 
 	@Override
-	public List SelectAddress(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();	
+	public List SelectAddress(String username,String address) {	
 		long count=0;
 		TbAddressExample ex = new TbAddressExample();
 		List list = null ;
 		Criteria cr = ex.createCriteria();
-		String username=request.getParameter("username");
-		String address=request.getParameter("address");
 		cr.andUsernameEqualTo(username);
 		cr.andAddressEqualTo(address);
 		count=addressmapper.countByExample(ex);
 		if(count == 0)
 		{
-			request.getRequestDispatcher("/selectaddresserror.jsp").forward(request, response);
+			return list;
 		}
 		else
 		{
@@ -123,9 +110,9 @@ public class AddressManagementlmpl implements AddressManagement{
 			record.setAddress(address);
 			record.setUsername(username);
 			list = addressmapper.selectByExample(ex);
-			request.getRequestDispatcher("/selectaddresssuccess.jsp").forward(request, response);
+			return list;
 		}
-		return list;
+		
 	}
 	
 
