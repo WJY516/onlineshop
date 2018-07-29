@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.domain.TbGoods;
 import com.service.GoodsService;
@@ -44,7 +45,10 @@ public class GoodsController {
 	}
 	
 	@RequestMapping("/queryname")
-	public List<TbGoods> goodsQueryByName(String goodsname){
+	@ResponseBody
+	public List<TbGoods> goodsQueryByName(String goodsname,HttpServletRequest request){
+		goodsname = request.getParameter("name");
+		System.out.println(goodsname);
 		List<TbGoods> goodslistByName = goodsService.queryGoodsByName(goodsname);
 		return goodslistByName;
 	}
