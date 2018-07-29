@@ -4,6 +4,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -47,7 +48,16 @@ public class GoodsController {
 	@RequestMapping("/queryname")
 	@ResponseBody
 	public List<TbGoods> goodsQueryByName(String goodsname,HttpServletRequest request){
-		goodsname = request.getParameter("name");
+		String name = request.getParameter("name");
+		try {
+			byte[] b = name.getBytes("ISO-8859-1");
+			goodsname = new String(b,"utf-8"); 
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//		goodsname = request.getParameter("name");
 		System.out.println(goodsname);
 		List<TbGoods> goodslistByName = goodsService.queryGoodsByName(goodsname);
 		return goodslistByName;

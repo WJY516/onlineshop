@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							<div class="search-bar pr">
 								<a name="index_none_header_sysc" href="#"></a>
-								<form action="/onlineshop/Goods/queryname" mehton="get">
+								<form action="/onlineshop/Goods/queryname" mehton="post">
 									<input id="searchInput" name="name" type="text" placeholder="搜索" autocomplete="off">
 									<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
 								</form>
