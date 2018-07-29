@@ -123,7 +123,7 @@ public class AddressManagementlmpl implements AddressManagement{
 		TbAddressExample ex = new TbAddressExample();
 		List list = null ;
 		Criteria cr = ex.createCriteria();
-		cr.andAddressIdEqualTo(adderss_id)
+		cr.andAddressIdEqualTo(address_id);
 		count=addressmapper.countByExample(ex);
 		if(count == 0)
 		{

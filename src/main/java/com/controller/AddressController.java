@@ -17,12 +17,19 @@ import com.service.AddressManagement;
 public class AddressController {
 	@Autowired
 	AddressManagement address;
-	@RequestMapping("/select")
-	public void selectAddress(HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping("/selectbyuser")
+	public void selectAddressbyuser(HttpServletRequest request,HttpServletResponse response){
 		String username=request.getParameter("username");
 		String address_user=request.getParameter("address");
 
-		List count=address.SelectAddress(username, address_user);
+		List count=address.SelectAddressByUser(username);
+		if(count!=null) System.out.println("select");
+	}
+	@RequestMapping("/selectbyid")
+	public void selectAddressbyId(HttpServletRequest request,HttpServletResponse response){
+		String id=request.getParameter("address_id");
+		int address_id = Integer.valueOf(id);
+		List count=address.SelectAddressById(address_id);
 		if(count!=null) System.out.println("select");
 	}
 	@RequestMapping("/insert")
