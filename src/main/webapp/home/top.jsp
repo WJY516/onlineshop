@@ -33,7 +33,6 @@
 				<!--悬浮搜索框-->
 
 				<div class="nav white">
-					<div class="logo"><img src="../images/logo.png" /></div>
 					<div class="logoBig">
 						<li><img src="../images/logobig.png" /></li>
 					</div>

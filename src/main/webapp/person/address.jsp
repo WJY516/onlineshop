@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						
 						<c:forEach items="${addresslist}" var="useraddress">
-						<ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails">
+						<!-- <ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails"> -->
 
 							<li class="user-addresslist defaultAddr">
 								<p class="new-tit new-p-re">
@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="new-addr-btn">
 									<span class="new-addr-bar">|</span>
-									<a href="/address/delete?username=${useraddress.username}&address=${useraddress.address}"><i class="am-icon-trash"></i>删除</a>
+									<a href="/onlineshop/address/delete?username=${useraddress.username}&address=${useraddress.address}"><i class="am-icon-trash"></i>删除</a>
 								</div>
 							</li>
 </c:forEach>

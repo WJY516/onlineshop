@@ -22,16 +22,18 @@ public class AddressController {
 	@RequestMapping("/selectbyuser")
 	public void selectAddressbyuser(HttpServletRequest request,HttpServletResponse response){
 		String username=request.getParameter("username");
+		System.out.println("username_2:"+username);
 
 		List count=address.SelectAddressByUser(username);
-		if(count!=null)
-			try {
-				request.setAttribute("addresslist",count);
-				request.getRequestDispatcher("/person/address.jsp").forward(request, response);
-			} catch (ServletException | IOException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
+		
+		try {
+			request.setAttribute("addresslist", count);
+			request.getRequestDispatcher("/person/address.jsp").forward(
+					request, response);
+		} catch (ServletException | IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	@RequestMapping("/selectbyid")
 	public void selectAddressbyId(HttpServletRequest request,HttpServletResponse response){
@@ -46,7 +48,17 @@ public class AddressController {
 		String address_user=request.getParameter("address");
 
 		int count=address.InsertAddress(username, address_user);
-		if(count!=0) System.out.println("select");
+		if(count!=0) 
+			try {
+				System.out.println("username_1:"+username);
+				request.getRequestDispatcher("/address/selectbyuser?username="+username+"").forward(request, response);
+			} catch (ServletException | IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		else {
+			
+		}
 	}
 	@RequestMapping("/update")
 	public void updateAddress(HttpServletRequest request,HttpServletResponse response){
@@ -62,7 +74,12 @@ public class AddressController {
 		String address_user=request.getParameter("address");
 
 		int count=address.DeleteAddress(username, address_user);
-		if(count!=0) System.out.println("select");
+		try {
+			request.getRequestDispatcher("/address/selectbyuser").forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	
 }

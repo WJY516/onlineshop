@@ -10,7 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.OrederGoodsMapper;
 import com.dao.TbOrderMapper;
+import com.domain.OrederGoods;
+import com.domain.OrederGoodsExample;
 import com.domain.TbOrder;
 import com.domain.TbOrderExample;
 import com.domain.TbOrderExample.Criteria;
@@ -19,13 +22,14 @@ import com.domain.TbOrderExample.Criteria;
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	TbOrderMapper ordermapper;
+	@Autowired
+	OrederGoodsMapper ordergoodsmapper;
 	@Override
 	public List<TbOrder> check(HttpServletRequest request,HttpServletResponse response) {
 		TbOrderExample ex=new TbOrderExample();
 		HttpSession session=request.getSession();
 		Criteria cr = ex.createCriteria();
-		//String username=(String) session.getAttribute("username");
-		String username="admin";
+		String username=(String) session.getAttribute("username");
 		cr.andUsernameEqualTo(username);
 		List<TbOrder> list=ordermapper.selectByExample(ex);
 		return list;
@@ -71,6 +75,17 @@ public class OrderServiceImpl implements OrderService{
 		
 		long i=ordermapper.updateByExample(order,ex);
 		return i;
+	}
+
+	@Override
+	public List<OrederGoods> ordergoodslist(HttpServletRequest request,
+			HttpServletResponse response) {
+		OrederGoodsExample ex=new OrederGoodsExample();
+		com.domain.OrederGoodsExample.Criteria cr = ex.createCriteria();
+		String id=request.getParameter("id");
+		cr.andOrderIdEqualTo(id);		
+		List<OrederGoods> list=ordergoodsmapper.selectByExample(ex);
+		return list;
 	}
 
 	
