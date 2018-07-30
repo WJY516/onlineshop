@@ -29,7 +29,7 @@ public class TbMemberServiceImpl implements TbMemberService {
 	}
 
 	@Override
-	public boolean registerMember(TbMember member) {
+	public boolean insertMember(TbMember member) {
 		//此处可以插入用户信息校验
 		member.setType(0);//默认注册为普通用户
 		

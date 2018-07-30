@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.TbMember;
 import com.service.TbMemberService;
@@ -17,6 +18,20 @@ import com.service.TbMemberService;
 public class TbMemberController {
 	@Autowired
 	TbMemberService memberService;
+	
+	@RequestMapping("/userCenter")//http://127.0.0.1/onlineshop/member/userCenter
+	public ModelAndView userCenter(HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		String username=(String) session.getAttribute("username");
+		if(username==null||username.length()<=0){
+			mav.setViewName("redirect:/home/login.jsp");
+			return mav;
+		}
+			TbMember member = memberService.selectTbMemberByPK(username);
+			mav.addObject("member", member);
+			mav.setViewName("/person/information.jsp");
+		return mav;
+	}
 	
 	@RequestMapping("/query")//http://127.0.0.1/onlineshop/member/query?username=111
 	@ResponseBody
@@ -31,8 +46,9 @@ public class TbMemberController {
 	@RequestMapping("/register")//http://127.0.0.1/onlineshop/member/register?username=
 	@ResponseBody
 	public String register(TbMember member){
-		
-		boolean success = memberService.registerMember(member);
+
+		boolean success = memberService.insertMember(member);
+
 		if(success){
 			return "success";//注册成功
 		}
@@ -50,10 +66,9 @@ public class TbMemberController {
 	}
 	//http://127.0.0.1/onlineshop/member/update?username=113&truename=n0728
 	@RequestMapping("/update")
-	@ResponseBody
 	public String updateMember(TbMember member){
 		memberService.updateMemberByPK(member);
-		return "";
+		return "redirect:/member/userCenter";
 	}
 
 }
