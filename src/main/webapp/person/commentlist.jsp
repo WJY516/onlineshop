@@ -1,3 +1,8 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 
@@ -5,14 +10,14 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-		<title>物流</title>
+		<title>发表评论</title>
 
 		<link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
 		<link href="../css/personal.css" rel="stylesheet" type="text/css">
-		<link href="../css/lostyle.css" rel="stylesheet" type="text/css">
-
+		<link href="../css/appstyle.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
 	</head>
 
 	<body>
@@ -86,98 +91,155 @@
 		<div class="center">
 			<div class="col-main">
 				<div class="main-wrap">
-					<div class="user-logistics">
+
+					<div class="user-comment">
 						<!--标题 -->
 						<div class="am-cf am-padding">
-							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">物流跟踪</strong> / <small>Logistics&nbsp;History</small></div>
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">发表评论</strong> / <small>Make&nbsp;Comments</small></div>
 						</div>
 						<hr/>
-						<div class="package-title">
-							<div class="m-item">
+
+						<div class="comment-main">
+							<div class="comment-list">
 								<div class="item-pic">
-									<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg">
+									<a href="#" class="J_MakePoint">
+										<img src="../images/comment.jpg_400x400.jpg" class="itempic">
+									</a>
 								</div>
-								<div class="item-info">
-									<p class="log-status">物流状态:<span>已签收</span> </p>
-									<p>承运公司：天天物流</p>
-									<p>快递单号：373269427868</p>
-									<p>官方电话：4001-888-888</p>
+
+								<div class="item-title">
+
+									<div class="item-name">
+										<a href="#">
+											<p class="item-basic-info">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</p>
+										</a>
+									</div>
+									<div class="item-info">
+										<div class="info-little">
+											<span>颜色：洛阳牡丹</span>
+											<span>包装：裸装</span>
+										</div>
+										<div class="item-price">
+											价格：<strong>19.88元</strong>
+										</div>										
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="item-comment">
+									<textarea placeholder="请写下对宝贝的感受吧，对他人帮助很大哦！"></textarea>
+								</div>
+								<div class="filePic">
+									<input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*" >
+									<span>晒照片(0/5)</span>
+									<img src="../images/image.jpg" alt="">
+								</div>
+								<div class="item-opinion">
+									<li><i class="op1"></i>好评</li>
+									<li><i class="op2"></i>中评</li>
+									<li><i class="op3"></i>差评</li>
 								</div>
 							</div>
-                         <div class="clear"></div>
-						</div>
-						<div class="package-status">
-							<ul class="status-list">		
-								<li class="latest">
-									<p class="text">【武汉市】已签收,签收人是青年城签收，感谢使用天天快递，期待再次为您服务</p>
-									<div class="time-list">
-										<span class="date">2015-12-19</span><span class="week">周六</span><span class="time">15:35:42</span>
+							
+							<!--多个商品评论-->
+							<div class="comment-list">
+								<div class="item-pic">
+									<a href="#" class="J_MakePoint">
+										<img src="../images/comment.jpg_400x400.jpg" class="itempic">
+									</a>
+								</div>
+
+								<div class="item-title">
+
+									<div class="item-name">
+										<a href="#">
+											<p class="item-basic-info">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</p>
+										</a>
 									</div>
-								</li>
-								<li>
-									<p class="text">【武汉市】光谷关山分部派件员正在为您派件</p>
-									<div class="time-list">
-										<span class="date hidden">2015-12-19</span><span class="week hidden">周六</span><span class="time">14:27:28</span>
-									</div>
-								</li>
-								<li>
-									<p class="text">【武汉市】快件已到达 光谷关山分部</p>
-									<div class="time-list">
-										<span class="date hidden">2015-12-19</span><span class="week hidden">周六</span><span class="time">09:25:51</span>
-									</div>
-								</li>
-								<li>
-									<p class="text">【武汉市】武汉 已发出</p>
-									<div class="time-list">
-										<span class="date  hidden">2015-12-19</span><span class="week  hidden">周六</span><span class="time">06:56:03</span>
-									</div>
-								</li>
-								<li>
-									<p class="text">【杭州市】杭州集散陆运 已发出</P>
-									<div class="time-list">
-										<span class="date">2015-12-17</span><span class="week">周四</span><span class="time">22:15:23</span>
-									</div>
-								</li>
-								<li>
-									<p class="text">【绍兴市】诸暨 已发出</p>
-									<div class="time-list">
-										<span class="date hidden">2015-12-17</span><span class="week hidden">周四</span><span class="time">18:55:25</span>
-									</div>
-								</li>
-								<li>
-									<p class="text">【绍兴市】天天快递 诸暨收件员 已揽件</span>
-										<div class="time-list">
-											<span class="date hidden">2015-12-17</span><span class="week hidden">周四</span><span class="time">18:54:25</span>
+									<div class="item-info">
+										<div class="info-little">
+											<span>颜色：洛阳牡丹</span>
+											<span>包装：裸装</span>
 										</div>
-								</li>
-								<li>
-									<p class="text">商家正通知快递公司揽件</span>
-										<div class="time-list">
-											<span class="date hidden">2015-12-17</span><span class="week hidden">周四</span><span class="time">15:49:40</span>
+										<div class="item-price">
+											价格：<strong>19.88元</strong>
 										</div>
-								</li>
-								<li>
-									<p class="text">您的包裹已出库</span>
-										<div class="time-list">
-											<span class="date hidden">2015-12-17</span><span class="week hidden">周四</span><span class="time">15:49:40</span>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="item-comment">
+									<textarea placeholder="请写下对宝贝的感受吧，对他人帮助很大哦！"></textarea>
+								</div>
+								<div class="filePic">
+									<input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*" >
+									<span>晒照片(0/5)</span>
+									<img src="../images/image.jpg" alt="">
+								</div>
+								<div class="item-opinion">
+									<li><i class="op1"></i>好评</li>
+									<li><i class="op2"></i>中评</li>
+									<li><i class="op3"></i>差评</li>
+								</div>
+							</div>
+							
+							<div class="comment-list">
+								<div class="item-pic">
+									<a href="#" class="J_MakePoint">
+										<img src="../images/comment.jpg_400x400.jpg" class="itempic">
+									</a>
+								</div>
+
+								<div class="item-title">
+
+									<div class="item-name">
+										<a href="#">
+											<p class="item-basic-info">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</p>
+										</a>
+									</div>
+									<div class="item-info">
+										<div class="info-little">
+											<span>颜色：洛阳牡丹</span>
+											<span>包装：裸装</span>
 										</div>
-								</li>
-								<li>
-									<p class="text">您的订单待配货</p>
-									<div class="time-list">
-										<span class="date hidden">2015-12-17</span><span class="week hidden">周四</span><span class="time">15:18:15</span>
+										<div class="item-price">
+											价格：<strong>19.88元</strong>
+										</div>
 									</div>
-								</li>
-								<li class="first">
-									<p class="text">您的订单开始处理</p>
-									<div class="time-list">
-										<span class="date  hidden">2015-12-17</span><span class="week  hidden">周四</span><span class="time">14:27:50</span>
-									</div>
-								</li>															
+								</div>
+								<div class="clear"></div>
+								<div class="item-comment">
+									<textarea placeholder="请写下对宝贝的感受吧，对他人帮助很大哦！"></textarea>
+								</div>
+								<div class="filePic">
+									<input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*" >
+									<span>晒照片(0/5)</span>
+									<img src="../images/image.jpg" alt="">
+								</div>
+								<div class="item-opinion">
+									<li><i class="op1"></i>好评</li>
+									<li><i class="op2"></i>中评</li>
+									<li><i class="op3"></i>差评</li>
+								</div>
+							</div>							
+								<div class="info-btn">
+									<div class="am-btn am-btn-danger">发表评论</div>
+								</div>							
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$(".comment-list .item-opinion li").click(function() {	
+								$(this).prevAll().children('i').removeClass("active");
+								$(this).nextAll().children('i').removeClass("active");
+								$(this).children('i').addClass("active");
 								
-							</ul>
+							});
+				     })
+					</script>					
+					
+												
+							
 						</div>
+
 					</div>
+
 				</div>
 				<!--底部-->
 				<div class="footer">
@@ -203,6 +265,7 @@
 					</div>
 				</div>
 			</div>
+
 			<aside class="menu">
 				<ul>
 					<li class="person">
@@ -237,8 +300,8 @@
 						<ul>
 							<li> <a href="collection.html">收藏</a></li>
 							<li> <a href="foot.html">足迹</a></li>
-							<li> <a href="comment.html">评价</a></li>
-							<li class="active"> <a href="news.html">消息</a></li>
+							<li class="active"> <a href="comment.html">评价</a></li>
+							<li> <a href="news.html">消息</a></li>
 						</ul>
 					</li>
 

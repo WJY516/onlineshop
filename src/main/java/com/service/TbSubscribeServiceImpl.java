@@ -22,9 +22,17 @@ public class TbSubscribeServiceImpl implements TbSubscribeService{
 	TbGoodsMapper goodsMapper;
 
 	@Override
-	public void subscribe(TbSubscribeKey subscribe) {
+	public void insertSubscribe(TbSubscribeKey subscribe) {
 		// TODO Auto-generated method stub
-		subscribeMapper.insert(subscribe);
+		TbSubscribeExample ex = new TbSubscribeExample();
+		Criteria cr = ex.createCriteria();
+		cr.andGoodsIdEqualTo(subscribe.getGoodsId());
+		cr.andUsernameEqualTo(subscribe.getUsername());
+		List<TbSubscribeKey> list = subscribeMapper.selectByExample(ex);
+		
+		if(list.size()==0){
+			subscribeMapper.insert(subscribe);
+		}
 	}
 
 	@Override
