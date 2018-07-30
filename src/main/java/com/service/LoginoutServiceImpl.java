@@ -46,6 +46,8 @@ public class LoginoutServiceImpl implements LoginoutService{
 			session.setAttribute("username",username);
 			
 			session.setAttribute("type",user.getType());
+			session.setAttribute("email",user.getEmail());
+			session.setAttribute("tel",user.getTel());
 			}
 		
 		

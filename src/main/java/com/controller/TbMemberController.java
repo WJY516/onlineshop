@@ -76,9 +76,12 @@ public class TbMemberController {
 		return "/login.jsp";
 	}
 	//http://127.0.0.1/onlineshop/member/update?username=113&truename=n0728
+	//用于客户自己修改信息
 	@RequestMapping("/update")
-	public String updateMember(TbMember member){
+	public String updateMember(TbMember member,HttpSession session){
+		member.setUsername((String) session.getAttribute("username"));
 		memberService.updateMemberByPK(member);
+		member.setType(null);//selective条件下type不更新
 		return "redirect:/member/userCenter";
 	}
 
