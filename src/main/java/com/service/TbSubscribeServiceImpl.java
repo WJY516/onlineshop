@@ -56,10 +56,10 @@ public class TbSubscribeServiceImpl implements TbSubscribeService{
 		List<TbSubscribeKey> list = subscribeMapper.selectByExample(example);
 		
 		//分离出goodsId，并查询对应的TbGoods数组
-		List goodsIdList=new ArrayList<>();
+		List<Integer> goodsIdList=new ArrayList<>();
 		if(list!=null){
 			for(int i=0;i<list.size();i++){
-				goodsIdList.set(i, list.get(i));
+				goodsIdList.add(list.get(i).getGoodsId());
 			}
 			
 			TbGoodsExample example2 = new TbGoodsExample();

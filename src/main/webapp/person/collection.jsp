@@ -109,15 +109,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <a class="am-badge am-badge-danger am-round">下架</a>
                             </div>
                             <div class="s-content">
-<!--需要商品列表goodslist                             .. -->
-                            <c:forEach items="goodslist" var="goods" varStatus="status">                         
+<!--需要商品列表goodsList                             .. -->
+                            <c:forEach items="${goodsList}" var="goods" varStatus="status">                         
                                 <div class="s-item-wrap">
                                     <div class="s-item">
 
                                         <div class="s-pic">
                                             <a href="#" class="s-pic-link">
                                                 <img src="../images/-0-saturn_solar.jpg_220x220.jpg" alt="${goods.goodsName}" title="${goods.goodsName}" class="s-pic-img s-guess-item-img">
-                                            <span class="tip-title">已下架</span>
+<!--                                             <span class="tip-title">已下架</span> -->
                                             </a>
                                         </div>
                                         <div class="s-info">

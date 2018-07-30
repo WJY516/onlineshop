@@ -52,6 +52,7 @@
 	<filter-mapping>
     <filter-name>MakesureFilter</filter-name>
     <url-pattern>/person/*</url-pattern>
+        <url-pattern>/subscribe/*</url-pattern>
 
   </filter-mapping>  
   

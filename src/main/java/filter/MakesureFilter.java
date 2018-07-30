@@ -49,7 +49,7 @@ public class MakesureFilter implements Filter {
 				//request.getRequestDispatcher("login.html").forward(request, response);
 				response.sendRedirect("../home/login.jsp");
 				System.out.println("1");
-				chain.doFilter(req, res);
+				//chain.doFilter(req, res);
 				return;
 			}else{
 				System.out.println("session is not null");
