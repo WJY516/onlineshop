@@ -62,17 +62,19 @@ public class BrandController {
 		
 		//Type1list
 		HashSet h2 = new HashSet(Type1list);
-		Brandnamelist.clear();
-		Brandnamelist.addAll(h2);
+		Type1list.clear();
+		Type1list.addAll(h2);
 		System.out.println("Type1list:"+Type1list);
 		request.setAttribute("Type1list", Type1list);
 		
+		
+		//Type2list 后面要用时再加入  勿删
 		//Type2list
-		HashSet h3 = new HashSet(Type2list);
-		Brandnamelist.clear();
-		Brandnamelist.addAll(h3);
-		System.out.println("Type2list:"+Type2list);
-		request.setAttribute("Type2list", Type2list);
+//		HashSet h3 = new HashSet(Type2list);
+//		Type2list.clear();
+//		Type2list.addAll(h3);
+//		System.out.println("Type2list:"+Type2list);
+//		request.setAttribute("Type2list", Type2list);
 		
 //		return Brandnamelist;
 		//return (List<TbGoods>) request.getAttribute("goodslistByName");

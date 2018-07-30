@@ -56,11 +56,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-12 am-u-md-12">
 	                  	<div class="theme-popover">														
 							<div class="searchAbout">
-								<span class="font-pale">相关搜索：</span>
+<!-- 								<span class="font-pale">相关搜索：</span>
 								<a title="坚果" href="#">坚果</a>
 								<a title="瓜子" href="#">瓜子</a>
 								<a title="鸡腿" href="#">豆干</a>
-
+ -->
 							</div>
 							<ul class="select">
 								<p class="title font-normal">
@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 									</dl>
 								</li>
-								<li class="select-list">
+							<!-- 	<li class="select-list">
 									<dl id="select3">
 										<dt class="am-badge am-round"></dt>
 										<div class="dd-conent">
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<dd><a href="#">有机零食</a></dd>
 										</div>
 									</dl>
-								</li>
+								</li> -->
 					        
 							</ul>
 							<div class="clear"></div>
