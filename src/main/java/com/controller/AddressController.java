@@ -1,7 +1,9 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,10 +22,16 @@ public class AddressController {
 	@RequestMapping("/selectbyuser")
 	public void selectAddressbyuser(HttpServletRequest request,HttpServletResponse response){
 		String username=request.getParameter("username");
-		String address_user=request.getParameter("address");
 
 		List count=address.SelectAddressByUser(username);
-		if(count!=null) System.out.println("select");
+		if(count!=null)
+			try {
+				request.setAttribute("addresslist",count);
+				request.getRequestDispatcher("/person/address.jsp").forward(request, response);
+			} catch (ServletException | IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 	}
 	@RequestMapping("/selectbyid")
 	public void selectAddressbyId(HttpServletRequest request,HttpServletResponse response){

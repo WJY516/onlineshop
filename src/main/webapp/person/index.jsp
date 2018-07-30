@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<a href="news.html"><i class="am-icon-bell-o"></i>消息</a>
 										</div>
 										<div class="m-address">
-											<a href="address.html" class="i-trigger">我的收货地址</a>
+											<a href="/onlineshop/address/selectbyuser?username=${sessionScope.username}" class="i-trigger">我的收货地址</a>
 										</div>
 									</div>
 								</div>

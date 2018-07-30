@@ -1,8 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="javax.servlet.*" %>
-<head>
-</head>
-<body>
 <div class="hmtop">
 			<!--顶部导航条 -->
 			
@@ -52,5 +49,3 @@
 
 				<div class="clear"></div>
 			</div>
-
-</body>
