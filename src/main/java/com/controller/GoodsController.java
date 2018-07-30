@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,9 +35,10 @@ public class GoodsController {
 	GoodsService goodsService;
 
 	@RequestMapping("/query")
-	public TbGoods goodsQueryById(int goodsId){
+	public String goodsQueryById(int goodsId,Model m){
 		TbGoods goods = goodsService.queryGoodsById(goodsId);
-		return goods;
+		m.addAttribute("goods", goods);
+		return "/home/introduction.jsp";
 	}
 	
 	@RequestMapping("/list")
