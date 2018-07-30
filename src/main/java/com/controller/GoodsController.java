@@ -49,7 +49,7 @@ public class GoodsController {
 	
 	@RequestMapping("/queryname")
 	@ResponseBody
-	public List<TbGoods> goodsQueryByName(String goodsname,HttpServletRequest request){
+	public String goodsQueryByName(String goodsname,Model m){
 //		try {
 //			request.setCharacterEncoding("UTF-8");
 //		} catch (UnsupportedEncodingException e1) {
@@ -57,10 +57,10 @@ public class GoodsController {
 //			e1.printStackTrace();
 //		}
 		
-		String name = request.getParameter("name");
+//		String name = request.getParameter("name");
 		
-		System.out.println(name);
-		goodsname = name;
+//		System.out.println(name);
+//		goodsname = name;
 //		try {
 //			byte[] b = name.getBytes("ISO-8859-1");
 //			goodsname = new String(b,"utf-8"); 
@@ -71,8 +71,10 @@ public class GoodsController {
 		// goodsname = name;
 		//		goodsname = request.getParameter("name");
 		System.out.println(goodsname);
+		m.addAttribute("goodsname", goodsname);
 		List<TbGoods> goodslistByName = goodsService.queryGoodsByName(goodsname);
-		return goodslistByName;
+		m.addAttribute("goodslistByName", goodslistByName);
+		return "/home/search.jsp";
 	}
 	
 	@RequestMapping("/insert")

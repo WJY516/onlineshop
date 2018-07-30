@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Build-Jdk: 1.6.0_13
 Built-By: ZQD
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: wujiayi
+Build-Jdk: 1.8.0_112
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> f56d4544266c605aa2ea71da4631d6b234475850
