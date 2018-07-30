@@ -43,8 +43,8 @@
 
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
-						<form action="../Goods/query">
-							<input id="searchInput" name="goodsId" type="text" placeholder="搜索" autocomplete="off">
+						<form action="../Goods/queryname">
+							<input id="searchInput" name="goodsname" type="text" placeholder="搜索" autocomplete="off">
 							<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
 						</form>
 					</div>
