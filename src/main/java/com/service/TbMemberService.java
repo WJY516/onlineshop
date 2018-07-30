@@ -8,7 +8,7 @@ public interface TbMemberService {
 	/**
 	 * 用户注册  member.type 0表示普通用户 1表示管理员
 	 * */
-	public boolean registerMember(TbMember member);//注册用户
+	public boolean insertMember(TbMember member);//注册用户
 	public boolean deleteMemberByPK(String userName);//注销用户
 	/**
 	 * member.type 0表示普通用户 1表示管理员.
