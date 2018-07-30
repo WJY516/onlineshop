@@ -50,8 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </div>
             
             <div class="login-links">
-								<a href="#" class="am-fr">密码</a>
-								<a href="register.html" class="zcnext am-fr am-btn-default">注册</a>
+								<a href="register.jsp" class="zcnext am-fr am-btn-default">注册</a>
 								<br />
             </div>
 								<div class="am-cf">

@@ -31,6 +31,7 @@ public class TbMemberController {
 	@RequestMapping("/register")//http://127.0.0.1/onlineshop/member/register?username=
 	@ResponseBody
 	public String register(TbMember member){
+		
 		boolean success = memberService.registerMember(member);
 		if(success){
 			return "success";//注册成功

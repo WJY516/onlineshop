@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +23,15 @@ public class LoginoutController {
 	//controller.LoginoutController
 	@RequestMapping(value="/login")          
 	public void login(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out=response.getWriter();
 		int count=loginoutService.Login(request,response);
-		if(count!=0) request.getRequestDispatcher("/home/home1.jsp").forward(request, response);
+		if(count!=0) {
+			request.getRequestDispatcher("/home/home1.jsp").forward(request, response);
+		}
+		else {
+			out.print("<script language='javascript'>alert('Wrong login name or password!!');window.location.href='/onlineshop/home/login.jsp';</script>");
+		}
 	}
 	@RequestMapping(value="/logout") 
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
