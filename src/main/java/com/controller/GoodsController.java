@@ -5,6 +5,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.Provider.Service;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.domain.TbBrand;
 import com.domain.TbGoods;
+import com.service.BrandService;
 import com.service.GoodsService;
 
 /**
@@ -70,4 +73,12 @@ public class GoodsController {
 	public void goodsUpdate(TbGoods tbgoods){
 		goodsService.updateGoods(tbgoods);
 	}
+	
+	@RequestMapping("/introduction")
+	public void goodsIntroduction(int goodsId,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		TbGoods tbgoodsIntro = goodsService.queryGoodsById(goodsId);
+		request.setAttribute("tbgoodsIntro", tbgoodsIntro);
+		request.getRequestDispatcher("/Brand/introduction").forward(request,response);
+	}
+	
 }

@@ -80,4 +80,14 @@ public class BrandController {
 		//return (List<TbGoods>) request.getAttribute("goodslistByName");
 		request.getRequestDispatcher("/home/search.jsp").forward(request, response);
 	}
+	
+	@RequestMapping("/introduction")
+//	@ResponseBody
+	public void brandIntro(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		TbGoods tbgoodsIntro = (TbGoods) request.getAttribute("tbgoodsIntro");
+		System.out.println(tbgoodsIntro.getGoodsName());
+		TbBrand tbBrandIntro = brandService.queryBrandByGoodsId(tbgoodsIntro.getGoodsId());
+		request.getRequestDispatcher("/home/introduction.jsp").forward(request, response);
+		//		return tbBrandIntro;
+	}
 }

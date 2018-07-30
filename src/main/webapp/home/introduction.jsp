@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!--名称-->
 						<div class="tb-detail-hd">
 							<h1>	
-				${goods.goodsName} 
+				${tbgoodsIntro.goodsName} 
 	          </h1>
 						</div>
 						<div class="tb-detail-list">
@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								
 								<li class="price iteminfo_mktprice">
 									<dt>原价</dt>
-									<dd><em>¥</em><b class="sys_item_price">${goods.goodsPrice}</b></dd>									
+									<dd><em>¥</em><b class="sys_item_price">${tbgoodsIntro.goodsPrice}</b></dd>									
 								</li>
 								<div class="clear"></div>
 							</div>

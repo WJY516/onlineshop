@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
 									<c:forEach var="goodslistByName" items="${goodslistByName}">
-									<li>
+									<li><a href="../Goods/introduction?goodsId=${goodslistByName.goodsId}">
 										<div class="i-pic limit">
 											<img src="../images/imgsearch1.jpg" />											
 											<p class="title fl">${goodslistByName.goodsName}</p>
@@ -138,6 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<p class="number fl">
 												库存<span>${goodslistByName.goodsFreenum}</span>
 											</p>
+											</a>
 										</div>
 									</li>
 									</c:forEach>
