@@ -5,6 +5,8 @@ package com.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.domain.TbBrand;
 
 /**
@@ -15,7 +17,7 @@ import com.domain.TbBrand;
 public interface BrandService {
 	public TbBrand queryBrandById(int brandId);
 	public List<String> queryBrandAll();
-	public List<String> queryType1All();
+	public List<String> queryType1All(String type);
 	public TbBrand queryBrandByGoodsId(int goodsid);
 	public List<String> queryType2ByType1(String type1);
 	public String queryType1ByType2(String type2);

@@ -3,24 +3,38 @@
  */
 package com.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dao.TbBrandMapper;
 import com.domain.TbBrand;
+import com.domain.TbBrandExample;
+import com.domain.TbBrandExample.Criteria;
 
 /**
  * @author wujiayi
  * @date2018年7月29日 下午10:54:14
  *
  */
+@Service
 public class BrandServiceImpl implements BrandService{
 
+	@Autowired
+	TbBrandMapper brand;
+	
 	/* (non-Javadoc)
 	 * @see com.service.BrandService#queryBrandById(int)
 	 */
+	
+	
 	@Override
 	public TbBrand queryBrandById(int brandId) {
-		// TODO Auto-generated method stub
-		return null;
+		TbBrand tbbrand =  brand.selectByPrimaryKey(brandId);
+		return tbbrand;
 	}
 
 	/* (non-Javadoc)
@@ -28,17 +42,39 @@ public class BrandServiceImpl implements BrandService{
 	 */
 	@Override
 	public List<String> queryBrandAll() {
-		// TODO Auto-generated method stub
-		return null;
+		TbBrandExample ex = new TbBrandExample();
+		ex.setDistinct(true);
+		Criteria cr = ex.createCriteria();
+		List<TbBrand> tbbrandlist = brand.selectByExample(ex);
+		List<String> brandlist = new ArrayList<String>();
+		for (TbBrand tbBrand : tbbrandlist) {
+			brandlist.add(tbBrand.getBrandName());
+		}
+		//通过HashSet剔除重复元素
+		HashSet h = new HashSet(brandlist);
+		brandlist.clear();
+		brandlist.addAll(h);
+		return brandlist;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.service.BrandService#queryType1All()
 	 */
 	@Override
-	public List<String> queryType1All() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> queryType1All(String brandname) {
+		TbBrandExample ex = new TbBrandExample();
+		Criteria cr = ex.createCriteria();
+		cr.andBrandNameEqualTo(brandname);
+		List<TbBrand> tbbrandlist = brand.selectByExample(ex);
+		List<String> type1list = new ArrayList<String>();
+		for (TbBrand tbBrand : tbbrandlist) {
+			type1list.add(tbBrand.getType1());
+		}
+		//通过HashSet剔除重复元素
+		HashSet h = new HashSet(type1list);
+		type1list.clear();
+		type1list.addAll(h);
+		return type1list;
 	}
 
 	/* (non-Javadoc)
@@ -73,8 +109,7 @@ public class BrandServiceImpl implements BrandService{
 	 */
 	@Override
 	public int insertBrands(TbBrand tbbrand) {
-		// TODO Auto-generated method stub
-		return 0;
+		return brand.insert(tbbrand);
 	}
 
 	/* (non-Javadoc)
@@ -82,8 +117,7 @@ public class BrandServiceImpl implements BrandService{
 	 */
 	@Override
 	public int updateGoods(TbBrand tbbrand) {
-		// TODO Auto-generated method stub
-		return 0;
+		return brand.updateByPrimaryKey(tbbrand);
 	}
 
 	/* (non-Javadoc)
