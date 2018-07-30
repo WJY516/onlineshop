@@ -1,11 +1,15 @@
 package com.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.domain.TbGoods;
 import com.domain.TbSubscribeKey;
 import com.service.TbMemberService;
 import com.service.TbSubscribeService;
@@ -17,10 +21,15 @@ public class SubscribeController {
 	@Autowired
 	TbSubscribeService subscribeService;
 	
-	public String selectSubscribe(HttpSession session){
+	@RequestMapping("/getSubscribe")
+	public ModelAndView selectSubscribe(HttpSession session){
 		String userName = (String) session.getAttribute("username");
-		subscribeService.selectSubscribe(userName);
-		return "/person/collection.jsp";
+		List<TbGoods> goodsList = subscribeService.selectSubscribe(userName);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/person/collection.jsp");System.out.println("username---goodList size"+userName+"------"+goodsList.size());
+		mav.addObject("goodsList", goodsList);
+		return mav;
 	}
 	@RequestMapping("/insertSubscribe")
 	//http://127.0.0.1/onlineshop/subscribe/subscribe?username=111&goodsId=001

@@ -48,7 +48,7 @@ public class GoodsController {
 	}
 	
 	@RequestMapping("/queryname")
-	@ResponseBody
+//	@ResponseBody
 	public String goodsQueryByName(String goodsname,Model m){
 //		try {
 //			request.setCharacterEncoding("UTF-8");
