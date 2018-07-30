@@ -57,7 +57,7 @@ public class TbSubscribeServiceImpl implements TbSubscribeService{
 		
 		//分离出goodsId，并查询对应的TbGoods数组
 		List<Integer> goodsIdList=new ArrayList<>();
-		if(list!=null){
+		if(list!=null && list.size()>0){
 			for(int i=0;i<list.size();i++){
 				goodsIdList.add(list.get(i).getGoodsId());
 			}

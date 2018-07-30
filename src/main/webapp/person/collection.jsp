@@ -83,12 +83,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             </div>
                                         </div>
                                         <div class="s-tp">
-                                            <span class="ui-btn-loading-before">找相似</span>
+                                            <a href="deleteSubscribe?goodsId=${goods.goodsId }" class="ui-btn-loading-before">取消收藏</a>
                                             <i class="am-icon-trash"></i>
                                             <span class="ui-btn-loading-before buy">进入店铺</span>
-                                            <p>
-                                                <a href="javascript:;" class="c-nodo J_delFav_btn">取消收藏</a>
-                                            </p>
+                                            
+                                                
+                                            
                                         </div>
                                     </div>
                                 </div>

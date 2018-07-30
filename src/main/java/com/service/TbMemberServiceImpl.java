@@ -55,7 +55,7 @@ public class TbMemberServiceImpl implements TbMemberService {
 
 	@Override
 	public boolean updateMemberByPK(TbMember member) {
-		member.setType(null);//selective条件下type不更新
+		
 		int num=mapper.updateByPrimaryKeySelective(member);
 		return 1==num;
 	}

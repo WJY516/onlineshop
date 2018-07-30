@@ -56,11 +56,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-12 am-u-md-12">
 	                  	<div class="theme-popover">														
 							<div class="searchAbout">
-								<span class="font-pale">相关搜索：</span>
+<!-- 								<span class="font-pale">相关搜索：</span>
 								<a title="坚果" href="#">坚果</a>
 								<a title="瓜子" href="#">瓜子</a>
 								<a title="鸡腿" href="#">豆干</a>
-
+ -->
 							</div>
 							<ul class="select">
 								<p class="title font-normal">
@@ -82,12 +82,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 										 <div class="dd-conent">										
 											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">百草味</a></dd>
-											<dd><a href="#">良品铺子</a></dd>
-											<dd><a href="#">新农哥</a></dd>
-											<dd><a href="#">楼兰蜜语</a></dd>
-											<dd><a href="#">口水娃</a></dd>
-											<dd><a href="#">考拉兄弟</a></dd>
+											<c:forEach var="Brandnamelist" items="${Brandnamelist}">
+												<dd><a href="#">${Brandnamelist}</a></dd>
+											</c:forEach>
 										 </div>
 						
 									</dl>
@@ -97,16 +94,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<dt class="am-badge am-round">种类</dt>
 										<div class="dd-conent">
 											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">东北松子</a></dd>
-											<dd><a href="#">巴西松子</a></dd>
-											<dd><a href="#">夏威夷果</a></dd>
-											<dd><a href="#">松子</a></dd>
+											<c:forEach var="Type1list" items="${Type1list}">
+											<dd><a href="#">${Type1list}</a></dd>
+											</c:forEach>
 										</div>
 									</dl>
 								</li>
-								<li class="select-list">
+							<!-- 	<li class="select-list">
 									<dl id="select3">
-										<dt class="am-badge am-round">选购热点</dt>
+										<dt class="am-badge am-round"></dt>
 										<div class="dd-conent">
 											<dd class="select-all selected"><a href="#">全部</a></dd>
 											<dd><a href="#">手剥松子</a></dd>
@@ -115,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<dd><a href="#">有机零食</a></dd>
 										</div>
 									</dl>
-								</li>
+								</li> -->
 					        
 							</ul>
 							<div class="clear"></div>
@@ -131,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
 									<c:forEach var="goodslistByName" items="${goodslistByName}">
-									<li>
+									<li><a href="../Goods/introduction?goodsId=${goodslistByName.goodsId}">
 										<div class="i-pic limit">
 											<img src="../images/imgsearch1.jpg" />											
 											<p class="title fl">${goodslistByName.goodsName}</p>
@@ -140,59 +136,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<strong>${goodslistByName.goodsPrice}</strong>
 											</p>
 											<p class="number fl">
-												销量<span>${goodslistByName.goodsFreenum}</span>
+												库存<span>${goodslistByName.goodsFreenum}</span>
 											</p>
+											</a>
 										</div>
 									</li>
 									</c:forEach>
 								</ul>
-							</div>
-							<div class="search-side">
-
-								<div class="side-title">
-									经典搭配
-								</div>
-
-								<li>
-									<div class="i-pic check">
-										<img src="../images/cp.jpg" />
-										<p class="check-title">萨拉米 1+1小鸡腿</p>
-										<p class="price fl">
-											<b>¥</b>
-											<strong>29.90</strong>
-										</p>
-										<p class="number fl">
-											销量<span>1110</span>
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="i-pic check">
-										<img src="../images/cp2.jpg" />
-										<p class="check-title">ZEK 原味海苔</p>
-										<p class="price fl">
-											<b>¥</b>
-											<strong>8.90</strong>
-										</p>
-										<p class="number fl">
-											销量<span>1110</span>
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="i-pic check">
-										<img src="../images/cp.jpg" />
-										<p class="check-title">萨拉米 1+1小鸡腿</p>
-										<p class="price fl">
-											<b>¥</b>
-											<strong>29.90</strong>
-										</p>
-										<p class="number fl">
-											销量<span>1110</span>
-										</p>
-									</div>
-								</li>
-
 							</div>
 							<div class="clear"></div>
 							<!--分页 -->

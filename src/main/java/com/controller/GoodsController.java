@@ -5,6 +5,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.Provider.Service;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.domain.TbBrand;
 import com.domain.TbGoods;
+import com.service.BrandService;
 import com.service.GoodsService;
 
 /**
@@ -28,8 +31,6 @@ import com.service.GoodsService;
 @Controller
 @RequestMapping("/Goods")	
 public class GoodsController {
-	
-	
 	
 	@Autowired
 	GoodsService goodsService;
@@ -49,32 +50,13 @@ public class GoodsController {
 	
 	@RequestMapping("/queryname")
 //	@ResponseBody
-	public String goodsQueryByName(String goodsname,Model m){
-//		try {
-//			request.setCharacterEncoding("UTF-8");
-//		} catch (UnsupportedEncodingException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		
-//		String name = request.getParameter("name");
-		
-//		System.out.println(name);
-//		goodsname = name;
-//		try {
-//			byte[] b = name.getBytes("ISO-8859-1");
-//			goodsname = new String(b,"utf-8"); 
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		// goodsname = name;
-		//		goodsname = request.getParameter("name");
+	public void goodsQueryByName(String goodsname,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		System.out.println(goodsname);
-		m.addAttribute("goodsname", goodsname);
+		request.setAttribute("goodsname", goodsname);
 		List<TbGoods> goodslistByName = goodsService.queryGoodsByName(goodsname);
-		m.addAttribute("goodslistByName", goodslistByName);
-		return "/home/search.jsp";
+		request.setAttribute("goodslistByName", goodslistByName);
+//		return "/home/search.jsp";
+		request.getRequestDispatcher("/Brand/query").forward(request, response);
 	}
 	
 	@RequestMapping("/insert")
@@ -91,4 +73,12 @@ public class GoodsController {
 	public void goodsUpdate(TbGoods tbgoods){
 		goodsService.updateGoods(tbgoods);
 	}
+	
+	@RequestMapping("/introduction")
+	public void goodsIntroduction(int goodsId,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		TbGoods tbgoodsIntro = goodsService.queryGoodsById(goodsId);
+		request.setAttribute("tbgoodsIntro", tbgoodsIntro);
+		request.getRequestDispatcher("/Brand/introduction").forward(request,response);
+	}
+	
 }

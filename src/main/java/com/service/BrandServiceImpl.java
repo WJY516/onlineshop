@@ -82,8 +82,8 @@ public class BrandServiceImpl implements BrandService{
 	 */
 	@Override
 	public TbBrand queryBrandByGoodsId(int goodsid) {
-		// TODO Auto-generated method stub
-		return null;
+		TbBrand brandByGoodsId = brand.selectByPrimaryKey(goodsid);		
+		return brandByGoodsId;
 	}
 
 	/* (non-Javadoc)
