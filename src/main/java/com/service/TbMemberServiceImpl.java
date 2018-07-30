@@ -34,7 +34,9 @@ public class TbMemberServiceImpl implements TbMemberService {
 		member.setType(0);//默认注册为普通用户
 		
 		int num=0;
-		
+		TbMember count=null;
+		count=mapper.selectByPrimaryKey(member.getUsername());
+		if(count==null)
 			num = mapper.insert(member);//SQLException Exception?????
 		
 		log.debug("insert member return a num----------------------"+num);

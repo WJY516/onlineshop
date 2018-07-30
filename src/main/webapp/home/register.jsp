@@ -41,46 +41,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							<div class="am-tabs-bd">
 								<div class="am-tab-panel am-active">
-									<form method="post">
-										
+									<form action="/onlineshop/member/register">
+				<div class="user-name">
+								    <label for="user"><i class="am-icon-user"></i></label>
+								    <input type="text" name="username" id="user" placeholder="邮箱/手机/用户名">
+                 </div>
 							   <div class="user-email">
 										<label for="email"><i class="am-icon-envelope-o"></i></label>
-										<input type="email" name="" id="email" placeholder="请输入邮箱账号">
+										<input type="email" name="email" id="email" placeholder="请输入邮箱账号">
                  </div>										
                  <div class="user-pass">
 								    <label for="password"><i class="am-icon-lock"></i></label>
-								    <input type="password" name="" id="password" placeholder="设置密码">
+								    <input type="password" name="password" id="password" placeholder="设置密码">
                  </div>										
                  <div class="user-pass">
 								    <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
 								    <input type="password" name="" id="passwordRepeat" placeholder="确认密码">
                  </div>	
                  
-                 </form>
                  
-								 <div class="login-links">
-										<label for="reader-me">
-											<input id="reader-me" type="checkbox"> 点击表示您同意商城《服务协议》
-										</label>
-							  	</div>
+                 
+								
 										<div class="am-cf">
 											<input type="submit" name="" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
 										</div>
 
 								</div>
-
+</form>
 								<div class="am-tab-panel">
-									<form method="post">
+									<form action="/onlineshop/member/register">
                  <div class="user-phone">
 								    <label for="phone"><i class="am-icon-mobile-phone am-icon-md"></i></label>
 								    <input type="tel" name="" id="phone" placeholder="请输入手机号">
                  </div>																			
-										<div class="verification">
-											<label for="code"><i class="am-icon-code-fork"></i></label>
-											<input type="tel" name="" id="code" placeholder="请输入验证码">
-											<a class="btn" href="javascript:void(0);" onclick="sendMobileCode();" id="sendMobileCode">
-												<span id="dyMobileButton">获取</span></a>
-										</div>
+										<div class="user-name">
+								    <label for="user"><i class="am-icon-user"></i></label>
+								    <input type="text" name="username" id="user" placeholder="设置用户名">
+                 </div>
                  <div class="user-pass">
 								    <label for="password"><i class="am-icon-lock"></i></label>
 								    <input type="password" name="" id="password" placeholder="设置密码">
@@ -89,16 +86,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
 								    <input type="password" name="" id="passwordRepeat" placeholder="确认密码">
                  </div>	
-									</form>
-								 <div class="login-links">
-										<label for="reader-me">
-											<input id="reader-me" type="checkbox"> 点击表示您同意商城《服务协议》
-										</label>
-							  	</div>
+									
+								 
 										<div class="am-cf">
-											<input type="submit" name="" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
+											<input type="submit" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
 										</div>
-								
+								</form>
 									<hr>
 								</div>
 

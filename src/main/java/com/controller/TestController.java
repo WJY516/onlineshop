@@ -33,7 +33,7 @@ public class TestController {
 		TbMember member = new TbMember();
 		member.setUsername(userName);
 		member.setType(type);
-		boolean bool = memberService.registerMember(member);
+		boolean bool = memberService.insertMember(member);
 		
 		return bool;
 	}

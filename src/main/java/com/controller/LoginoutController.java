@@ -23,6 +23,7 @@ public class LoginoutController {
 	//controller.LoginoutController
 	@RequestMapping(value="/login")          
 	public void login(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		response.reset();
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out=response.getWriter();
 		int count=loginoutService.Login(request,response);
@@ -32,6 +33,7 @@ public class LoginoutController {
 		else {
 			out.print("<script language='javascript'>alert('Wrong login name or password!!');window.location.href='/onlineshop/home/login.jsp';</script>");
 		}
+		out.close();
 	}
 	@RequestMapping(value="/logout") 
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{

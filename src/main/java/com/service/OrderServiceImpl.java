@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
 	public long refund(HttpServletRequest request,HttpServletResponse response) {
 		TbOrderExample ex=new TbOrderExample();
 		Criteria cr = ex.createCriteria();
-		int orderid=2;               //赋值
+		int orderid=Integer.valueOf(request.getParameter("order_id"));               //赋值
 		cr.andOrderIdEqualTo(orderid);
 		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
 		order.setOrderStatus("refund");

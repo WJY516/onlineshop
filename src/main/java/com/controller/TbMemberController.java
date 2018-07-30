@@ -1,9 +1,15 @@
 package com.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,15 +50,20 @@ public class TbMemberController {
 		return "username null";
 	}
 	@RequestMapping("/register")//http://127.0.0.1/onlineshop/member/register?username=
-	@ResponseBody
-	public String register(TbMember member){
-
+	public String register(TbMember member,HttpServletRequest request,Model m) throws IOException{
+		
+		member.setType(0);
 		boolean success = memberService.insertMember(member);
 
 		if(success){
-			return "success";//注册成功
+			request.getSession().setAttribute("usernmae", member.getUsername());
+			return "/home/home1.jsp";
+//注册成功
 		}
-		return "failed";//注册失败
+		else{
+			return "/home/register.jsp";
+//注册失败
+		}
 	}
 	@RequestMapping("/delete")
 	@ResponseBody
