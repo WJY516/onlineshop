@@ -1,21 +1,5 @@
-<<<<<<< HEAD
 Manifest-Version: 1.0
 Build-Jdk: 1.7.0_45
 Built-By: 50134
 Created-By: Maven Integration for Eclipse
 
-=======
-<<<<<<< HEAD
-Manifest-Version: 1.0
-Build-Jdk: 1.6.0_13
-Built-By: ZQD
-Created-By: Maven Integration for Eclipse
-
-=======
-Manifest-Version: 1.0
-Built-By: wujiayi
-Build-Jdk: 1.8.0_112
-Created-By: Maven Integration for Eclipse
-
->>>>>>> f56d4544266c605aa2ea71da4631d6b234475850
->>>>>>> 9bff9c23914366479b86967986bb9942f15168d1

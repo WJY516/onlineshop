@@ -42,7 +42,7 @@ public class AddressController {
 	}
 	@RequestMapping("/insert")
 	public void insertAddress(HttpServletRequest request,HttpServletResponse response){
-		String username=request.getParameter("username");
+		String username=(String) request.getSession().getAttribute("username");
 		String address_user=request.getParameter("address");
 
 		int count=address.InsertAddress(username, address_user);
