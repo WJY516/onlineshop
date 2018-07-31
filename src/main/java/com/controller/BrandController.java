@@ -46,9 +46,11 @@ public class BrandController {
 		TbBrand tempBrand = new TbBrand();
 		for (TbGoods tbGoods : goodslistByName) {
 			tempBrand = brandService.queryBrandByGoodsId(tbGoods.getGoodsId());
-			Brandnamelist.add(tempBrand.getBrandName());
-			Type1list.add(tempBrand.getType1());
-			Type2list.add(tempBrand.getType2());
+			if(tempBrand != null){
+				Brandnamelist.add(tempBrand.getBrandName());
+				Type1list.add(tempBrand.getType1());
+				Type2list.add(tempBrand.getType2());
+			}
 		}
 		
 		//分别通过HashSet剔除重复元素
