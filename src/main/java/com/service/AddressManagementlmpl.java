@@ -94,10 +94,10 @@ public class AddressManagementlmpl implements AddressManagement{
 	}
 
 	@Override
-	public List SelectAddressByUser(String username) {	
+	public List<TbAddress> SelectAddressByUser(String username) {	
 		long count=0;
 		TbAddressExample ex = new TbAddressExample();
-		List list = null ;
+		List<TbAddress> list = null ;
 		Criteria cr = ex.createCriteria();
 		cr.andUsernameEqualTo(username);
 		count=addressmapper.countByExample(ex);

@@ -36,7 +36,7 @@ public class Shoppingimpl implements Shopping{
 		OrederGoods odgd=new OrederGoods();
 		String orderid=String.valueOf(i);
 		String goodsid="1";                  //货物id
-		String goodsnum="1";					//货物数量
+		String goodsnum="0";					//货物数量
 		odgd.setOrderId(orderid);
 		odgd.setGoodsId(goodsid);
 		odgd.setGoodsNum(goodsnum);

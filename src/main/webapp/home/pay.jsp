@@ -30,90 +30,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!--地址 -->
 				<div class="paycont">
 					<div class="address">
-						<h3>确认收货地址 </h3>
-						<div class="control">
-							<div class="tc-btn createAddr theme-login am-btn am-btn-danger">使用新地址</div>
-						</div>
-						<div class="clear"></div>
-						<ul>
-							<div class="per-border"></div>
+						
+						<c:forEach items="${addresslist}" var="useraddress">
+						<!-- <ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails"> -->
+
 							<li class="user-addresslist defaultAddr">
-
-								<div class="address-left">
-									<div class="user DefaultAddr">
-
-										<span class="buy-address-detail">   
-                   <span class="buy-user">艾迪 </span>
-										<span class="buy-phone">15871145629</span>
-										</span>
-									</div>
-									<div class="default-address DefaultAddr">
-										<span class="buy-line-title buy-line-title-type">收货地址：</span>
-										<span class="buy--address-detail">
-								   <span class="province">湖北</span>省
-										<span class="city">武汉</span>市
-										<span class="dist">洪山</span>区
-										<span class="street">雄楚大道666号(中南财经政法大学)</span>
-										</span>
-
-										</span>
-									</div>
-									<ins class="deftip">默认地址</ins>
+								<p class="new-tit new-p-re">
+									<span class="new-txt">${sessionScope.username}</span>
+									<span class="new-txt-rd2">${sessionScope.tel}</span>
+								</p>
+								<div class="new-mu_l2a new-p-re">
+									<p class="new-mu_l2cw">
+										<span class="title">地址：</span>
+										${useraddress.address}
 								</div>
-								<div class="address-right">
-									<a href="../person/address.html">
-										<span class="am-icon-angle-right am-icon-lg"></span></a>
-								</div>
-								<div class="clear"></div>
-
 								<div class="new-addr-btn">
-									<a href="#" class="hidden">设为默认</a>
-									<span class="new-addr-bar hidden">|</span>
-									<a href="#">编辑</a>
 									<span class="new-addr-bar">|</span>
-									<a href="javascript:void(0);" onclick="delClick(this);">删除</a>
+									<a href="/onlineshop/address/delete?username=${useraddress.username}&address=${useraddress.address}"><i class="am-icon-trash"></i>删除</a>
 								</div>
-
 							</li>
-							<div class="per-border"></div>
-							<li class="user-addresslist">
-								<div class="address-left">
-									<div class="user DefaultAddr">
-
-										<span class="buy-address-detail">   
-                   <span class="buy-user">艾迪 </span>
-										<span class="buy-phone">15871145629</span>
-										</span>
-									</div>
-									<div class="default-address DefaultAddr">
-										<span class="buy-line-title buy-line-title-type">收货地址：</span>
-										<span class="buy--address-detail">
-								   <span class="province">湖北</span>省
-										<span class="city">武汉</span>市
-										<span class="dist">武昌</span>区
-										<span class="street">东湖路75号众环大厦2栋9层902</span>
-										</span>
-
-										</span>
-									</div>
-									<ins class="deftip hidden">默认地址</ins>
-								</div>
-								<div class="address-right">
-									<span class="am-icon-angle-right am-icon-lg"></span>
-								</div>
-								<div class="clear"></div>
-
-								<div class="new-addr-btn">
-									<a href="#">设为默认</a>
-									<span class="new-addr-bar">|</span>
-									<a href="#">编辑</a>
-									<span class="new-addr-bar">|</span>
-									<a href="javascript:void(0);"  onclick="delClick(this);">删除</a>
-								</div>
-
-							</li>
-
-						</ul>
+</c:forEach>
 
 						<div class="clear"></div>
 					</div>
@@ -160,9 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="th th-sum">
 										<div class="td-inner">金额</div>
 									</div>
-									<div class="th th-oplist">
-										<div class="td-inner">配送方式</div>
-									</div>
+									
 
 								</div>
 							</div>
@@ -216,14 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<em tabindex="0" class="J_ItemSum number">117.00</em>
 												</div>
 											</li>
-											<li class="td td-oplist">
-												<div class="td-inner">
-													<span class="phone-title">配送方式</span>
-													<div class="pay-logis">
-														快递<b class="sys_item_freprice">10</b>元
-													</div>
-												</div>
-											</li>
+											
 
 										</ul>
 										<div class="clear"></div>
@@ -281,14 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<em tabindex="0" class="J_ItemSum number">117.00</em>
 												</div>
 											</li>
-											<li class="td td-oplist">
-												<div class="td-inner">
-													<span class="phone-title">配送方式</span>
-													<div class="pay-logis">
-														包邮
-													</div>
-												</div>
-											</li>
+											
 
 										</ul>
 										<div class="clear"></div>
@@ -298,69 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="clear"></div>
 							<div class="pay-total">
-						<!--留言-->
-							<div class="order-extra">
-								<div class="order-user-info">
-									<div id="holyshit257" class="memo">
-										<label>买家留言：</label>
-										<input type="text" title="选填,对本次交易的说明（建议填写已经和卖家达成一致的说明）" placeholder="选填,建议填写和卖家达成一致的说明" class="memo-input J_MakePoint c2c-text-default memo-close">
-										<div class="msg hidden J-msg">
-											<p class="error">最多输入500个字符</p>
-										</div>
-									</div>
-								</div>
-
-							</div>
-							<!--优惠券 -->
-							<div class="buy-agio">
-								<li class="td td-coupon">
-
-									<span class="coupon-title">优惠券</span>
-									<select data-am-selected>
-										<option value="a">
-											<div class="c-price">
-												<strong>￥8</strong>
-											</div>
-											<div class="c-limit">
-												【消费满95元可用】
-											</div>
-										</option>
-										<option value="b" selected>
-											<div class="c-price">
-												<strong>￥3</strong>
-											</div>
-											<div class="c-limit">
-												【无使用门槛】
-											</div>
-										</option>
-									</select>
-								</li>
-
-								<li class="td td-bonus">
-
-									<span class="bonus-title">红包</span>
-									<select data-am-selected>
-										<option value="a">
-											<div class="item-info">
-												¥50.00<span>元</span>
-											</div>
-											<div class="item-remainderprice">
-												<span>还剩</span>10.40<span>元</span>
-											</div>
-										</option>
-										<option value="b" selected>
-											<div class="item-info">
-												¥50.00<span>元</span>
-											</div>
-											<div class="item-remainderprice">
-												<span>还剩</span>50.00<span>元</span>
-											</div>
-										</option>
-									</select>
-
-								</li>
-
-							</div>
+						
 							<div class="clear"></div>
 							</div>
 							<!--含运费小计 -->

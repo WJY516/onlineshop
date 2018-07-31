@@ -35,6 +35,19 @@ public class OrderServiceImpl implements OrderService{
 		return list;
 		
 	}
+	
+	
+	@Override
+	public List<TbOrder> checkbyorderid(HttpServletRequest request,HttpServletResponse response) {
+		TbOrderExample ex=new TbOrderExample();
+		Criteria cr = ex.createCriteria();
+		String orderid=(String)request.getParameter("orderid");
+		cr.andOrderIdEqualTo(Integer.valueOf(orderid));
+		List<TbOrder> list=ordermapper.selectByExample(ex);
+		return list;
+		
+	}
+	
 
 	@Override
 	public long refund(HttpServletRequest request,HttpServletResponse response) {
