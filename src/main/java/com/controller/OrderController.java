@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.domain.OrederGoods;
+import com.domain.TbGoods;
 import com.domain.TbOrder;
+import com.service.GoodsService;
 import com.service.OrderService;
 
 @Controller//告诉Bean工厂 我是Bean对象
@@ -20,6 +23,8 @@ import com.service.OrderService;
 public class OrderController {
 	@Autowired
 	OrderService orderservice;
+	@Autowired
+	GoodsService goodsservice;
 	
 	//com.controller.OrderController
 	@RequestMapping("/refund")
@@ -28,7 +33,7 @@ public class OrderController {
 		if(fund==0){
 			
 			try {
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				request.getRequestDispatcher("/person/change.jsp").forward(request, response);
 			} catch (ServletException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
@@ -38,7 +43,7 @@ public class OrderController {
 			}
 		} else
 			try {
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				request.getRequestDispatcher("/person/change.jsp").forward(request, response);
 			} catch (ServletException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
@@ -69,7 +74,18 @@ public class OrderController {
 	
 	@RequestMapping("/checkordergoods")
 	public void checkgoods(HttpServletRequest request,HttpServletResponse response){
+		request.getSession().setAttribute("orderaddress", request.getAttribute("address"));
 		List<OrederGoods> checklist=orderservice.ordergoodslist(request, response);
+		List<TbGoods> goodslist=new ArrayList<TbGoods>();
+		TbGoods good =null;
+		int i=0;
+		for(OrederGoods list:checklist){
+			i=Integer.valueOf(list.getGoodsId());
+			good = goodsservice.queryGoodsById(i);
+			goodslist.add(good);
+			good=null;
+		}
+		request.setAttribute("goodslist",goodslist);
 		if(checklist!=null){
 		try {
 			request.setAttribute("ordergoodslist",checklist);

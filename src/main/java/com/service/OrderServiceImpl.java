@@ -40,7 +40,8 @@ public class OrderServiceImpl implements OrderService{
 	public long refund(HttpServletRequest request,HttpServletResponse response) {
 		TbOrderExample ex=new TbOrderExample();
 		Criteria cr = ex.createCriteria();
-		int orderid=Integer.valueOf(request.getParameter("order_id"));               //赋值
+		String id=request.getParameter("id");
+		int orderid=Integer.valueOf(id);               //赋值
 		cr.andOrderIdEqualTo(orderid);
 		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
 		order.setOrderStatus("refund");
@@ -83,6 +84,7 @@ public class OrderServiceImpl implements OrderService{
 		OrederGoodsExample ex=new OrederGoodsExample();
 		com.domain.OrederGoodsExample.Criteria cr = ex.createCriteria();
 		String id=request.getParameter("id");
+		request.getSession().setAttribute("orderId", id);
 		cr.andOrderIdEqualTo(id);		
 		List<OrederGoods> list=ordergoodsmapper.selectByExample(ex);
 		return list;
