@@ -131,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="i-pic limit">
 											<img src="../images/imgsearch1.jpg" />											
 											<p class="title fl">${goodslistByName.goodsName}</p>
+											<p class="type fl">${goodslistByName.goodsType}</p>
 											<p class="price fl">
 												<b>¥</b>
 												<strong>${goodslistByName.goodsPrice}</strong>
