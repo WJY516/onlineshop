@@ -17,11 +17,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
 		<link href="../css/personal.css" rel="stylesheet" type="text/css">
-		<link href="../css/orstyle.css" rel="stylesheet" type="text/css">
+		
+ <link href="../css/orstyle.css" rel="stylesheet" type="text/css">
 
 		<script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-		<script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
-
+<!-- 		<script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+ -->
 
 	</head>
 
@@ -131,12 +132,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</li>
 												
 												
+												
 											</ul>
 
 											
 										</div>
 										<div class="order-right">
-											
+											<p>
+												<a href="/onlineshop/comment/checknull?orderid=${sessionScope.orderId}">写评论121</a>
+												<a href="#">测试</a>
+											</p>
 											
 										</div>
 									</div>
@@ -144,10 +149,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 							</div>
 						</div>
+						
 						</c:forEach>
+						
 					</div>
 
 				</div>
+				
 				<!--底部-->
 				<div class="footer">
 					<div class="footer-hd">

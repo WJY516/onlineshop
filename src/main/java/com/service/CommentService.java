@@ -22,5 +22,6 @@ public interface CommentService {
 	public List SelectCommentByGoods(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	public List SelectCommentByOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	public List SelectCommentByType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public long ChcekNullByOrder(String username, String order_id);
 
 }

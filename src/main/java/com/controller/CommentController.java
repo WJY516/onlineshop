@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.domain.OrederGoods;
 import com.domain.TbComment;
+import com.domain.TbGoods;
 import com.service.CommentService;
+import com.service.GoodsService;
+import com.service.OrderService;
 
 
 @Controller
@@ -21,6 +26,10 @@ import com.service.CommentService;
 public class CommentController {
 	@Autowired
 	CommentService commentservice;
+	@Autowired
+	OrderService orderservice;
+	@Autowired
+	GoodsService goodsservice;
 	@RequestMapping("/insertbyorder")
 	public void InsertCommentByOrder(HttpServletRequest request,
 			HttpServletResponse response){
@@ -31,6 +40,34 @@ public class CommentController {
 		String comment=request.getParameter("comment");
 		String comment_type=request.getParameter("comment_type");
 		int success=commentservice.InsertCommentByOrder(username, order_id, goods_id, comment, comment_type);
+	}
+	
+	
+	
+	@RequestMapping("/checknull")
+	public void checknull(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session=request.getSession();
+		String username=(String) session.getAttribute("username");
+		String order_id=request.getParameter("orderid");
+		request.setAttribute("id",order_id);
+		long success=commentservice.ChcekNullByOrder(username, order_id);
+		
+		List<OrederGoods> checklist=orderservice.ordergoodslist(request, response);
+		List<TbGoods> goodslist=new ArrayList<TbGoods>();
+		TbGoods good =null;
+		int i=0;
+		for(OrederGoods list:checklist){
+			i=Integer.valueOf(list.getGoodsId());
+			good = goodsservice.queryGoodsById(i);
+			goodslist.add(good);
+			good=null;
+		}
+		request.setAttribute("goodslist",goodslist);
+		if(success==0){
+			request.getRequestDispatcher("/person/commentlist.jsp").forward(request, response);
+		}
+		else  request.getRequestDispatcher("/comment/selectbyuser").forward(request, response);
 	}
 	
 	
