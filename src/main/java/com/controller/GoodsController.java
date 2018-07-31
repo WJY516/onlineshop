@@ -6,6 +6,7 @@ package com.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Provider.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -88,6 +89,20 @@ public class GoodsController {
 	@RequestMapping("/queryR")
 	public void goodsQueryReady(HttpServletRequest request,HttpServletResponse response){
 		//TODO 这个需求做不了
+	}
+	
+	
+	/*
+	 * 立即购买
+	 */
+	@RequestMapping("/buy")
+//	@ResponseBody
+	public void buy(int goodsID,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		TbGoods tbgoods = goodsService.queryGoodsById(goodsID);
+		List<TbGoods> listgoods = new ArrayList<TbGoods>();
+		listgoods.add(tbgoods);
+		request.setAttribute("listgoods", listgoods);
+		request.getRequestDispatcher("/shopping/selectbyuser").forward(request,response);
 	}
 	
 }

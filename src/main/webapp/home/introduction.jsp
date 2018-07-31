@@ -205,13 +205,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>
 													<div class="theme-options">
 														<div class="cart-title number">数量</div>
+														
 														<dd>
+														<form>
 															<input id="min" class="am-btn am-btn-default" name="" type="button" value="-" />
-															<input id="text_box" name="" type="text" value="1" style="width:30px;" />
+															<input id="text_box" name="goodsum" type="text" value="1" style="width:30px;" />
 															<input id="add" class="am-btn am-btn-default" name="" type="button" value="+" />
 															<span id="Stock" class="tb-hidden">库存${tbgoodsIntro.goodsFreenum}<span class="stock"></span>件</span>
+														</form>
 														</dd>
-
+														
 													</div>
 													<div class="clear"></div>
 
@@ -268,7 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<li>
 								<div class="clearfix tb-btn tb-btn-buy theme-login">
-									<a id="LikBuy" title="点此按钮到下一步确认购买信息" href="#">立即购买</a>
+									<a id="LikBuy" title="点此按钮到下一步确认购买信息" href="../Goods/buy?goodsID=${tbgoodsIntro.goodsId}">立即购买</a>
 								</div>
 							</li>
 							<li>

@@ -25,7 +25,7 @@ public class ShoppingController {
 		AddressManagement address;
 		@RequestMapping("/selectbyuser")
 		public void selectAddressbyuser(HttpServletRequest request,HttpServletResponse response){
-			String username=(String) request.getParameter("username");
+			String username=(String) request.getSession().getAttribute("username");
 			System.out.println("username_2:"+username);
 
 			List<TbAddress> count=address.SelectAddressByUser(username);
