@@ -81,4 +81,13 @@ public class GoodsController {
 		request.getRequestDispatcher("/Brand/introduction").forward(request,response);
 	}
 	
+	
+	/*
+	 * 在点击商品品牌时跳转
+	 */
+	@RequestMapping("/queryR")
+	public void goodsQueryReady(HttpServletRequest request,HttpServletResponse response){
+		//TODO 这个需求做不了
+	}
+	
 }

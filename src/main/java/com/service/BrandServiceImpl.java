@@ -129,4 +129,12 @@ public class BrandServiceImpl implements BrandService{
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.service.BrandService#deleteBrandsByGoodsID(int)
+	 */
+	@Override
+	public int deleteBrandsByGoodsID(int goodsId) {
+		return brand.deleteByPrimaryKey(goodsId);
+	}
+
 }

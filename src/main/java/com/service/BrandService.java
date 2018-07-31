@@ -24,4 +24,5 @@ public interface BrandService {
 	public int insertBrands(TbBrand tbbrand);
 	public int updateGoods(TbBrand tbbrand);
 	public int deleteBrandsByBrandName(String brandname);
+	public int deleteBrandsByGoodsID(int goodsId);
 }
