@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,6 +19,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="../css/optstyle.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript" src="../js/jquery.js"></script>
+		<script type="text/javascript">
+			function add(goodsid, nowgoodsnumber) {
+			    var temp = document.createElement("form");
+			    temp.action = "/onlineshop/cart/update";
+			    temp.method = "post";
+			    temp.style.display = "none";
+				
+			    var opt1 = document.createElement("textarea");
+			    opt1.name = "goodsid";
+			    opt1.value = goodsid;
+			    temp.appendChild(opt1);
+	
+			    var opt2 = document.createElement("textarea");
+			    opt2.name = "goodsnumber";
+			    opt2.value = parseInt(nowgoodsnumber)+1;
+			    temp.appendChild(opt2);
+			
+			    document.body.appendChild(temp);
+			    temp.submit();
+			    return temp;
+			}
+			function sub(goodsid, nowgoodsnumber) {
+			    var temp = document.createElement("form");
+			    temp.action = "/onlineshop/cart/update";
+			    temp.method = "post";
+			    temp.style.display = "none";
+				
+			    var opt1 = document.createElement("textarea");
+			    opt1.name = "goodsid";
+			    opt1.value = goodsid;
+			    temp.appendChild(opt1);
+	
+			    var opt2 = document.createElement("textarea");
+			    opt2.name = "goodsnumber";
+			    opt2.value = parseInt(nowgoodsnumber)-1;
+			    temp.appendChild(opt2);
+			
+			    document.body.appendChild(temp);
+			    temp.submit();
+			    return temp;
+			}
+			function del(goodsid){
+				var temp = document.createElement("form");
+				temp.action = "/onlineshop/cart/delete";
+				temp.method = "post";
+				temp.style.display = "none";
+				
+				var opt = document.createElement("textarea");
+				opt.name = "goodsid";
+				opt.value = goodsid;
+				temp.appendChild(opt);
+			
+			    document.body.appendChild(temp);
+			    temp.submit();
+			    return temp;
+			}
+	</script>
 
 	</head>
 
@@ -34,7 +92,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="wp">
 							<div class="th th-chk">
 								<div id="J_SelectAll1" class="select-all J_SelectAll">
-
 								</div>
 							</div>
 							<div class="th th-item">
@@ -55,238 +112,117 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="clear"></div>
+					<c:forEach  items="${goodscart.date}"  var="agoods">
+						<tr class="item-list">
+							<div class="bundle  bundle-last ">
 
-					<tr class="item-list">
-						<div class="bundle  bundle-last ">
-							<div class="bundle-hd">
-								<div class="bd-promos">
-									<div class="bd-has-promo">已享优惠:<span class="bd-has-promo-content">省￥19.50</span>&nbsp;&nbsp;</div>
-									<div class="act-promo">
-										<a href="#" target="_blank">第二支半价，第三支免费<span class="gt">&gt;&gt;</span></a>
+								<div class="bundle-hd">
+									<div class="bd-promos">
+										<div class="bd-has-promo">已享优惠:<span class="bd-has-promo-content">省￥19.50</span>&nbsp;&nbsp;</div>
+										<div class="act-promo">
+											<a href="#" target="_blank">第二支半价，第三支免费<span class="gt">&gt;&gt;</span></a>
+										</div>
+										<span class="list-change theme-login">编辑</span>
 									</div>
-									<span class="list-change theme-login">编辑</span>
+								</div>
+								<div class="clear"></div>
+
+								<div class="bundle-main">
+								<!-- 可以用mv的商品数据 -->
+									<ul class="item-content clearfix">
+										<!-- *按钮没有处理， 不是唯一的-->
+										<li class="td td-chk">
+											<div class="cart-checkbox ">
+												<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
+												<label for="J_CheckBox_170037950254"></label>
+											</div>
+										</li>
+										<!-- *图片没有处理-->
+										<li class="td td-item">
+											<div class="item-pic">
+												<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
+													<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
+											</div>
+											<div class="item-info">
+												<div class="item-basic-info">
+													<a href="#" target="_blank" title="${agoods.goods.goodsName}" class="item-title J_MakePoint" data-point="tbcart.8.11">${agoods.goods.goodsName}</a>
+												</div>
+											</div>
+										</li>
+										<!-- *类型没有修改-->
+										<li class="td td-info">
+											<div class="item-props item-props-can">
+												<span class="sku-line">${agoods.brand.type1}</span>
+												<span class="sku-line">${agoods.brand.type2}</span>
+												<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
+												<i class="theme-login am-icon-sort-desc"></i>
+											</div>
+										</li>
+										<!-- *没有优惠，所以没有price-now-->
+										<li class="td td-price">
+											<div class="item-price price-promo-promo">
+												<div class="price-content">
+													<div class="price-line">
+														<em class="price-original">${agoods.goods.goodsPrice}</em>
+													</div>
+													<div class="price-line">
+														<em class="J_Price price-now" tabindex="0">${agoods.goods.goodsPrice}</em>
+													</div>
+												</div>
+											</div>
+										</li>
+										<!-- ?数量 : onclick时需要阻塞这里吗-->
+										<li class="td td-amount">
+											<div class="amount-wrapper ">
+												<div class="item-amount ">
+													<div class="sl">
+														<input class="min am-btn" 
+																name="" 
+																type="button" 
+																value="-"
+																onclick="sub('${agoods.goods.goodsId}', '${agoods.goods.goodsFreenum}')" />
+														<!--这里要onclick-->
+														<input class="text_box text-input" 
+																name="goodsnumber" 
+																type="text" 
+																value="${agoods.goods.goodsFreenum}" 
+																style="width:30px;" />
+														<input class="add am-btn" 
+																name="" 
+																type="button" 
+																value="+"
+																onclick="add('${agoods.goods.goodsId}', '${agoods.goods.goodsFreenum}')" />
+													</div>
+													<!--在这里加c:if-->
+												</div>
+											</div>
+										</li>
+										<!-- 当前总价格-->
+										<li class="td td-sum">
+											<div class="td-inner">
+												<em tabindex="0" class="J_ItemSum number">${agoods.goods.goodsPrice*agoods.goods.goodsFreenum}</em>
+											</div>
+										</li>
+										<!-- *收藏与删除-->
+										<li class="td td-op">
+											<div class="td-inner">
+												<a title="移入收藏夹" class="btn-fav" href="#"> 移入收藏夹</a>
+												<a href="javascript:void(0)" data-point-url="#" class="delete" onclick="del('${agoods.goods.goodsId}');return false;"> 删除</a>
+											</div>
+										</li>
+									</ul>
 								</div>
 							</div>
-							<div class="clear"></div>
-							<div class="bundle-main">
-								<ul class="item-content clearfix">
-									<li class="td td-chk">
-										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
-											<label for="J_CheckBox_170037950254"></label>
-										</div>
-									</li>
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-									<li class="td td-info">
-										<div class="item-props item-props-can">
-											<span class="sku-line">颜色：12#川南玛瑙</span>
-											<span class="sku-line">包装：裸装</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
-											<i class="theme-login am-icon-sort-desc"></i>
-										</div>
-									</li>
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-													<input class="min am-btn" name="" type="button" value="-" />
-													<input class="text_box" name="" type="text" value="3" style="width:30px;" />
-													<input class="add am-btn" name="" type="button" value="+" />
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									<li class="td td-op">
-										<div class="td-inner">
-											<a title="移入收藏夹" class="btn-fav" href="#">
-                  移入收藏夹</a>
-											<a href="javascript:;" data-point-url="#" class="delete">
-                  删除</a>
-										</div>
-									</li>
-								</ul>
-								
-								
-								
-								
-								<ul class="item-content clearfix">
-									<li class="td td-chk">
-										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
-											<label for="J_CheckBox_170037950254"></label>
-										</div>
-									</li>
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-									<li class="td td-info">
-										<div class="item-props item-props-can">
-											<span class="sku-line">颜色：12#川南玛瑙</span>
-											<span class="sku-line">包装：裸装</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
-											<i class="theme-login am-icon-sort-desc"></i>
-										</div>
-									</li>
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-													<input class="min am-btn" name="" type="button" value="-" />
-													<input class="text_box" name="" type="text" value="3" style="width:30px;" />
-													<input class="add am-btn" name="" type="button" value="+" />
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									<li class="td td-op">
-										<div class="td-inner">
-											<a title="移入收藏夹" class="btn-fav" href="#">
-                  移入收藏夹</a>
-											<a href="javascript:;" data-point-url="#" class="delete">
-                  删除</a>
-										</div>
-									</li>
-								</ul>
-													
-								
-								
-								
-							</div>
-						</div>
-					</tr>
-					<div class="clear"></div>
-
-					<tr class="item-list">
-						<div class="bundle  bundle-last ">
-							<div class="bundle-hd">
-								<div class="bd-promos">
-									<div class="bd-has-promo">已享优惠:<span class="bd-has-promo-content">省￥19.50</span>&nbsp;&nbsp;</div>
-									<div class="act-promo">
-										<a href="#" target="_blank">第二支半价，第三支免费<span class="gt">&gt;&gt;</span></a>
-									</div>
-									<span class="list-change theme-login">编辑</span>
-								</div>
-							</div>
-							<div class="clear"></div>
-							<div class="bundle-main">
-								<ul class="item-content clearfix">
-									<li class="td td-chk">
-										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170769542747" name="items[]" value="170769542747" type="checkbox">
-											<label for="J_CheckBox_170769542747"></label>
-										</div>
-									</li>
-									<li class="td td-item">
-										<div class="item-pic">
-											<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
-												<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-										</div>
-										<div class="item-info">
-											<div class="item-basic-info">
-												<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-											</div>
-										</div>
-									</li>
-									<li class="td td-info">
-										<div class="item-props item-props-can">
-											<span class="sku-line">颜色：10#蜜橘色</span>
-											<span class="sku-line">包装：两支手袋装（送彩带）</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
-											<i class="theme-login am-icon-sort-desc"></i>
-										</div>
-									</li>
-									<li class="td td-price">
-										<div class="item-price price-promo-promo">
-											<div class="price-content">
-												<div class="price-line">
-													<em class="price-original">78.00</em>
-												</div>
-												<div class="price-line">
-													<em class="J_Price price-now" tabindex="0">39.00</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-amount">
-										<div class="amount-wrapper ">
-											<div class="item-amount ">
-												<div class="sl">
-													<input class="min am-btn" name="" type="button" value="-" />
-													<input class="text_box" name="" type="text" value="3" style="width:30px;" />
-													<input class="add am-btn" name="" type="button" value="+" />
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="td td-sum">
-										<div class="td-inner">
-											<em tabindex="0" class="J_ItemSum number">117.00</em>
-										</div>
-									</li>
-									<li class="td td-op">
-										<div class="td-inner">
-											<a title="移入收藏夹" class="btn-fav" href="#">
-                  移入收藏夹</a>
-											<a href="javascript:;" data-point-url="#" class="delete">
-                  删除</a>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</tr>
+						</tr>
+						
+						
+						
+						
+						
+						
+						
+						<div class="clear"></div>
+					</c:forEach>
 				</div>
 				<div class="clear"></div>
 
