@@ -34,9 +34,13 @@ public class SubscribeController {
 	}
 	@RequestMapping("/insertSubscribe")
 	//http://127.0.0.1/onlineshop/subscribe/subscribe?username=111&goodsId=001
-	public String subscribe(TbSubscribeKey subscribe){
+	public String subscribe(HttpSession session,@RequestParam("goodsId")Integer goodsId){
+		TbSubscribeKey subscribe = new TbSubscribeKey();
+		subscribe.setGoodsId(goodsId);
+		subscribe.setUsername((String) session.getAttribute("username"));
+		
 		subscribeService.insertSubscribe(subscribe);
-		return null;	
+		return "redirct:/subscribe/getSubscribe";	
 	}
 	@RequestMapping("/deleteSubscribe")
 	public String deleteSubscribe(@RequestParam int goodsId,HttpSession session){
