@@ -60,4 +60,25 @@ public class TbMemberServiceImpl implements TbMemberService {
 		return 1==num;
 	}
 
+	@Override
+	public boolean updatePasswordByPK(String userName, String oldPassword,String newPassword) {
+		// TODO Auto-generated method stub
+		TbMemberExample ex = new TbMemberExample();
+		Criteria cr = ex.createCriteria();
+		cr.andUsernameEqualTo(userName);
+		cr.andPasswordEqualTo(oldPassword);
+		List<TbMember> list = mapper.selectByExample(ex);
+		
+		if(list!=null && list.size()==1){
+			TbMember member = new TbMember();
+			member.setUsername(userName);
+			member.setPassword(newPassword);
+			int num = mapper.updateByPrimaryKeySelective(member);
+			if(num==1){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

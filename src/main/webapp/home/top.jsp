@@ -10,7 +10,9 @@
 						<%if(session.getAttribute("username")==null){ %>
 							<a href="../home/login.jsp" target="_top" class="h">亲，请登录</a>
 							<a href="../home/register.jsp" target="_top">免费注册</a>
-							<%} %>
+						<%}else{ %>
+						  <a href="#" target="_top" class="h">已登录：<%=session.getAttribute("username") %></a>
+						<%} %>	
 						</div>
 					</div>
 				</ul>

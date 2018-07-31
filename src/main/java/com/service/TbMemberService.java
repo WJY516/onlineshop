@@ -15,5 +15,5 @@ public interface TbMemberService {
 	 * 普通用户不可可修改 type项
 	 * */
 	public boolean updateMemberByPK(TbMember member);//修改用户信息
-	
+	public boolean updatePasswordByPK(String userName, String oldPassword,String newPassword);
 }

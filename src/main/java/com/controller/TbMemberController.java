@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,9 +81,23 @@ public class TbMemberController {
 	@RequestMapping("/update")
 	public String updateMember(TbMember member,HttpSession session){
 		member.setUsername((String) session.getAttribute("username"));
-		memberService.updateMemberByPK(member);
 		member.setType(null);//selective条件下type不更新
+
+		memberService.updateMemberByPK(member);
 		return "redirect:/member/userCenter";
+	}
+	@RequestMapping("/updatePassword")
+	public String updatePassword(String oldPassword,String newPassword,HttpSession session){
+		String userName=(String) session.getAttribute("username");
+		//System.out.println("updatePassword---------"+userName+ oldPassword+ newPassword);
+		boolean success = memberService.updatePasswordByPK(userName, oldPassword, newPassword);
+		
+		if(success){
+			session.setAttribute("resultOfChangePassWord_jsp", "修改成功");
+		}else{
+			session.setAttribute("resultOfChangePassWord_jsp", "修改失败");
+		}
+		return "redirect:/person/changePassword.jsp";
 	}
 
 }

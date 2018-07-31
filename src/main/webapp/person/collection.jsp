@@ -1,10 +1,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
+<%--
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+
+Enumeration<String> names=session.getAttributeNames();
+System.out.println("session names");
+for (;names.hasMoreElements();){
+System.out.println("--"+names.nextElement());
+}
+names=request.getAttributeNames();
+System.out.println("request names");
+for (;names.hasMoreElements();){
+System.out.println("--"+names.nextElement());
+}
+--%>
 
 <!DOCTYPE html>
 <html>
