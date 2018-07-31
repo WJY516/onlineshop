@@ -29,7 +29,7 @@ public class CommentServicelmpl implements CommentService{
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
 		int comment_type1=1;
-		if(comment_type != "")
+		if(comment_type == "")
 			comment_type = String.valueOf(comment_type);
 		Timestamp comment_time=new Timestamp(System.currentTimeMillis());             
 		cr.andUsernameEqualTo(username);
@@ -276,6 +276,16 @@ public class CommentServicelmpl implements CommentService{
 		}
 		return list;
 }
+
+	@Override
+	public long ChcekNullByOrder(String username, String order_id) {
+		TbCommentExample ex = new TbCommentExample();
+		Criteria cr = ex.createCriteria();
+		cr.andCommentIsNull();
+		cr.andOrderIdEqualTo(order_id);
+		long count = commentmapper.countByExample(ex);
+		return count;
+	}
 
 
 }
