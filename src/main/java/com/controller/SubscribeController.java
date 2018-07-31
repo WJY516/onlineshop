@@ -28,7 +28,7 @@ public class SubscribeController {
 		List<TbGoods> goodsList = subscribeService.selectSubscribe(userName);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/person/collection.jsp");System.out.println("username---goodList size"+userName+"------"+goodsList.size());
+		mav.setViewName("/person/collection.jsp");//System.out.println("username---goodList size"+userName+"------"+goodsList.size());
 		mav.addObject("goodsList", goodsList);
 		return mav;
 	}
