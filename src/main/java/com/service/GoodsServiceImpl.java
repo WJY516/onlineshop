@@ -122,11 +122,15 @@ public class GoodsServiceImpl implements GoodsService{
 	 */
 	@Override
 	public List<TbGoods> queryGoodsByName(String name) {
+		System.out.println(name);
 		TbGoodsExample ex = new TbGoodsExample();
-		Criteria cr = ex.createCriteria();
-		cr.andGoodsNameLike("%"+name+"%");
+		Criteria cr1 = ex.createCriteria();
+		Criteria cr2 = ex.or();
+		cr1.andGoodsNameLike("%"+name+"%");
+		System.out.println("测试："+name);
+		cr2.andGoodsTypeLike("%"+name+"%");
 		List<TbGoods> goodslistByName = goods.selectByExample(ex);
-		//System.out.println(goodslistByName);
+		System.out.println(goodslistByName.size());
 		return goodslistByName;
 	}
 

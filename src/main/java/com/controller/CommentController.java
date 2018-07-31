@@ -17,11 +17,11 @@ import com.service.CommentService;
 
 
 @Controller
-@RequestMapping("/cooment")
+@RequestMapping("/comment")
 public class CommentController {
 	@Autowired
 	CommentService commentservice;
-	@RequestMapping("insertbyorder")
+	@RequestMapping("/insertbyorder")
 	public void InsertCommentByOrder(HttpServletRequest request,
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
@@ -34,7 +34,7 @@ public class CommentController {
 	}
 	
 	
-	@RequestMapping("deletebyorder")            //根据订单号删除
+	@RequestMapping("/deletebyorder")            //根据订单号删除
 	public void DeleteCommentByOrder(HttpServletRequest request,
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
@@ -43,7 +43,7 @@ public class CommentController {
 	}
 	
 	
-	@RequestMapping("deletebygoods")               //根据商品删除
+	@RequestMapping("/deletebygoods")               //根据商品删除
 	public void DeleteCommentByGoods(HttpServletRequest request,
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
@@ -52,7 +52,7 @@ public class CommentController {
 	}
 	
 	
-	@RequestMapping("deletebyuser")                //根据用户删除
+	@RequestMapping("/deletebyuser")                //根据用户删除
 	public void DeleteCommentByUser(HttpServletRequest request,
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
@@ -61,7 +61,7 @@ public class CommentController {
 	}
 	
 	
-	@RequestMapping("deletebytype")                   //根据类型删除
+	@RequestMapping("/deletebytype")                   //根据类型删除
 	public void DeleteCommentByType(HttpServletRequest request,
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
@@ -72,7 +72,7 @@ public class CommentController {
 	
 	
 
-	@RequestMapping("updatebyorder")                   //根据订单修改评论
+	@RequestMapping("/updatebyorder")                   //根据订单修改评论
 	public void UpdateCommentByOrder(HttpServletRequest request,
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
@@ -83,22 +83,31 @@ public class CommentController {
 	}
 	
 	
-	@RequestMapping("selectbyuser")            //根据用户搜索
+	@RequestMapping("/selectbyuser")            //根据用户搜索
 	public void selectByUser(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		List<TbComment> list=commentservice.SelectCommentByUser(request,response);
-		request.setAttribute("selectbyuser_list", list);
+		request.setAttribute("selectbyuserlist", list);
+		try {
+			request.getRequestDispatcher("/person/comment.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
-	@RequestMapping("selectbyorder")            //根据订单搜索
+	@RequestMapping("/selectbyorder")            //根据订单搜索
 	public void selectByOrder(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		List<TbComment> list=commentservice.SelectCommentByOrder(request,response);
 		request.setAttribute("selectbyorder_list", list);
 	}
-	@RequestMapping("selectbygoods")            //根据货物编号搜索
+	@RequestMapping("/selectbygoods")            //根据货物编号搜索
 	public void selectByGoods(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		List<TbComment> list=commentservice.SelectCommentByGoods(request,response);
 		request.setAttribute("selectbygoods_list", list);
 	}
-	@RequestMapping("selectbytype")            //根据类型搜索
+	@RequestMapping("/selectbytype")            //根据类型搜索
 	public void selectByType(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		List<TbComment> list=commentservice.SelectCommentByType(request,response);
 		request.setAttribute("selectbytype_list", list);
