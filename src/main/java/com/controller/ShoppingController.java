@@ -27,7 +27,8 @@ public class ShoppingController {
 		public void selectAddressbyuser(HttpServletRequest request,HttpServletResponse response){
 			String username=(String) request.getSession().getAttribute("username");
 			System.out.println("username_2:"+username);
-
+			List<TbGoods> list= (List<TbGoods>) request.getAttribute("listgoods");
+			request.getSession().setAttribute("listgoods", list);
 			List<TbAddress> count=address.SelectAddressByUser(username);
 			
 			try {
@@ -35,7 +36,7 @@ public class ShoppingController {
 				request.getRequestDispatcher("/home/pay.jsp").forward(
 						request, response);
 			} catch (ServletException | IOException e) {
-				// TODO 自动生成的 catch 块
+				// TODO 鑷姩鐢熸垚鐨�catch 鍧�
 				e.printStackTrace();
 			}
 		}
@@ -46,7 +47,8 @@ public class ShoppingController {
 				System.out.println(goods.get(0).getGoodsId());
 		}
 		@RequestMapping("/shopping")
-		public void shoppingall(HttpServletRequest request,HttpServletResponse response,List<TbGoods> listgoods){
+		public void shoppingall(HttpServletRequest request,HttpServletResponse response){
+			List<TbGoods> listgoods= (List<TbGoods>) request.getSession().getAttribute("listgoods");
 			shopping.shoppingall(request,response,listgoods);
 		}
 }

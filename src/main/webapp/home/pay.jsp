@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -27,14 +28,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../home/top.jsp"></jsp:include> 
 			<div class="clear"></div>
 			<div class="concent">
+			<form action="/onlineshop/shopping/shopping">
 				<!--地址 -->
 				<div class="paycont">
 					<div class="address">
+						<script type="text/javascript">
+							
+							function getAddress(li){
+								var address = li.getAttribute('add');
+								alert('addressL:'+address);
+								
+								
+								var postAddress = document.getElementById("postaddress");
+								postAddress.value = address;
+								
+								
+							}
 						
+						</script>
 						<c:forEach items="${addresslist}" var="useraddress">
 						<!-- <ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails"> -->
-
-							<li class="user-addresslist defaultAddr">
+	
+							<li class="user-addresslist defaultAddr" add="${useraddress.address}" onclick="getAddress(this)">
 								<p class="new-tit new-p-re">
 									<span class="new-txt">${sessionScope.username}</span>
 									<span class="new-txt-rd2">${sessionScope.tel}</span>
@@ -100,8 +115,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								</div>
 							</div>
+							
+							
+							
 							<div class="clear"></div>
-
+							
+							
+							
+							
+							<c:forEach items="${listgoods}" var="goods">
 							<tr class="item-list">
 								<div class="bundle  bundle-last">
 
@@ -115,20 +137,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>
 													<div class="item-info">
 														<div class="item-basic-info">
-															<a href="#" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
+															<a href="#" class="item-title J_MakePoint" data-point="tbcart.8.11">${goods.goodsName}</a>
 														</div>
 													</div>
 												</li>
 												<li class="td td-info">
 													<div class="item-props">
-														<span class="sku-line">颜色：12#川南玛瑙</span>
-														<span class="sku-line">包装：裸装</span>
+														<span class="sku-line">${goods.goodsDiscribes}</span>
 													</div>
 												</li>
 												<li class="td td-price">
 													<div class="item-price price-promo-promo">
 														<div class="price-content">
-															<em class="J_Price price-now">39.00</em>
+															<em class="J_Price price-now">${goods.goodsPrice}</em>
 														</div>
 													</div>
 												</li>
@@ -147,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</li>
 											<li class="td td-sum">
 												<div class="td-inner">
-													<em tabindex="0" class="J_ItemSum number">117.00</em>
+													<em tabindex="0" class="J_ItemSum number">${goods.goodsPrice}</em>
 												</div>
 											</li>
 											
@@ -159,63 +180,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</tr>
 							<div class="clear"></div>
 							</div>
-
-							<tr id="J_BundleList_s_1911116345_1" class="item-list">
-								<div id="J_Bundle_s_1911116345_1_0" class="bundle  bundle-last">
-									<div class="bundle-main">
-										<ul class="item-content clearfix">
-											<div class="pay-phone">
-												<li class="td td-item">
-													<div class="item-pic">
-														<a href="#" class="J_MakePoint">
-															<img src="../images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
-													</div>
-													<div class="item-info">
-														<div class="item-basic-info">
-															<a href="#" target="_blank" title="美康粉黛醉美唇膏 持久保湿滋润防水不掉色" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
-														</div>
-													</div>
-												</li>
-												<li class="td td-info">
-													<div class="item-props">
-														<span class="sku-line">颜色：10#蜜橘色+17#樱花粉</span>
-														<span class="sku-line">包装：两支手袋装（送彩带）</span>
-													</div>
-												</li>
-												<li class="td td-price">
-													<div class="item-price price-promo-promo">
-														<div class="price-content">
-															<em class="J_Price price-now">39.00</em>
-														</div>
-													</div>
-												</li>
-											</div>
-
-											<li class="td td-amount">
-												<div class="amount-wrapper ">
-													<div class="item-amount ">
-														<span class="phone-title">购买数量</span>
-														<div class="sl">
-															<input class="min am-btn" name="" type="button" value="-" />
-															<input class="text_box" name="" type="text" value="3" style="width:30px;" />
-															<input class="add am-btn" name="" type="button" value="+" />
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="td td-sum">
-												<div class="td-inner">
-													<em tabindex="0" class="J_ItemSum number">117.00</em>
-												</div>
-											</li>
-											
-
-										</ul>
-										<div class="clear"></div>
-
-									</div>
-							</tr>
-							</div>
+							</c:forEach>
+							
 							<div class="clear"></div>
 							<div class="pay-total">
 						
@@ -261,15 +227,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 
 									<div id="holyshit269" class="submitOrder">
+									
+									
+										<input type="hidden" name="address"  id="postaddress"  value="" />
 										<div class="go-btn-wrap">
-											<a id="J_Go" href="success.html" class="btn-go" tabindex="0" title="点击此按钮，提交订单">提交订单</a>
+											<input type="submit"  value="点击此按钮，提交订单"></a>
 										</div>
 									</div>
 									<div class="clear"></div>
 								</div>
 							</div>
 						</div>
-
+						</form>
 						<div class="clear"></div>
 					</div>
 				</div>

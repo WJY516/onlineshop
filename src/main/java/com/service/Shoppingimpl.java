@@ -25,7 +25,9 @@ import com.domain.TbOrderExample;
 public class Shoppingimpl implements Shopping{
 	@Autowired
 	TbGoodsMapper goods;
+	@Autowired
 	OrederGoodsMapper ordergoods;
+	@Autowired
 	TbOrderMapper order;
 
 
@@ -35,8 +37,8 @@ public class Shoppingimpl implements Shopping{
 		HttpSession session=request.getSession();
 		OrederGoods odgd=new OrederGoods();
 		String orderid=String.valueOf(i);
-		String goodsid="1";                  //货物id
-		String goodsnum="0";					//货物数量
+		String goodsid="1";                  //璐х墿id
+		String goodsnum="0";					//璐х墿鏁伴噺
 		odgd.setOrderId(orderid);
 		odgd.setGoodsId(goodsid);
 		odgd.setGoodsNum(goodsnum);
@@ -58,9 +60,9 @@ public class Shoppingimpl implements Shopping{
 		com.domain.TbGoodsExample.Criteria cr1 = ex.createCriteria();
 		com.domain.TbGoodsExample.Criteria cr2 = ex.createCriteria();
 		com.domain.TbGoodsExample.Criteria cr3 = ex.createCriteria();
-		cr1.andGoodsNameLike("%gyk%");                                           //名字中找词
-		cr2.andGoodsDiscribesLike("gyk%");                                       //描述中找词
-		cr3.andGoodsTypeLike("%gyk%");                                      //type找词
+		cr1.andGoodsNameLike("%gyk%");                                           //鍚嶅瓧涓壘璇�
+		cr2.andGoodsDiscribesLike("gyk%");                                       //鎻忚堪涓壘璇�
+		cr3.andGoodsTypeLike("%gyk%");                                      //type鎵捐瘝
 		List<TbGoods> tbgoods=goods.selectByExample(ex);
 		return tbgoods;
 	}
@@ -70,21 +72,21 @@ public class Shoppingimpl implements Shopping{
 	@Override
 	public void shoppingall(HttpServletRequest request,
 			HttpServletResponse response,List<TbGoods> listgoods) {
-		Timestamp dateNow=new Timestamp(System.currentTimeMillis());             //获取系统时间
+		Timestamp dateNow=new Timestamp(System.currentTimeMillis());             //鑾峰彇绯荤粺鏃堕棿
 		TbOrder tborder=null;
 		TbOrderExample orderex=new TbOrderExample();
-		order.insert(tborder);                 //插入
+		order.insert(tborder);                 //鎻掑叆
 		com.domain.TbOrderExample.Criteria ordercr=orderex.createCriteria();
 		ordercr.andOrderStatusIsNull();
-		List<TbOrder> orderlist= order.selectByExample(orderex);          //搜索刚刚建立的空表项
-		int u=orderlist.get(0).getOrderId();                                //获取orderid
+		List<TbOrder> orderlist= order.selectByExample(orderex);          //鎼滅储鍒氬垰寤虹珛鐨勭┖琛ㄩ」
+		int u=orderlist.get(0).getOrderId();                                //鑾峰彇orderid
 		float price=0;
 		for(TbGoods list1:listgoods){
 			shoppingone(request,response,price,u,list1);
 		}
 		String orderprice=String.valueOf(price);
 		String user="";
-		String address="";
+		String address=request.getParameter("address");
 		tborder=order.selectByPrimaryKey(orderlist.get(0).getOrderId());
 		tborder.setUsername(user);
 		tborder.setOrderTime(dateNow);
