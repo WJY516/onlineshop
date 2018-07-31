@@ -1,2 +1,10 @@
-/.tern-project
-/target/
+# Compiled class file
+
+*.class
+target
+.sttings
+.classpath
+.mymetadata
+.project
+
+
