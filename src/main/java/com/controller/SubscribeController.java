@@ -40,7 +40,7 @@ public class SubscribeController {
 		subscribe.setUsername((String) session.getAttribute("username"));
 		
 		subscribeService.insertSubscribe(subscribe);
-		return "redirct:/subscribe/getSubscribe";	
+		return "redirect:/subscribe/getSubscribe";	
 	}
 	@RequestMapping("/deleteSubscribe")
 	public String deleteSubscribe(@RequestParam int goodsId,HttpSession session){

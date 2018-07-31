@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -100,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="sideMenu">
       <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
       <ul>
-        <li><a href="">商品列表</a></li>
+        <li><a href="../admin/goods">商品列表</a></li>
         <li class="func" dataType='html' dataLink='msn.htm' iconImg='images/msn.gif'>添加新商品</li>
         <li>商品分类</li>
         <li>用户评论</li>
@@ -207,63 +209,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </dl>
       <dl data-am-scrollspy="{animation: 'slide-right', delay: 600}">
         <dt class="hs"><i class="am-icon-shopping-cart"></i></dt>
-        <dd>455</dd>
+        <dd>${fn:length(goodsListAll)}</dd>
         <dd class="f12">商品数量</dd>
       </dl>
       <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
         <dt class="ls"><i class="am-icon-cny"></i></dt>
-        <dd>455</dd>
+        <dd></dd>
         <dd class="f12">全部收入</dd>
       </dl>
     </div>
     <div class="admin-biaoge">
-      <div class="xinxitj">信息概况</div>
+      <div class="xinxitj">商品信息总览</div>
       <table class="am-table">
         <thead>
           <tr>
-            <th>团队统计</th>
-            <th>全部会员</th>
-            <th>全部未激活</th>
-            <th>今日新增</th>
-            <th>今日未激活</th>
+            <th>商品ID</th>
+            <th>商品名字</th>
+            <th>商品价格</th>
+            <th>商品库存</th>
+
           </tr>
         </thead>
         <tbody>
+          <c:forEach var="goodsListAll" items="${goodsListAll}">	
           <tr>
-            <td>普卡</td>
-            <td>普卡</td>
-            <td><a href="#">4534</a></td>
-            <td>+20</td>
-            <td> 4534 </td>
+            <td>${goodsListAll.goodsId}</td>
+            <td>${goodsListAll.goodsName}</td>
+            <td>${goodsListAll.goodsPrice}</td>
+            <td>${goodsListAll.goodsFreenum}</td>
           </tr>
-          <tr>
-            <td>银卡</td>
-            <td>银卡</td>
-            <td>4534</td>
-            <td>+2</td>
-            <td> 4534 </td>
-          </tr>
-          <tr>
-            <td>金卡</td>
-            <td>金卡</td>
-            <td>4534</td>
-            <td>+10</td>
-            <td> 4534 </td>
-          </tr>
-          <tr>
-            <td>钻卡</td>
-            <td>钻卡</td>
-            <td>4534</td>
-            <td>+50</td>
-            <td> 4534 </td>
-          </tr>
-          <tr>
-            <td>合计</td>
-            <td>合计</td>
-            <td>4534</td>
-            <td>+50</td>
-            <td> 4534 </td>
-          </tr>
+          </c:forEach>
         </tbody>
       </table>
       <table class="am-table">
