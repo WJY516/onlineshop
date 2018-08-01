@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,11 +98,15 @@ public class GoodsController {
 	 */
 	@RequestMapping("/buy")
 //	@ResponseBody
-	public void buy(int goodsID,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+	public void buy(int goodsID,int goodsnum,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		TbGoods tbgoods = goodsService.queryGoodsById(goodsID);
-		List<TbGoods> listgoods = new ArrayList<TbGoods>();
-		listgoods.add(tbgoods);
-		request.setAttribute("listgoods", listgoods);
+		List<Integer> numberlist = new ArrayList();
+		List<TbGoods> tbgoodslist = new ArrayList<TbGoods>();
+		tbgoodslist.add(tbgoods);
+		numberlist.add(goodsnum);
+		HttpSession session = request.getSession();
+		session.setAttribute("tbgoodslist", tbgoodslist);
+		session.setAttribute("numberlist", numberlist);
 		request.getRequestDispatcher("/shopping/selectbyuser").forward(request,response);
 	}
 	
