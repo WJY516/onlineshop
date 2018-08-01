@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </ul>
       <h3 class="am-icon-users"><em></em> <a href="#">会员管理</a></h3>
       <ul>
-        <li><a href="/onlineshop/order/checkall">会员列表 </li>
+        <li><a href="/onlineshop/manager/getAllMember">会员列表 </li>
       </ul>
       <h3 class="am-icon-users"><em></em> <a href="#">评论管理</a></h3>
       <ul>
