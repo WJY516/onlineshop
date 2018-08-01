@@ -48,7 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <ul>
         <li><a href="/onlineshop/comment/selectall">评论列表 </li>
       </ul>
-      
+      <h3 class="am-icon-users"><em></em> <a href="../home/home1.jsp">查看商城</a></h3>
+       <ul>
+        <li><a href="/onlineshop/home/home1.jsp">返回商城 </li>
+      </ul>
     </div>
     <!-- sideMenu End --> 
     

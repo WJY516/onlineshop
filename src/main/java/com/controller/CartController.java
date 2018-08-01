@@ -48,7 +48,7 @@ public class CartController {
 		String username = (String)session.getAttribute("username");
 		if(null==username){
 			//使用filter??!!!
-			response.sendRedirect("/onlineshop/home/login.jsp");
+			response.sendRedirect("../home/login.jsp");
 		}
 		else{
 			mv = new ModelAndView("/home/shopcart.jsp"); 
