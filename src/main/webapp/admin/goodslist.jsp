@@ -104,14 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class=" admin-content">
 	
 		<div class="daohang">
-			<ul>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页 </li>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">帮助中心<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">奖金管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
-				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">产品管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
-				
-				
-			</ul>
+			
 
        
 
@@ -160,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <c:forEach items="${goodsListAll}" var="goods" varStatus="status">
               <tr>
                 <td>${goods.goodsId}</td>
-                <td><a href="#">${goods.goodsName}</a></td>
+                <td>${goods.goodsName}</a></td>
                 <td>${goods.goodsType}</td>
                 <td>${goods.goodsPrice}</td>
                 <td>${goods.goodsFreenum}</td>
