@@ -33,18 +33,17 @@ public class Shoppingimpl implements Shopping{
 
 	@Override
 	public float shoppingone(HttpServletRequest request,
-			HttpServletResponse response,float price,int i,TbGoods list1) {
+			HttpServletResponse response,float price,int i,TbGoods list1,int num) {
 		HttpSession session=request.getSession();
 		OrederGoods odgd=new OrederGoods();
 		
 		String orderid=String.valueOf(i);
-		String goodsid=String.valueOf(list1.getGoodsId());                  //璐х墿id
-		String goodsnum="1";					//璐х墿鏁伴噺
+		String goodsid=String.valueOf(list1.getGoodsId());                
+		String goodsnum=String.valueOf(num);					
 		odgd.setOrderId(orderid);
 		odgd.setGoodsId(goodsid);
 		odgd.setGoodsNum(goodsnum);
 		ordergoods.insert(odgd);
-		float num= Float.parseFloat(goodsnum);
 		float goodprice= Float.parseFloat(list1.getGoodsPrice());
 		price+=num*goodprice;
 		return price;
@@ -71,8 +70,7 @@ public class Shoppingimpl implements Shopping{
 
 
 	@Override
-	public float shoppingall(HttpServletRequest request,
-			HttpServletResponse response,List<TbGoods> listgoods) {
+	public float shoppingall(HttpServletRequest request,HttpServletResponse response,List<TbGoods> listgoods,List<Integer> listnum) {
 		HttpSession session= request.getSession();
 		Timestamp dateNow=new Timestamp(System.currentTimeMillis());            
 		TbOrder tborder=null;
@@ -83,8 +81,12 @@ public class Shoppingimpl implements Shopping{
 		List<TbOrder> orderlist= order.selectByExample(orderex);          
 		int u=orderlist.get(0).getOrderId();                                
 		float price=0;
-		for(TbGoods list1:listgoods){
-			price=shoppingone(request,response,price,u,list1);
+		int num=0;
+		TbGoods list1=null;
+		for(int i=0;i<listgoods.size();i++){
+			list1 = listgoods.get(i);
+			num=listnum.get(i);
+			price=shoppingone(request,response,price,u,list1,num);
 		}
 		String orderprice=String.valueOf(price);
 		String user=(String) session.getAttribute("username");
