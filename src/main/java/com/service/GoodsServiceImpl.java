@@ -147,19 +147,4 @@ public class GoodsServiceImpl implements GoodsService{
 		//System.out.println(goodslistByName);
 		return goodslistByType;
 	}
-
-
-	/* (non-Javadoc)
-	 * @see com.service.GoodsService#getGoodsId(com.domain.TbGoods)
-	 */
-	@Override
-	public int getGoodsId(TbGoods tbgoods) {
-		String name = tbgoods.getGoodsName();
-		TbGoodsExample ex = new TbGoodsExample();
-		Criteria cr = ex.createCriteria();
-		cr.andGoodsNameLike(name);
-		List<TbGoods> res = goods.selectByExample(ex);
-		TbGoods tg = res.get(0);
-		return tg.getGoodsId();
-	}
 }

@@ -23,7 +23,6 @@ public interface GoodsService {
 	public int insertGoods(TbGoods tbgoods);
 	public int updateGoods(TbGoods tbgoods);
 	public int deleteGoodsById(int goodsId);
-	public int getGoodsId(TbGoods tbgoods);
 //	TODO public List<String> queryType(String type);
 	
 }

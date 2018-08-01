@@ -49,6 +49,12 @@ public class ShoppingController {
 		@RequestMapping("/shopping")
 		public void shoppingall(HttpServletRequest request,HttpServletResponse response){
 			List<TbGoods> listgoods= (List<TbGoods>) request.getSession().getAttribute("listgoods");
-			shopping.shoppingall(request,response,listgoods);
+			request.getSession().setAttribute("priceall",shopping.shoppingall(request,response,listgoods));
+			try {
+				request.getRequestDispatcher("/home/success.jsp").forward(request, response);
+			} catch (ServletException | IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 		}
 }

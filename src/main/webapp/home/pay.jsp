@@ -209,11 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<p class="buy-footer-address">
 												<span class="buy-line-title buy-line-title-type">寄送至：</span>
 												<span class="buy--address-detail">
-								   <span class="province">湖北</span>省
-												<span class="city">武汉</span>市
-												<span class="dist">洪山</span>区
-												<span class="street">雄楚大道666号(中南财经政法大学)</span>
-												</span>
+								  <input type="text" name="address"  id="postaddress"  value="" readonly/>
 												</span>
 											</p>
 											<p class="buy-footer-address">
@@ -229,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div id="holyshit269" class="submitOrder">
 									
 									
-										<input type="hidden" name="address"  id="postaddress"  value="" />
+										
 										<div class="go-btn-wrap">
 											<input type="submit"  value="点击此按钮，提交订单"></a>
 										</div>
