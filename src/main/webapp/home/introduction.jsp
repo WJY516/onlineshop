@@ -155,7 +155,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</select>
 									</div>
 									<div class="pay-logis">
-										快递<b class="sys_item_freprice">10</b>元
 									</div>
 								</div>
 							</dl>
@@ -276,7 +275,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</li>
 							<li>
 								<div class="clearfix tb-btn tb-btn-basket theme-login">
-									<a id="LikBasket" title="加入购物车" href="#"><i> </i>加入购物车</a>
+									<a id="LikBasket" title="加入购物车" href="/onlineshop/cart/add" class="a_post"><i> </i>加入购物车</a>
+ 
+    <script>
+        $(".a_post").on("click",function(event){
+    	    event.preventDefault();  // 使a自带的方法失效，即无法向addStudent.action发出请求
+            $.ajax({
+                type: "POST",  // 使用post方式
+                url: "/onlineshop/cart/add",
+                contentType:"application/json",
+                data: JSON.stringify({param1:value1, param2:value2}),  // 参数列表，stringify()方法用于将JS对象序列化为json字符串
+                dataType:"json",
+                success: function(result){
+                  alert("hahaha")
+                },
+                error: function(result){
+                   alert("qqq")
+                }
+    	    });
+	});
+    </script>
 								</div>
 							</li>
 							<li>
