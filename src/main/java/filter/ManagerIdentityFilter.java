@@ -42,8 +42,7 @@ public class ManagerIdentityFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		String url = req.getRequestURI();
 		String username = (String) req.getSession().getAttribute("username");
-		int usertype =(int) req.getSession().getAttribute("type");
-		if((username!=null && usertype==1 )|| url.endsWith("login.jsp") ){
+		if((username!=null && ((int) req.getSession().getAttribute("type")==1) )|| url.endsWith("login.jsp") ){
 						chain.doFilter(request, response);
 						return;
 		}else{
