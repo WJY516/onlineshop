@@ -206,7 +206,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 	
     <div class="fbneirong">
-      <form class="am-form" method="post" action="../admin/addgoods">
+      <!-- <form class="am-form" method="post" action="../admin/addgoods"> -->
+      <form class="am-form" id="add_form">
         <div class="am-form-group am-cf">
           <div class="zuo">商品名：</div>
           <div class="you">
@@ -259,8 +260,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
         <div class="am-form-group am-cf">
           <div class="you" style="margin-left: 11%;">
-              <button type="submit" class="am-btn am-btn-secondary am-radius">发布</button>
-
+              <input type="button" value="发布" id="save-goods"class="am-btn am-btn-secondary am-radius"></input>
+				<script>
+   				 $(document).ready(function() {
+           		 //表单异步提交
+            	$("#save-goods").on("click",function(){
+	                $.ajax({ 
+	                    type: 'post', 
+	                    data: $('#add_form').serialize(), 
+	                    url: '../admin/addgoods',
+	                    cache:false,  
+	                    dataType:'text', 
+	                    success: function (data) {
+	                        if("fail"!=data){
+	                           /* layer.msg('发布成功'); */
+	                           alert("发布成功");
+	                           location.href="../admin/addGoods.jsp";
+	                        }else{
+	                           alert("发布失败，商品名重复");
+	                        }
+	                    }   
+	                })
+	            })
+	            })
+            </script>
           </div>
         </div>
       </form>
