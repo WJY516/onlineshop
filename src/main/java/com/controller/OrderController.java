@@ -167,7 +167,8 @@ public class OrderController {
 	
 	@RequestMapping("/admitrefund")
 	public void admitrefund(HttpServletRequest request,HttpServletResponse response){
-		long fund=orderservice.admitrefund(request, response);
+		int orderid=Integer.valueOf(request.getParameter("orderid"));
+		long fund=orderservice.admitrefund(orderid);
 		if(fund==0){
 			
 			try {
@@ -192,7 +193,8 @@ public class OrderController {
 	}
 	@RequestMapping("/faultrefund")
 	public void faultrefund(HttpServletRequest request,HttpServletResponse response){
-		long fund=orderservice.faultrefund(request, response);
+		int orderid=Integer.valueOf(request.getParameter("orderid"));
+		long fund=orderservice.faultrefund(orderid);
 		if(fund==0){
 			
 			try {
@@ -215,5 +217,73 @@ public class OrderController {
 				e.printStackTrace();
 			}
 	}
+	
+	
+	
+	
+	@RequestMapping("/arrive")
+	public void arrive(HttpServletRequest request,HttpServletResponse response){
+		int orderid=Integer.valueOf(request.getParameter("orderid"));
+		long fund=orderservice.arrive(orderid);
+		if(fund==0){
+			
+			try {
+				request.getRequestDispatcher("/order/checkall").forward(request, response);
+			} catch (ServletException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		} else
+			try {
+				request.getRequestDispatcher("/order/checkall").forward(request, response);
+			} catch (ServletException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/send")
+	public void send(HttpServletRequest request,HttpServletResponse response){
+		int orderid=Integer.valueOf(request.getParameter("orderid"));
+		long fund=orderservice.send(orderid);
+		if(fund==0){
+			
+			try {
+				request.getRequestDispatcher("/order/checkall").forward(request, response);
+			} catch (ServletException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		} else
+			try {
+				request.getRequestDispatcher("/order/checkall").forward(request, response);
+			} catch (ServletException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+	}
+	
+	
+	
+	
+	
 	
 }

@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--data-am-modal="{target: '#my-popup'}" 弹出层 ID  弹出层 190行 开始  271行结束--> 
         
       </div>
-      <form class="am-form am-g">
+      
         <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped am-table-hover">
           <thead>
             <tr class="am-success">
@@ -162,35 +162,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
               <th width="125px" class="table-set">操作</th>
             </tr>
+            
           </thead>
+          
+          
+             <script type="text/javascript">
+function deleteAction(){
+    document.demo.action="/onlineshop/comment/deletebygoods";
+    document.demo.submit();
+}
+</script>
           <c:forEach items="${selectalllist}"  var = "commentall">
+          
+          <form action="/onlineshop/comment/deletebygoods">
           <tbody>
             <tr>
               <td><input type="checkbox" /></td>
                <td class="am-hide-sm-only">${commentall.id}</td>
               <td class="am-text-center">${commentall.goodsId}</td>
-              
+              <input type="hidden" value="${commentall.username}" name="username">
               <td>${commentall.comment}</td>
               <td>${commentall.username}</td>
               <td class="am-hide-sm-only">访问</td>
-              
+              <input type="hidden" value="${commentall.goodsId}" name="goods_id">
               <td><div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
-                  <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="置顶（前台显示热门评论）"></a>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="添加（随机虚拟用户ID ）"><span class="am-icon-pencil-square-o" ></span></button>
-                    <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round"  title="删除"><span class="am-icon-trash-o"></span></button>
+                     <input type="submit" value="删除"/>
                   </div>
                 </div></td>
             </tr>
             
-            
+            </form>
 
             </c:forEach>
             
             
-                    
-      </form>
+ 
 
       <div class="foods">
         <ul>

@@ -95,7 +95,17 @@ public class CommentController {
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
 		String goods_id=request.getParameter("goods_id");
-		int success=commentservice.DeleteCommentByGoods(goods_id);
+		String username=request.getParameter("username");
+		int success=commentservice.DeleteComment(goods_id,username);
+		try {
+			request.getRequestDispatcher("/comment/selectall").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	
 	

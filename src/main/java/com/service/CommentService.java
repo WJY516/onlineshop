@@ -27,5 +27,6 @@ public interface CommentService {
 	public long ChcekNullByOrder(String username, String order_id);
 	public List<TbComment> SelectCommentAll(HttpServletRequest request,
 			HttpServletResponse response);
+	public int DeleteComment(String goods_id,String username);
 
 }
