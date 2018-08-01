@@ -49,7 +49,8 @@ public class ShoppingController {
 		@RequestMapping("/shopping")
 		public void shoppingall(HttpServletRequest request,HttpServletResponse response){
 			List<TbGoods> listgoods= (List<TbGoods>) request.getSession().getAttribute("listgoods");
-			request.getSession().setAttribute("priceall",shopping.shoppingall(request,response,listgoods));
+			List<Integer> listnum=(List<Integer>) request.getSession().getAttribute("listnum");
+			request.getSession().setAttribute("priceall",shopping.shoppingall(request,response,listgoods,listnum));
 			try {
 				request.getRequestDispatcher("/home/success.jsp").forward(request, response);
 			} catch (ServletException | IOException e) {
