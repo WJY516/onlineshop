@@ -25,18 +25,21 @@ import com.domain.TbOrderExample;
 public class Shoppingimpl implements Shopping{
 	@Autowired
 	TbGoodsMapper goods;
+	@Autowired
 	OrederGoodsMapper ordergoods;
+	@Autowired
 	TbOrderMapper order;
 
 
 	@Override
-	public void shoppingone(HttpServletRequest request,
+	public float shoppingone(HttpServletRequest request,
 			HttpServletResponse response,float price,int i,TbGoods list1) {
 		HttpSession session=request.getSession();
 		OrederGoods odgd=new OrederGoods();
+		
 		String orderid=String.valueOf(i);
-		String goodsid="1";                  //货物id
-		String goodsnum="1";					//货物数量
+		String goodsid=String.valueOf(list1.getGoodsId());                  //璐х墿id
+		String goodsnum="1";					//璐х墿鏁伴噺
 		odgd.setOrderId(orderid);
 		odgd.setGoodsId(goodsid);
 		odgd.setGoodsNum(goodsnum);
@@ -44,7 +47,7 @@ public class Shoppingimpl implements Shopping{
 		float num= Float.parseFloat(goodsnum);
 		float goodprice= Float.parseFloat(list1.getGoodsPrice());
 		price+=num*goodprice;
-	
+		return price;
 	}
 
 
@@ -58,9 +61,9 @@ public class Shoppingimpl implements Shopping{
 		com.domain.TbGoodsExample.Criteria cr1 = ex.createCriteria();
 		com.domain.TbGoodsExample.Criteria cr2 = ex.createCriteria();
 		com.domain.TbGoodsExample.Criteria cr3 = ex.createCriteria();
-		cr1.andGoodsNameLike("%gyk%");                                           //名字中找词
-		cr2.andGoodsDiscribesLike("gyk%");                                       //描述中找词
-		cr3.andGoodsTypeLike("%gyk%");                                      //type找词
+		cr1.andGoodsNameLike("%gyk%");                                           //鍚嶅瓧涓壘璇�
+		cr2.andGoodsDiscribesLike("gyk%");                                       //鎻忚堪涓壘璇�
+		cr3.andGoodsTypeLike("%gyk%");                                      //type鎵捐瘝
 		List<TbGoods> tbgoods=goods.selectByExample(ex);
 		return tbgoods;
 	}
@@ -68,31 +71,36 @@ public class Shoppingimpl implements Shopping{
 
 
 	@Override
-	public void shoppingall(HttpServletRequest request,
+	public float shoppingall(HttpServletRequest request,
 			HttpServletResponse response,List<TbGoods> listgoods) {
-		Timestamp dateNow=new Timestamp(System.currentTimeMillis());             //获取系统时间
+		HttpSession session= request.getSession();
+		Timestamp dateNow=new Timestamp(System.currentTimeMillis());            
 		TbOrder tborder=null;
 		TbOrderExample orderex=new TbOrderExample();
-		order.insert(tborder);                 //插入
+		order.insert(tborder);                 
 		com.domain.TbOrderExample.Criteria ordercr=orderex.createCriteria();
 		ordercr.andOrderStatusIsNull();
-		List<TbOrder> orderlist= order.selectByExample(orderex);          //搜索刚刚建立的空表项
-		int u=orderlist.get(0).getOrderId();                                //获取orderid
+		List<TbOrder> orderlist= order.selectByExample(orderex);          
+		int u=orderlist.get(0).getOrderId();                                
 		float price=0;
 		for(TbGoods list1:listgoods){
-			shoppingone(request,response,price,u,list1);
+			price=shoppingone(request,response,price,u,list1);
 		}
 		String orderprice=String.valueOf(price);
-		String user="";
-		String address="";
+		String user=(String) session.getAttribute("username");
+		String address=request.getParameter("address");
 		tborder=order.selectByPrimaryKey(orderlist.get(0).getOrderId());
+		tborder.setOrderId(null);
 		tborder.setUsername(user);
 		tborder.setOrderTime(dateNow);
 		tborder.setAddress(address);
 		tborder.setOrderPrice(orderprice);
 		tborder.setOrderStatus("paying");
-		order.insert(tborder);		
-		System.out.println(price);
+		TbOrderExample orderex2=new TbOrderExample();                 
+		com.domain.TbOrderExample.Criteria ordercr2=orderex2.createCriteria();
+		ordercr2.andOrderIdEqualTo(orderlist.get(0).getOrderId());
+		order.updateByExampleSelective(tborder, orderex2);		
+		return price;
 	}
 
 }

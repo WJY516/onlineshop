@@ -103,6 +103,40 @@ public class OrderController {
 		}
 	}
 	
+	
+	
+	@RequestMapping("/checkbuorderid")
+	public void checkbyorderid(HttpServletRequest request,HttpServletResponse response){
+		request.getSession().setAttribute("orderaddress", request.getAttribute("address"));
+		List<OrederGoods> checklist=orderservice.ordergoodslist(request, response);
+		List<TbGoods> goodslist=new ArrayList<TbGoods>();
+		TbGoods good =null;
+		int i=0;
+		for(OrederGoods list:checklist){
+			i=Integer.valueOf(list.getGoodsId());
+			good = goodsservice.queryGoodsById(i);
+			goodslist.add(good);
+			good=null;
+		}
+		request.setAttribute("goodslist",goodslist);
+		if(checklist!=null){
+		try {
+			request.setAttribute("ordergoodslist",checklist);
+			request.getRequestDispatcher("/person/orderinfo.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		for(OrederGoods check:checklist){
+			System.out.println(check.getOrderId());
+		}
+		}
+	}
+	
+	
 	@RequestMapping("/admitrefund")
 	public void admitrefund(HttpServletRequest request,HttpServletResponse response){
 		long fund=orderservice.admitrefund(request, response);
