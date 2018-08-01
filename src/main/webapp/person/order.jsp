@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													
 													
 													<c:choose>
-														<c:when test="${orderlist.orderStatus == 'pay' }"> <a href="/onlineshop/order/refund?id=${orderlist.orderId}">退款</a></c:when>
+														<c:when test="${orderlist.orderStatus == 'paying' }"> <a href="/onlineshop/order/refund?id=${orderlist.orderId}">退款</a></c:when>
 														<c:when test="${orderlist.orderStatus == 'success refund' }"> 退款成功</c:when>
 														<c:when test="${orderlist.orderStatus == 'can not refund' }"> 退款失败</c:when>
 														<c:otherwise> 退款中 </c:otherwise>

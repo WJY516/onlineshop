@@ -13,7 +13,10 @@ public interface OrderService {
 		public long refund(HttpServletRequest request,HttpServletResponse response);             //申请退款
 		public long admitrefund(HttpServletRequest request,HttpServletResponse response);       //同意退款
 		public long faultrefund(HttpServletRequest request,HttpServletResponse response);         //拒绝退款
-		public List<OrederGoods> ordergoodslist(HttpServletRequest request,HttpServletResponse response);
-		List<TbOrder> checkbyorderid(HttpServletRequest request,HttpServletResponse response);
+		public List<TbOrder> checkbyorderid(HttpServletRequest request,HttpServletResponse response);
+		public List<TbOrder> checkall(HttpServletRequest request,
+				HttpServletResponse response);
+		public List<OrederGoods> ordergoodslist(HttpServletRequest request,
+				HttpServletResponse response, String id);
 		
 }

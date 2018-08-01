@@ -35,11 +35,21 @@ public class CommentController {
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
 		String username=(String) session.getAttribute("username");
-		String order_id=request.getParameter("order_id");
-		String goods_id=request.getParameter("goods_id");
+		String order_id=(String) request.getSession().getAttribute("orderId");
+		String goods_id=request.getParameter("goodsid");
 		String comment=request.getParameter("comment");
 		String comment_type=request.getParameter("comment_type");
 		int success=commentservice.InsertCommentByOrder(username, order_id, goods_id, comment, comment_type);
+		if(success!=0)
+		try {
+			request.getRequestDispatcher("/comment/selectbyuser").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -51,9 +61,9 @@ public class CommentController {
 		String username=(String) session.getAttribute("username");
 		String order_id=request.getParameter("orderid");
 		request.setAttribute("id",order_id);
-		long success=commentservice.ChcekNullByOrder(username, order_id);
+		long success=commentservice.ChcekNullByOrder(username,order_id);
 		
-		List<OrederGoods> checklist=orderservice.ordergoodslist(request, response);
+		List<OrederGoods> checklist=orderservice.ordergoodslist(request, response,order_id);
 		List<TbGoods> goodslist=new ArrayList<TbGoods>();
 		TbGoods good =null;
 		int i=0;

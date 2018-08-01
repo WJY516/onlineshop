@@ -281,7 +281,7 @@ public class CommentServicelmpl implements CommentService{
 	public long ChcekNullByOrder(String username, String order_id) {
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		cr.andCommentIsNull();
+		cr.andCommentIsNotNull();
 		cr.andOrderIdEqualTo(order_id);
 		long count = commentmapper.countByExample(ex);
 		return count;
