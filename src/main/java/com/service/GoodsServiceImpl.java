@@ -91,8 +91,11 @@ public class GoodsServiceImpl implements GoodsService{
 	 */
 	@Override
 	public int updateGoods(TbGoods tbgoods) {
-		
+//		System.out.println(this.getClass()+":"+tbgoods.getGoodsDiscribes());
+//		System.out.println("GoodsId:"+tbgoods.getGoodsId());
+//		System.out.println("GoodsName:"+tbgoods.getGoodsName());
 		flag = goods.updateByPrimaryKey(tbgoods);
+//		System.out.println(flag);
 		return flag;
 	}
 

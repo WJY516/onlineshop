@@ -1,6 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -106,10 +104,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：清风抚雪</div>
     <div class="sideMenu">
-      <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
+      <h3 class="am-icon-flag"><em></em> <a href="#">商品修改</a></h3>
       <ul>
         <li><a href="">商品列表</a></li>
-        <li class="func" dataType='html' dataLink='msn.htm' iconImg='images/msn.gif'>添加新商品</li>
+        <li><a href="../admin/addGoods.jsp">添加新商品</a></li>
         <li>商品分类</li>
         <li>用户评论</li>
         <li>商品回收站</li>
@@ -199,81 +197,94 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-flag on"> 商品列表</ul>
+      <ul class="am-icon-flag on"> 商品修改</ul>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
-      
+
       
       
     </div>
 	
-	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
-  <ul>
-   
-    
-    
-        <li style="margin-left: -10px;">
-    </li>
-  	</ul>
-</div>
-
-
-    <form class="am-form am-g">
-          <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
-            <thead>
-              <tr class="am-success">
-                <th class="table-id">ID</th>
-                <th class="table-title">商品名字</th>
-                <th class="table-type">类别</th>
-                 <th class="table-type">价格</th>
-                  <th class="table-type">库存</th>
-                  <th class="table-type">描述</th>
-                <th width="163px" class="table-set">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${goodsListAll}" var="goods" varStatus="status">
-              <tr>
-                <td>${goods.goodsId}</td>
-                <td><a href="#">${goods.goodsName}</a></td>
-                <td>${goods.goodsType}</td>
-                <td>${goods.goodsPrice}</td>
-                <td>${goods.goodsFreenum}</td>
-                <td>${goods.goodsDiscribes}</td>
-              <%--   <input type="hidden" name="goodsId" value="${goods.goodsId}"/> --%>
-                <td><div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" onclick="location.href='../admin/jumptoupdategoods?goodsId=${goods.goodsId}'"><span class="am-icon-pencil-square-o"></span></a>
-                      <a class="am-btn am-btn-default am-btn-xs am-text-danger am-round" onclick="location.href='../admin/deletegoodsbyId?goodsId=${goods.goodsId}'"><span class="am-icon-trash-o"></span></a>
-                    </div>
-                  </div></td>
-              </tr>
-              </c:forEach>
-            </tbody>
-          </table>
-          
-                 <div class="am-btn-group am-btn-group-xs">
-            </div>
-          
-          <ul class="am-pagination am-fr">
-                <li class="am-disabled"><a href="#">«</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-              </ul>
-          
-          
-          
+    <div class="fbneirong">
+      <!-- <form class="am-form" method="post" action="../admin/addgoods"> -->
+      <form class="am-form" id="add_form">
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品名：</div>
+          <div class="you">
+            <input type="text" class="am-input-sm" id="goodsName" placeholder="请输入商品名" name="goodsName" value="${TbGoods.goodsName}">
+          	<input type="hidden" class="am-input-sm" id="goodsId" name="goodsId" value="${TbGoods.goodsId}">
+          </div>
+        </div>
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品描述：</div>
+          <div class="you">
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsDiscribes" name="goodsDiscribes" value="${TbGoods.goodsDiscribes}"></input>
+          </div>
+        </div>
+        
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品图片：</div>
+          <div class="you" style="height: 45px;">
+            <input type="file" id="doc-ipt-file-1">
+            <p class="am-form-help">请选择要上传的文件...</p>
+          </div>
+        </div>
+        
+        
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品价格：</div>
+          <div class="you">
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsPrice" name="goodsPrice" value="${TbGoods.goodsPrice}"></input>
+          </div>
+        </div>
+        
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品类型：</div>
+          <div class="you">
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsType" name="goodsType" value="${TbGoods.goodsType}"></input>
+          </div>
+        </div>
+        
+         <div class="am-form-group am-cf">
+          <div class="zuo">商品库存：</div>
+          <div class="you">
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsFreenum" name="goodsFreenum" value="${TbGoods.goodsFreenum}"></input>
+          </div>
+        </div>
+        
       
-          <hr />
-          
-        </form>
- 
- 
- 
+        <div class="am-form-group am-cf">
+          <div class="you" style="margin-left: 11%;">
+              <input type="button" value="发布" id="save-goods"class="am-btn am-btn-secondary am-radius"></input>
+				<script>
+   				 $(document).ready(function() {
+           		 //表单异步提交
+            	$("#save-goods").on("click",function(){
+	                $.ajax({ 
+	                    type: 'post', 
+	                    data: $('#add_form').serialize(), 
+	                    url: '../admin/updategoods',
+	                    cache:false,  
+	                    dataType:'text', 
+	                    success: function (data) {
+	                        if("fail"!=data){
+	                           /* layer.msg('发布成功'); */
+	                           alert("修改成功");
+	                           location.href="../admin/listgoods";
+	                        }else{
+	                           alert("修改失败，商品名重复");
+	                        }
+	                    }   
+	                })
+	            })
+	            })
+            </script>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  
  
  <div class="foods">
   <ul>

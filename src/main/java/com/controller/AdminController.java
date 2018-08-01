@@ -81,6 +81,41 @@ public class AdminController {
 		request.setAttribute("goodsListAll", goodsListAll);
 		request.getRequestDispatcher("../admin/goodslist.jsp").forward(request, response);
 	}
+	
+	@RequestMapping("/jumptoupdategoods")
+	public void updategoods(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		String temp = request.getParameter("goodsId");
+		int goodsId=Integer.valueOf(temp);
+//		System.out.println("goodsId"+goodsId);
+		TbGoods tbgoods = goodsService.queryGoodsById(goodsId);
+		System.out.println(tbgoods.getGoodsDiscribes());
+		
+		request.setAttribute("TbGoods",tbgoods);
+		request.getRequestDispatcher("../admin/updatagoods.jsp").forward(request, response);
+	}
+	
+	@RequestMapping("/updategoods")
+	@ResponseBody
+	public String goodsupdata(TbGoods tbgoods,HttpServletRequest request,HttpServletResponse response){
+		int flag = 0;
+		try{
+			flag = goodsService.updateGoods(tbgoods);
+			System.out.println(tbgoods.getGoodsDiscribes());
+		}catch (Exception e) {
+			return "fail";
+		}
+		if(flag != 1){
+			return "fail";
+		}
+		return "success";
+	}
+	
+	@RequestMapping("/deletegoodsbyId")
+	public String deletegoods(int goodsId){
+		goodsService.deleteGoodsById(goodsId);
+		brandService.deleteBrandsByGoodsID(goodsId);
+		return "redirect:../admin/listgoods";
+	}
 }
 
 
