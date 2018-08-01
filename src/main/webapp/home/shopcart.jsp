@@ -17,10 +17,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="/onlineshop/basic/css/demo.css" rel="stylesheet" type="text/css" />
 		<link href="/onlineshop/css/cartstyle.css" rel="stylesheet" type="text/css" />
 		<link href="/onlineshop/css/optstyle.css" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="../basic/js/quick_links.js"></script>
 
-		<script type="text/javascript" src="/onlineshop/js/jquery.js"></script>
+		<script type="text/javascript" src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<script type="text/javascript" src="../js/jquery.imagezoom.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.flexslider.js"></script>
+		<script type="text/javascript" src="../js/list.js"></script>
 		<script type="text/javascript">
-			function add(goodsid, nowgoodsnumber) {
+			var focusMap = {};
+			function add(goodsid, nowgoodsnumber){
 			    var temp = document.createElement("form");
 			    temp.action = "/onlineshop/cart/update";
 			    temp.method = "post";
@@ -75,6 +82,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    temp.submit();
 			    return temp;
 			}
+			function account(){
+				alert("11");
+			    var temp = document.createElement("form");
+			    temp.action = "/onlineshop/cart/account";
+			    temp.method = "post";
+			    temp.style.display = "none";
+			    alert(focusMap);
+			    
+				var goodsid = new Array();
+				var i = 0;
+				for(var btnid in focusMap){
+					goodsid[i] = parseInt(focusMap[btnid]);alert(typeof goodsid[i]);
+					i++;
+				}
+				
+				if(goodsid===undefined || goodsid.length==0){
+					return;
+				}
+				
+			    var opt1 = document.createElement("input");
+			    opt1.name = "goodsid";
+			    opt1.value = goodsid;
+			    temp.appendChild(opt1);
+			
+			    document.body.appendChild(temp);
+			    temp.submit();
+			    return temp;
+			}
+			function allfocus(){
+				var flag = document.getElementById("J_SelectAllCbx").checked;
+				var checkboxs = document.getElementsByName("items");
+				if(flag){
+					for(var i=0; i<checkboxs.length; i++){
+						if(checkboxs[i].checked!=flag){
+							checkboxs[i].checked = flag;
+							focusMap[checkboxs[i].id] = checkboxs[i].value;
+							alert(focusMap[checkboxs[i].id]);
+						}
+					}
+				}
+				else{
+					for(var i=0; i<checkboxs.length; i++){
+						if(checkboxs[i].checked!=flag){
+							checkboxs[i].checked = flag;
+							delete focusMap[checkboxs[i].id];	//undefined
+							alert(focusMap[checkboxs[i].id]);
+						}
+					}
+				}
+			}
+			function focus(){
+				//var flag = $(this).attr("checked");
+				alert("ss");
+				/*
+				if(flag){
+					$(this).attr("checked", false);
+					alert($(this).attr("checked"));
+					focusMap[$(this).attr("id")] = $(this).attr("value");
+					alert(focusMap[$(this).attr("id")]);
+				}
+				else{
+					$(this).attr("checked", true);
+					alert($(this).attr("checked"));
+					delete focusMap[$(this).attr("id")];
+				}*/
+			}
+			//function del(goodsid){}
+			//function account(goodsid){}
 	</script>
 
 	</head>
@@ -112,7 +187,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="clear"></div>
-					<c:forEach  items="${goodscart.date}"  var="agoods">
+					
+					
+					
+					<div>
+					<c:forEach  items="${goodscart.date}"  var="agoods" varStatus="id">
 						<tr class="item-list">
 							<div class="bundle  bundle-last ">
 
@@ -133,19 +212,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<!-- *按钮没有处理， 不是唯一的-->
 										<li class="td td-chk">
 											<div class="cart-checkbox ">
-												<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
-												<label for="J_CheckBox_170037950254"></label>
+												<input class="acheck" id="J_CheckBox_${id.index}" name="items" value="${agoods.goods.goodsId}" type="checkbox" onclick="focus()"/>
+												<label for="J_CheckBox_${id.index}"></label>
 											</div>
 										</li>
-										<!-- *图片没有处理-->
+										<!-- *图片来源没有处理-->
 										<li class="td td-item">
 											<div class="item-pic">
-												<a href="#" target="_blank" data-title="美康粉黛醉美东方唇膏口红正品 持久保湿滋润防水不掉色护唇彩妆" class="J_MakePoint" data-point="tbcart.8.12">
+												<a href="/onlineshop/Goods/introduction?goodsId=${agoods.goods.goodsId}" target="_blank" data-title="${agoods.goods.goodsName}" class="J_MakePoint" data-point="tbcart.8.12">
 													<img src="/onlineshop/images/kouhong.jpg_80x80.jpg" class="itempic J_ItemImg"></a>
 											</div>
 											<div class="item-info">
 												<div class="item-basic-info">
-													<a href="#" target="_blank" title="${agoods.goods.goodsName}" class="item-title J_MakePoint" data-point="tbcart.8.11">${agoods.goods.goodsName}</a>
+													<a href="/onlineshop/Goods/introduction?goodsId=${agoods.goods.goodsId}" target="_blank" title="${agoods.goods.goodsName}" class="item-title J_MakePoint" data-point="tbcart.8.11">${agoods.goods.goodsName}</a>
 												</div>
 											</div>
 										</li>
@@ -214,23 +293,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 							</div>
 						</tr>
-						
-						
-						
-						
-						
-						
-						
 						<div class="clear"></div>
 					</c:forEach>
+					</div>
+					
+					
+					
+					
+					
 				</div>
 				<div class="clear"></div>
 
 				<div class="float-bar-wrapper">
 					<div id="J_SelectAll2" class="select-all J_SelectAll">
 						<div class="cart-checkbox">
-							<input class="check-all check" id="J_SelectAllCbx2" name="select-all" value="true" type="checkbox">
-							<label for="J_SelectAllCbx2"></label>
+							<input class="check-all check" id="J_SelectAllCbx" name="select-all" value="true" type="checkbox"  onclick="allfocus()"/>
+							<label for="J_SelectAllCbx"></label>
 						</div>
 						<span>全选</span>
 					</div>
@@ -252,7 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<strong class="price">¥<em id="J_Total">0.00</em></strong>
 						</div>
 						<div class="btn-area">
-							<a href="pay.html" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+							<a href="javascript:void(0)" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算" onclick="account()"/>
 								<span>结&nbsp;算</span></a>
 						</div>
 					</div>

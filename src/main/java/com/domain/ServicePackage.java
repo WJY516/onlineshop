@@ -5,6 +5,10 @@ import java.util.Map;
 
 
 public class ServicePackage {
+	/*
+	 * 页面信息用负数表示
+	 * 商品信息用商品id表示
+	 */
 	public static final int GOUWUCHENULL = -1;
 	
 	public enum StateType {

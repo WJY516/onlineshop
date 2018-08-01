@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,14 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.domain.CartPackage;
 import com.domain.ServicePackage;
 import com.domain.ServicePackage.StateType;
+import com.domain.TbGoods;
 import com.service.CartService;
 
 @Controller
@@ -60,16 +65,20 @@ public class CartController {
 	 * 
 	 * 不属于Cart，应该属于商品介绍页
 	 */
-	@RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addToCart(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int goodsid, @RequestParam int goodsnumber){
+	@RequestMapping(value="/add")
+	@ResponseBody
+	public ServicePackage addToCart(HttpServletRequest request, HttpServletResponse response,
+			String goodsid, String goodsnumber){
+		
 		HttpSession session=request.getSession();
-		ServicePackage spackage = cartService.addGoodsToCart((String)session.getAttribute("username"), goodsid, goodsnumber);
-		ModelAndView mv = null;
+		ServicePackage spackage = cartService.addGoodsToCart((String)session.getAttribute("username"),  
+					Integer.parseInt(goodsid), Integer.parseInt(goodsnumber));
 		/*
 		 * 根据原因跳转：missingshop页、shop页
 		 * TODO: 可能不包含刷新页面所需的信息
 		 */
+		
+		/*
 		if(null!=spackage.getState() && spackage.getState().containsValue(StateType.PAGE_SHOP_SHANGPINBUCUNZAI)){
 			//TODO: 需要开发
 			mv = new ModelAndView("/home/missing.jsp");
@@ -77,8 +86,8 @@ public class CartController {
 		else{
 			mv = new ModelAndView("/home/introduction.jsp", "goodspage", spackage);
 		}
-		
-		return mv;
+		*/
+		return spackage;
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
@@ -119,17 +128,32 @@ public class CartController {
 	 * @param goodsnumber 传入更改后的数目
 	 * @return
 	 */
-	@RequestMapping(value="/account", method=RequestMethod.POST)
-	public ModelAndView accountInCart(HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value="/account")
+	public void accountInCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int[] goodsid){
 		HttpSession session=request.getSession();
-		ModelAndView mv = new ModelAndView("/home/account.jsp");
-		mv.addObject("focusgoods", cartService.accountGoodsInCart((String)session.getAttribute("username"), goodsid));
+		ServicePackage spackage = cartService.accountGoodsInCart((String)session.getAttribute("username"), goodsid);
 		/*
 		 * 1、提示信息
 		 * 2、刷新购物车页面 所需数据（重新加载）
 		 */
 		
-		return mv;
+		List<CartPackage> data = (List<CartPackage>)spackage.getDate();
+		List<TbGoods> tbgoodslist = new ArrayList<TbGoods>();
+		List<Integer> numberlist = new ArrayList<Integer>();
+		for(CartPackage temppackage : data){
+			tbgoodslist.add(temppackage.getGoods());
+			numberlist.add(Integer.parseInt(temppackage.getGoods().getGoodsFreenum()));
+			for(TbGoods i : tbgoodslist){
+				System.out.println(i.getGoodsName());
+			}
+			for(Integer ix : numberlist){
+				System.out.println(ix);
+			}
+		}
+		
+		session.setAttribute("tbgoodslist", tbgoodslist);
+		session.setAttribute("numberlist", numberlist);
+		//response.sendRedirect("/somePage.jsp");
 	}
 }
