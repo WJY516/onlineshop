@@ -85,11 +85,13 @@ public class BrandController {
 	
 	@RequestMapping("/introduction")
 //	@ResponseBody
-	public void brandIntro(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+	public String brandIntro(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		TbGoods tbgoodsIntro = (TbGoods) request.getAttribute("tbgoodsIntro");
+		String goodsid=String.valueOf(tbgoodsIntro.getGoodsId());
+		request.setAttribute("commentgoodsid",goodsid);
 		System.out.println(tbgoodsIntro.getGoodsName());
 		TbBrand tbBrandIntro = brandService.queryBrandByGoodsId(tbgoodsIntro.getGoodsId());
-		request.getRequestDispatcher("/home/introduction.jsp").forward(request, response);
 		//		return tbBrandIntro;
+		return "forward:/comment/selectbygoods";
 	}
 }

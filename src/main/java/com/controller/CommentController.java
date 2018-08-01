@@ -159,11 +159,19 @@ public class CommentController {
 		List<TbComment> list=commentservice.SelectCommentByOrder(request,response);
 		request.setAttribute("selectbyorder_list", list);
 	}
+	
+	
+	
 	@RequestMapping("/selectbygoods")            //根据货物编号搜索
 	public void selectByGoods(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		List<TbComment> list=commentservice.SelectCommentByGoods(request,response);
-		request.setAttribute("selectbygoods_list", list);
+		String goodsid=(String) request.getAttribute("commentgoodsid");
+		List<TbComment> list=commentservice.SelectCommentByGoods(goodsid);
+		if(list!=null)
+		request.setAttribute("goodsidlist", list);
+		request.getRequestDispatcher("/home/introduction.jsp").forward(request, response);
 	}
+	
+	
 	@RequestMapping("/selectbytype")            //根据类型搜索
 	public void selectByType(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		List<TbComment> list=commentservice.SelectCommentByType(request,response);
