@@ -48,8 +48,8 @@ public class ShoppingController {
 		}
 		@RequestMapping("/shopping")
 		public void shoppingall(HttpServletRequest request,HttpServletResponse response){
-			List<TbGoods> listgoods= (List<TbGoods>) request.getSession().getAttribute("listgoods");
-			List<Integer> listnum=(List<Integer>) request.getSession().getAttribute("listnum");
+			List<TbGoods> listgoods= (List<TbGoods>) request.getSession().getAttribute("tbgoodslist");
+			List<Integer> listnum=(List<Integer>) request.getSession().getAttribute("numberlist");
 			request.getSession().setAttribute("priceall",shopping.shoppingall(request,response,listgoods,listnum));
 			try {
 				request.getRequestDispatcher("/home/success.jsp").forward(request, response);
