@@ -7,6 +7,11 @@ public class CartPackage {
 	public CartPackage(){
 		super();
 	}
+	public CartPackage(TbGoods goods, TbBrand brand){
+		super();
+		this.goods = goods;
+		this.brand = brand;
+	}
 	public TbGoods getGoods() {
 		return goods;
 	}

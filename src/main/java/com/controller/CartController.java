@@ -60,7 +60,7 @@ public class CartController {
 	 * 
 	 * 不属于Cart，应该属于商品介绍页
 	 */
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addToCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int goodsid, @RequestParam int goodsnumber){
 		HttpSession session=request.getSession();
@@ -85,8 +85,8 @@ public class CartController {
 	public ModelAndView deleteFromCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int goodsid){
 		HttpSession session=request.getSession();
-		ModelAndView mv = new ModelAndView("/home/shopcart.jsp", 
-				"goodscart", 
+		ModelAndView mv = new ModelAndView("/home/shopcart.jsp"); 
+		mv.addObject("goodscart", 
 				cartService.deleteGoodsFromCart((String)session.getAttribute("username"), goodsid));
 		/*
 		 * 1、提示信息
@@ -104,9 +104,27 @@ public class CartController {
 	public ModelAndView updateNumCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int goodsid, @RequestParam int goodsnumber){
 		HttpSession session=request.getSession();
-		ModelAndView mv = new ModelAndView("/home/shopcart.jsp", 
-				"goodscart", 
+		ModelAndView mv = new ModelAndView("/home/shopcart.jsp");
+		mv.addObject("goodscart", 
 				cartService.updateNumOfGoodsCart((String)session.getAttribute("username"), goodsid, goodsnumber));
+		/*
+		 * 1、提示信息
+		 * 2、刷新购物车页面 所需数据（重新加载）
+		 */
+		
+		return mv;
+	}
+	
+	/**
+	 * @param goodsnumber 传入更改后的数目
+	 * @return
+	 */
+	@RequestMapping(value="/account", method=RequestMethod.POST)
+	public ModelAndView accountInCart(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam int[] goodsid){
+		HttpSession session=request.getSession();
+		ModelAndView mv = new ModelAndView("/home/account.jsp");
+		mv.addObject("focusgoods", cartService.accountGoodsInCart((String)session.getAttribute("username"), goodsid));
 		/*
 		 * 1、提示信息
 		 * 2、刷新购物车页面 所需数据（重新加载）
