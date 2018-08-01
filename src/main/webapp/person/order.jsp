@@ -59,13 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						<div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
 
-							<ul class="am-avg-sm-5 am-tabs-nav am-nav am-nav-tabs">
-								<li class="am-active"><a href="#tab1">所有订单</a></li>
-								<li><a href="#tab2">待付款</a></li>
-								<li><a href="#tab3">待发货</a></li>
-								<li><a href="#tab4">待收货</a></li>
-								<li><a href="#tab5">待评价</a></li>
-							</ul>
+							
 
 							<div class="am-tabs-bd">
 								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
@@ -95,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													
 													
 													<c:choose>
-														<c:when test="${orderlist.orderStatus == 'pay' }"> <a href="/onlineshop/order/refund?id=${orderlist.orderId}">退款</a></c:when>
+														<c:when test="${orderlist.orderStatus == 'paying' }"> <a href="/onlineshop/order/refund?id=${orderlist.orderId}">退款</a></c:when>
 														<c:when test="${orderlist.orderStatus == 'success refund' }"> 退款成功</c:when>
 														<c:when test="${orderlist.orderStatus == 'can not refund' }"> 退款失败</c:when>
 														<c:otherwise> 退款中 </c:otherwise>
@@ -125,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 
 				</div>
-				<jsp:include page="left.jsp"></jsp:include>
+				<div><jsp:include page="../person/left.jsp"></jsp:include></div>
 			</div>
 
 

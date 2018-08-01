@@ -30,6 +30,20 @@ public class CartServiceImpl implements CartService{
 	TbBrandMapper brandmapper;
 	
 	/**
+	 * 商品结算
+	 * 前台传回的goodsid将其装填ServicePackage传回
+	 * 注意结算成功后要告诉购物车，更新数据库
+	 */
+	@Override
+	public ServicePackage accountGoodsInCart(String username, int[] goodsid) {
+		ServicePackage retn = new ServicePackage(new HashMap<Integer, StateType>(), new ArrayList<CartPackage>());
+		for(int id : goodsid){
+			findGoodsForAccount(username, id, retn);
+		}
+		return retn;
+	}
+	
+	/**
 	 * @see com.service.CartService#showCart(java.lang.String)
 	 * @return List<TbGoods> 其中goodsFreenum的意义在这里更改为 购物车内该商品数量
 	 * 显示购物车，位于购物车界面
@@ -42,7 +56,7 @@ public class CartServiceImpl implements CartService{
 	
 	/**
 	 * @see com.service.CartService#addGoodsToCart(java.lang.String, int, int)
-	 * 增加商品，位于商品界面，业务：更新Cart 、 视图
+	 * 增加商品，位于商品界面，业务：更新Cart 、 视图 、返回的是一个CartPackage
 	 * 应该先检查商品是否还存在，若存在则正常进行功能，否则将视图定向到商品不存在界面
 	 */
 	@Override
@@ -58,12 +72,16 @@ public class CartServiceImpl implements CartService{
 			return retn;
 		}
 		
+		TbBrand abrand = brandmapper.selectByPrimaryKey(goodsingoods.getGoodsId());
+		CartPackage temppackage = new CartPackage(goodsingoods, abrand);
+		
 		List<TbCart> listcart = selectCart(username);
 		int goodsfreenum = Integer.parseInt(goodsingoods.getGoodsFreenum());
 		if(!(null==listcart || listcart.size()==0)){
 			for(TbCart goodsincart : listcart){
 				if(goodsincart.getGoodsId()==goodsid){
 					//商品在购物车
+					goodsnumber += goodsincart.getGoodsNumber();
 					if(goodsnumber > goodsfreenum){
 						/*
 						 * 提示库存紧张，添加失败
@@ -89,6 +107,7 @@ public class CartServiceImpl implements CartService{
 		else{
 			addGoods(username, goodsid, goodsnumber);
 		}
+		retn.setDate(temppackage);
 		return retn;
 	}
 
@@ -281,6 +300,52 @@ public class CartServiceImpl implements CartService{
 		return cartmapper.deleteByExample(ex);
 	}
 	/**
+	 * 从cart中查找商品， 并返回其ServicePackage
+	 */
+	private ServicePackage findGoodsForAccount(String username, int goodsid, ServicePackage spackage){
+		List<CartPackage> date = (List<CartPackage>)spackage.getDate();
+		Map<Integer, StateType> state = spackage.getState();
+		
+		TbCartExample ex = new TbCartExample();
+		Criteria cr = ex.createCriteria();
+		cr.andUserNameEqualTo(username);
+		cr.andGoodsIdEqualTo(goodsid);
+		List<TbCart> cart = cartmapper.selectByExample(ex);
+		if(null==cart || cart.size()!=0){
+			/*
+			 * 购物车内无商品
+			 */
+			if(!state.containsKey(ServicePackage.GOUWUCHENULL)){
+				state.put(ServicePackage.GOUWUCHENULL, StateType.MESSAGE_CART_COUNT_GOUWUCHENULL);
+				spackage.setState(state);
+			}
+			return spackage;
+		}
+		/*
+		 * 获得goods和brand数据
+		 */
+		TbGoods agoods = goodsmapper.selectByPrimaryKey(goodsid);
+		agoods.setGoodsFreenum(String.valueOf(cart.get(0).getGoodsNumber()));
+		TbBrand abrand = brandmapper.selectByPrimaryKey(goodsid);
+		if(null==agoods || null==abrand){
+			/*
+			 * 商品下架
+			 */
+			state.put(cart.get(0).getGoodsId(), StateType.MESSAGE_CART_COUNT_GOUWUCHENULL);
+			spackage.setState(state);
+			return spackage;
+		}
+		/*
+		 * 装填返回
+		 */
+		CartPackage temppackage = new CartPackage();
+		temppackage.setGoods(agoods);
+		temppackage.setBrand(abrand);
+		date.add(temppackage);
+		spackage.setDate(date);
+		return spackage;
+	}
+	/**
 	 * 修改cart中的商品
 	 */
 	private long updateGoodsNumber(int cartid, int goodsnumber){
@@ -289,4 +354,5 @@ public class CartServiceImpl implements CartService{
 		record.setGoodsNumber(goodsnumber);
 		return cartmapper.updateByPrimaryKeySelective(record);
 	}
+
 }

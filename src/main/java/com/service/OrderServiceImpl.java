@@ -37,6 +37,19 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	
+	
+	
+	@Override
+	public List<TbOrder> checkall(HttpServletRequest request,HttpServletResponse response) {
+		TbOrderExample ex=new TbOrderExample();
+		HttpSession session=request.getSession();
+		Criteria cr = ex.createCriteria();
+		List<TbOrder> list=ordermapper.selectByExample(ex);
+		return list;
+		
+	}
+	
+	
 	@Override
 	public List<TbOrder> checkbyorderid(HttpServletRequest request,HttpServletResponse response) {
 		TbOrderExample ex=new TbOrderExample();
@@ -59,49 +72,72 @@ public class OrderServiceImpl implements OrderService{
 		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
 		order.setOrderStatus("refund");
 		
-		long i=ordermapper.updateByExample(order,ex);
+		long i=ordermapper.updateByExampleSelective(order,ex);
 		return i;
 		
 	}
 
 	@Override
-	public long admitrefund(HttpServletRequest request,HttpServletResponse response) {
+	public long admitrefund(int orderid) {
 		TbOrderExample ex=new TbOrderExample();
-		Criteria cr = ex.createCriteria();
-		int orderid=2;                 //赋值
-		cr.andOrderIdEqualTo(orderid);
-		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
-		order.setOrderStatus("success refund");
-		
-		long i=ordermapper.updateByExample(order,ex);
-		return i;
-	}
-
-	@Override
-	public long faultrefund(HttpServletRequest request,
-			HttpServletResponse response) {
-		TbOrderExample ex=new TbOrderExample();
-		Criteria cr = ex.createCriteria();
-		int orderid=2;                 //赋值
+		Criteria cr = ex.createCriteria();                 //赋值
 		cr.andOrderIdEqualTo(orderid);
 		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
 		order.setOrderStatus("can not refund");
 		
-		long i=ordermapper.updateByExample(order,ex);
+		long i=ordermapper.updateByExampleSelective(order,ex);
+		return i;
+	}
+
+	@Override
+	public long faultrefund(int orderid) {
+		TbOrderExample ex=new TbOrderExample();
+		Criteria cr = ex.createCriteria();                //赋值
+		cr.andOrderIdEqualTo(orderid);
+		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
+		order.setOrderStatus("can not refund");
+		
+		long i=ordermapper.updateByExampleSelective(order,ex);
 		return i;
 	}
 
 	@Override
 	public List<OrederGoods> ordergoodslist(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,String id) {
 		OrederGoodsExample ex=new OrederGoodsExample();
 		com.domain.OrederGoodsExample.Criteria cr = ex.createCriteria();
-		String id=request.getParameter("id");
 		request.getSession().setAttribute("orderId", id);
 		cr.andOrderIdEqualTo(id);		
 		List<OrederGoods> list=ordergoodsmapper.selectByExample(ex);
 		return list;
 	}
+
+
+	@Override
+	public long arrive(int orderid) {
+		TbOrderExample ex=new TbOrderExample();
+		Criteria cr = ex.createCriteria();                 //赋值
+		cr.andOrderIdEqualTo(orderid);
+		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
+		order.setOrderStatus("arrive");
+		
+		long i=ordermapper.updateByExampleSelective(order,ex);
+		return i;
+	}
+	
+	
+	@Override
+	public long send(int orderid) {
+		TbOrderExample ex=new TbOrderExample();
+		Criteria cr = ex.createCriteria();                 //赋值
+		cr.andOrderIdEqualTo(orderid);
+		TbOrder order =ordermapper.selectByPrimaryKey(orderid);
+		order.setOrderStatus("sending");
+		
+		long i=ordermapper.updateByExampleSelective(order,ex);
+		return i;
+	}
+
 
 	
 	

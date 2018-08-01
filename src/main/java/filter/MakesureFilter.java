@@ -48,11 +48,11 @@ public class MakesureFilter implements Filter {
 				System.out.println(url);
 				//request.getRequestDispatcher("login.html").forward(request, response);
 				response.sendRedirect("../home/login.jsp");
-				System.out.println("1");
+				System.out.println(this.getClass()+"拦截了request");
 				//chain.doFilter(req, res);
 				return;
 			}else{
-				System.out.println("session is not null");
+				//System.out.println("session is not null");
 				chain.doFilter(req, res);	
 				return;
 			}

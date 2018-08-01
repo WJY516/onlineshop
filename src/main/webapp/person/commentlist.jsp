@@ -50,8 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">发表评论</strong> / <small>Make&nbsp;Comments</small></div>
 						</div>
 						<hr/>
-						<c:forEach items="goodslist" var = "goods">
-						<form action="/comment/insertbyorder">
+						<c:forEach items="${goodslist}" var = "goods">
+						<form action="/onlineshop/comment/insertbyorder">
 						<div class="comment-main">
 							<div class="comment-list">
 								<div class="item-pic">
@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 									<div class="item-name">
 										<a href="#">
-											<p class="item-basic-info">货物名称:${goods.goodsName }</p>
+											<p class="item-basic-info">货物名称:${goods.goodsName}</p>
 										</a>
 									</div>
 									
