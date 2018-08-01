@@ -1,6 +1,7 @@
 package filter;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -39,15 +40,18 @@ public class ManagerIdentityFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		String url = req.getRequestURI();
 		String username = (String) req.getSession().getAttribute("username");
-		String usertype = (String) req.getSession().getAttribute("usertype");
-		if(username!=null && username.length()>0 && usertype!=null && usertype=="MANAGER"){
-		chain.doFilter(request, response);
+		int usertype =(int) req.getSession().getAttribute("type");
+		if((username!=null && usertype==1 )|| url.endsWith("login.jsp") ){
+						chain.doFilter(request, response);
+						return;
 		}else{
 			//need a exclude
 			
 			
 			res.sendRedirect("/onlineshop/admin/login.jsp");
+			return;
 		}
 	}
 

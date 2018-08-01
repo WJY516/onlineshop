@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,9 @@ public class LoginoutController {
 	@RequestMapping(value="/logout") 
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		
-		int count=loginoutService.Logout(request,response);
-		
-		
-		System.out.println("Test1.test1()"+count);
+		HttpSession session=request.getSession();
+		session.invalidate();
+		request.getRequestDispatcher("/home/home1.jsp").forward(request, response);;
+		System.out.println("Test1.test1()");
 	}
 }

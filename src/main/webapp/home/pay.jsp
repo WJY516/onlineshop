@@ -21,10 +21,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="../css/jsstyle.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript" src="../js/address.js"></script>
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			var t = $(".text_box");
+			
+			$(".add").click(function() {
+				
+				var index = $(".add").index(this)
+				$(t.get(index)).val(parseInt($(t.get(index)).val()))
+				
+				
+				sum1();
+				
+			})
+			//数量减少操作
+			$(".min").click(function() {
+				var index = $(".min").index(this)
+				$(t.get(index)).val(parseInt($(t.get(index)).val()))
 
+				sum1();
+			});
+			
+			sum1();
+			
+		})
+		
+		
+	
+		
+		function sum1(){
+				var nums=document.getElementsByName('num');
+				var prices=document.getElementsByName('price');
+				var sum=0
+				for(var i=0;i<nums.length;i++)
+				{
+					sum += parseInt(nums[i].value) * parseInt(prices[i].value);
+				}
+				$('#J_ActualFee').text(sum);
+			}
+			
+		</script>
 	</head>
 
-	<body>
+	<body onload="sum1()">
 <jsp:include page="../home/top.jsp"></jsp:include> 
 			<div class="clear"></div>
 			<div class="concent">
@@ -150,6 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<div class="item-price price-promo-promo">
 														<div class="price-content">
 															<em class="J_Price price-now">${goods.goodsPrice}</em>
+															<input type="hidden" name="price" value="${goods.goodsPrice}"/>
 														</div>
 													</div>
 												</li>
@@ -159,9 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<div class="item-amount ">
 														<span class="phone-title">购买数量</span>
 														<div class="sl">
-															<input class="min am-btn" name="" type="button" value="-" />
-															<input class="text_box" name="" type="text" value="3" style="width:30px;" />
-															<input class="add am-btn" name="" type="button" value="+" />
+														<%-- 	<p>${goods.goodsNum}</p> --%>
 														</div>
 													</div>
 												</div>
@@ -200,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="box">
 										<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
 											<span class="price g_price ">
-                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee">244.00</em>
+                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee"></em>
 											</span>
 										</div>
 
@@ -215,8 +254,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<p class="buy-footer-address">
 												<span class="buy-line-title">收货人：</span>
 												<span class="buy-address-detail">   
-                                         <span class="buy-user">艾迪 </span>
-												<span class="buy-phone">15871145629</span>
+                                         <span class="buy-user">${sessionScope.username} </span>
+												<span class="buy-phone">${sessionScope.tel}</span>
 												</span>
 											</p>
 										</div>
