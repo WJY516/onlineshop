@@ -281,11 +281,24 @@ public class CommentServicelmpl implements CommentService{
 	public long ChcekNullByOrder(String username, String order_id) {
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		cr.andCommentIsNull();
+		cr.andCommentIsNotNull();
 		cr.andOrderIdEqualTo(order_id);
 		long count = commentmapper.countByExample(ex);
 		return count;
 	}
+
+	@Override
+	public List<TbComment> SelectCommentAll(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		long count=0;
+		List list = null;
+		TbCommentExample ex = new TbCommentExample();
+		Criteria cr = ex.createCriteria();
+		list=commentmapper.selectByExample(ex);
+		
+		return list;	
+		}
 
 
 }

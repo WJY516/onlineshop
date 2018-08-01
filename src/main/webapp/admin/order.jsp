@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %> 
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -14,13 +16,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="assets/i/favicon.png">
-<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<link rel="icon" type="image/png" href="/onlineshop/admin/assets/i/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="/onlineshop/admin/assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-<link rel="stylesheet" href="assets/css/admin.css">
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/app.js"></script>
+<link rel="stylesheet" href="/onlineshop/admin/assets/css/amazeui.min.css"/>
+<link rel="stylesheet" href="/onlineshop/admin/assets/css/admin.css">
+<script src="/onlineshop/admin/assets/js/jquery.min.js"></script>
+<script src="/onlineshop/admin/assets/js/app.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
@@ -414,23 +416,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <th class="table-check"><input type="checkbox" /></th>
 
                 <th class="table-id">ID</th>
-                <th class="table-title">商品名称</th>
-                <th class="table-type">购买数量</th>
                 <th class="table-author am-hide-sm-only">购买人</th>
                 <th class="table-author am-hide-sm-only">地址</th>
                 <th class="table-date am-hide-sm-only">购买日期</th>
+                <th class="table-author am-hide-sm-only">状态</th>
                 <th width="130px" class="table-set">操作</th>
               </tr>
             </thead>
+           	<c:forEach items="${orderlist}" var = "order">
             <tbody>
               <tr>
                 <td><input type="checkbox" /></td>
                 
-                <td>14</td>
-                <td><a href="#">Business management</a></td>
-                <td>3件 （消费455个积分）</td>
-                <td class="am-hide-sm-only">访问</td><td class="am-hide-sm-only">访问</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                <td>${order.orderId}</td>
+                <td class="am-hide-sm-only">${order.username}</td>
+                <td class="am-hide-sm-only">${order.address}</td>
+                <td class="am-hide-sm-only">${order.orderTime}</td>
+                <td class="am-hide-sm-only">${order.orderStatus}</td>
                 <td>
                 	
                 	
@@ -443,101 +445,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                   </div>
                 	
+                </c:forEach>
                 	
                 	
                 	
-                	
-                	
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                
-                <td>15</td>
-                <td><a href="#">Business management</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only"><i class="am-icon-close am-text-primary"></i></td><td class="am-hide-sm-only">访问</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                	
-                	<div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-success am-round"><span class="am-icon-search" title="查看订单详情"></span> </button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改订单"><span class="am-icon-pencil-square-o"></span></button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除订单"><span class="am-icon-trash-o" ></span></button>
-                    </div>
-                  </div>
-                
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          
-                 <div class="am-btn-group am-btn-group-xs">
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 删除</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 下架</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 移动</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 移动</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-            </div>
-          
-          <ul class="am-pagination am-fr">
-                <li class="am-disabled"><a href="#">«</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-              </ul>
-          
-          
-          
-      
-          <hr />
-          <p>注：.....</p>
-        </form>
- 
- 
- 
- 
- <div class="foods">
-  <ul>
-    版权所有@2015. 模板收集自 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> -  More Templates<a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
-  </ul>
-  <dl>
-    <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
-  </dl>
-</div>
-
-
-
-
-</div>
-
-</div>
-
-
-
-
-</div>
-
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/polyfill/rem.min.js"></script>
-<script src="assets/js/polyfill/respond.min.js"></script>
-<script src="assets/js/amazeui.legacy.js"></script>
-<![endif]--> 
-
-<!--[if (gte IE 9)|!(IE)]><!--> 
-<script src="assets/js/amazeui.min.js"></script>
-<!--<![endif]-->
-
-
-
+            
 </body>
 </html>
