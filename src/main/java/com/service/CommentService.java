@@ -21,12 +21,13 @@ public interface CommentService {
 	public int UpdateCommentByOrder(int id,String comment,int comment_type);
 	
 	public List SelectCommentByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public List SelectCommentByGoods(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public List SelectCommentByGoods(String goods_id) throws ServletException,IOException;
 	public List SelectCommentByOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	public List SelectCommentByType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	public long ChcekNullByOrder(String username, String order_id);
 	public List<TbComment> SelectCommentAll(HttpServletRequest request,
 			HttpServletResponse response);
 	public int DeleteComment(String goods_id,String username);
+	
 
 }

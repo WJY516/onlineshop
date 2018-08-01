@@ -182,23 +182,16 @@ public class CommentServicelmpl implements CommentService{
 	}
 
 	@Override
-	public List SelectCommentByGoods(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public List<TbComment> SelectCommentByGoods(String goods_id) throws ServletException, IOException {
 		long count=0;
-		List list = null;
+		List<TbComment> list = null;
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		String goods_id=request.getParameter("goods_id");
 		cr.andGoodsIdEqualTo(goods_id);
 		count=commentmapper.countByExample(ex);
-		if(count == 0)
-		{
-			request.getRequestDispatcher("/select_comment_error.jsp").forward(request, response);
-		}
-		else
+		if(count!=0)
 		{
 			list=commentmapper.selectByExample(ex);
-			request.getRequestDispatcher("/insert_comment_success.jsp").forward(request, response);
 		}
 		return list;
 	}
