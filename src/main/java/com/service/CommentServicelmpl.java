@@ -287,5 +287,18 @@ public class CommentServicelmpl implements CommentService{
 		return count;
 	}
 
+	@Override
+	public List<TbComment> SelectCommentAll(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		long count=0;
+		List list = null;
+		TbCommentExample ex = new TbCommentExample();
+		Criteria cr = ex.createCriteria();
+		list=commentmapper.selectByExample(ex);
+		
+		return list;	
+		}
+
 
 }

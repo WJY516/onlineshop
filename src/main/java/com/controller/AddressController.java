@@ -21,7 +21,7 @@ public class AddressController {
 	AddressManagement address;
 	@RequestMapping("/selectbyuser")
 	public void selectAddressbyuser(HttpServletRequest request,HttpServletResponse response){
-		String username=request.getParameter("username");
+		String username=(String) request.getSession().getAttribute("username");
 		System.out.println("username_2:"+username);
 
 		List count=address.SelectAddressByUser(username);
@@ -51,7 +51,7 @@ public class AddressController {
 		if(count!=0) 
 			try {
 				System.out.println("username_1:"+username);
-				request.getRequestDispatcher("/address/selectbyuser?username="+username+"").forward(request, response);
+				request.getRequestDispatcher("/address/selectbyuser").forward(request, response);
 			} catch (ServletException | IOException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();

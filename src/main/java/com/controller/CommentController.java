@@ -159,4 +159,25 @@ public class CommentController {
 		List<TbComment> list=commentservice.SelectCommentByType(request,response);
 		request.setAttribute("selectbytype_list", list);
 	}
+	
+	
+	
+	
+	@RequestMapping("/selectall")           
+	public void selectall(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<TbComment> list=commentservice.SelectCommentAll(request,response);
+		
+		if(list!=null){
+			try {
+				request.setAttribute("selectalllist", list);
+				request.getRequestDispatcher("/admin/comment.jsp").forward(request, response);
+			} catch (ServletException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+	}
+}
 }

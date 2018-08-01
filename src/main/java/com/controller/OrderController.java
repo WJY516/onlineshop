@@ -78,11 +78,11 @@ public class OrderController {
 	
 	@RequestMapping("/checkall")
 	public void checkall(HttpServletRequest request,HttpServletResponse response){
-		List<TbOrder> checklist=orderservice.check(request, response);
+		List<TbOrder> checklist=orderservice.checkall(request, response);
 		if(checklist!=null){
 		try {
 			request.setAttribute("orderlist",checklist);
-			request.getRequestDispatcher("/person/order.jsp").forward(request, response);
+			request.getRequestDispatcher("/admin/order.jsp").forward(request, response);
 		} catch (ServletException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
