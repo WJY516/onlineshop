@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
       <ul>
         <li><a href="">商品列表</a></li>
-        <li class="func" dataType='html' dataLink='msn.htm' iconImg='images/msn.gif'>添加新商品</li>
+        <li><a href="../admin/addGoods.jsp">添加新商品</a></li>
         <li>商品分类</li>
         <li>用户评论</li>
         <li>商品回收站</li>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-flag on"> 栏目名称</ul>
+      <ul class="am-icon-flag on"> 增加商品</ul>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
 
@@ -206,32 +206,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 	
     <div class="fbneirong">
-      <form class="am-form">
+      <form class="am-form" method="post" action="../admin/addgoods">
         <div class="am-form-group am-cf">
-          <div class="zuo">标题：</div>
+          <div class="zuo">商品名：</div>
           <div class="you">
-            <input type="email" class="am-input-sm" id="doc-ipt-email-1" placeholder="请输入标题">
+            <input type="text" class="am-input-sm" id="goodsName" placeholder="请输入商品名" name="goodsName" value="${TbGoods.goodsName}">
           </div>
         </div>
         <div class="am-form-group am-cf">
-          <div class="zuo">关键词：</div>
+          <div class="zuo">品牌：</div>
           <div class="you">
-            <input type="password" class="am-input-sm" id="doc-ipt-pwd-1" placeholder="请输入关键词">
+            <input type="text" class="am-input-sm" id="brandName" placeholder="请输入品牌名" name="brandName" value="${TbBrand.brandName }">
           </div>
         </div>
         <div class="am-form-group am-cf">
-          <div class="zuo">描述：</div>
+          <div class="zuo">商品描述：</div>
           <div class="you">
-            <textarea class="" rows="2" id="doc-ta-1"></textarea>
+            <textarea class="am-form-group am-cf" rows="2" id="goodsDiscribes" name="goodsDiscribes" value="${TbGoods.goodsDiscribes}"></textarea>
           </div>
-        </div>
-        <div class="am-form-group am-cf">
-          <div class="zuo">缩略图：</div>
-          <div class="you"><input type="file" id="doc-ipt-file-1"> </div>
         </div>
         
         <div class="am-form-group am-cf">
-          <div class="zuo">产品图片：</div>
+          <div class="zuo">商品图片：</div>
           <div class="you" style="height: 45px;">
             <input type="file" id="doc-ipt-file-1">
             <p class="am-form-help">请选择要上传的文件...</p>
@@ -240,37 +236,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         
         <div class="am-form-group am-cf">
-          <div class="zuo">内容：</div>
+          <div class="zuo">商品价格：</div>
           <div class="you">
-            <textarea class="" rows="2" id="doc-ta-1"></textarea>
+            <textarea class="am-form-group am-cf" rows="1" id="goodsPrice" name="goodsPrice" value="${TbGoods.goodsPrice}"></textarea>
           </div>
         </div>
         
         <div class="am-form-group am-cf">
-          <div class="zuo">其他信息：</div>
+          <div class="zuo">商品类型：</div>
           <div class="you">
-            <textarea class="" rows="2" id="doc-ta-1"></textarea>
+            <textarea class="am-form-group am-cf" rows="1" id="goodsType" name="goodsType" value="${TbGoods.goodsType}"></textarea>
           </div>
         </div>
         
-        
-        <div class="am-form-group am-cf">
-        <div class="zuo">推荐：</div>
-        <div class="you" style="margin-top: 5px;">
-          <label class="am-checkbox-inline">
-            <input type="checkbox" value="option1">
-            选我 </label>
-          <label class="am-checkbox-inline">
-            <input type="checkbox" value="option2">
-            同时可以选我 </label>
-          <label class="am-checkbox-inline">
-            <input type="checkbox" value="option3">
-            还可以选我 </label>
-            </div>
+         <div class="am-form-group am-cf">
+          <div class="zuo">商品库存：</div>
+          <div class="you">
+            <textarea class="am-form-group am-cf" rows="1" id="goodsFreenum" name="goodsFreenum" value="${TbGoods.goodsFreenum}"></textarea>
+          </div>
         </div>
+        
+      
         <div class="am-form-group am-cf">
           <div class="you" style="margin-left: 11%;">
-              <button type="submit" class="am-btn am-btn-success am-radius">发布并关闭窗口</button>&nbsp;  &raquo; &nbsp; <button type="submit" class="am-btn am-btn-secondary am-radius">发布并继续发布</button>
+              <button type="submit" class="am-btn am-btn-secondary am-radius">发布</button>
 
           </div>
         </div>

@@ -4,7 +4,8 @@
 <%--
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
+--%>
+<%--
 Enumeration<String> names=session.getAttributeNames();
 System.out.println("session names");
 for (;names.hasMoreElements();){
@@ -21,6 +22,7 @@ System.out.println("--"+names.nextElement());
 <html>
 
     <head>
+   
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
@@ -90,11 +92,11 @@ System.out.println("--"+names.nextElement());
                                             </div>
                                             <div class="s-extra-box">
                                                 <span class="s-comment">好评: 99.93%</span>
-                                                <span class="s-sales">月销: 278</span>
+                                                <span class="s-sales">剩余:${goods.goodsFreenum}</span>
                                             </div>
                                         </div>
                                         <div class="s-tp">
-                                            <a href="deleteSubscribe?goodsId=${goods.goodsId }" class="ui-btn-loading-before">取消收藏</a>
+                                            <a href="/onlineshop/subscribe/deleteSubscribe?goodsId=${goods.goodsId }" class="ui-btn-loading-before">取消收藏</a>
                                             <i class="am-icon-trash"></i>
                                             <span class="ui-btn-loading-before buy">进入店铺</span>
                                             
