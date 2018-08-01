@@ -154,6 +154,14 @@ public class CartController {
 		
 		session.setAttribute("tbgoodslist", tbgoodslist);
 		session.setAttribute("numberlist", numberlist);
-		//response.sendRedirect("/somePage.jsp");
+		try {
+			request.getRequestDispatcher("/shopping/selectbyuser").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		};
 	}
 }

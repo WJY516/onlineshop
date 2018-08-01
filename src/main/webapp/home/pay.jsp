@@ -163,11 +163,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 							
 							
-<<<<<<< HEAD
-							<c:forEach items="${listgoods}" var="goods"  varStatus="loop">
-=======
+
 							<c:forEach items="${tbgoodslist}" var="goods" varStatus="loop">
->>>>>>> 3d022e81de653183259b55455d76f1568fe08f74
 							<tr class="item-list">
 								<div class="bundle  bundle-last">
 
@@ -204,11 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<div class="item-amount ">
 														<span class="phone-title">购买数量</span>
 														<div class="sl">
-<<<<<<< HEAD
-														<p>${listnum[loop.index].num}</p>
-=======
-														<p>${numberlist[loop.index].goodsnum}</p>
->>>>>>> 3d022e81de653183259b55455d76f1568fe08f74
+												<p>${numberlist[loop.index].intValue()}</p>
 														</div>
 													</div>
 												</div>
