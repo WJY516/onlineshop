@@ -182,23 +182,16 @@ public class CommentServicelmpl implements CommentService{
 	}
 
 	@Override
-	public List SelectCommentByGoods(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public List<TbComment> SelectCommentByGoods(String goods_id) throws ServletException, IOException {
 		long count=0;
-		List list = null;
+		List<TbComment> list = null;
 		TbCommentExample ex = new TbCommentExample();
 		Criteria cr = ex.createCriteria();
-		String goods_id=request.getParameter("goods_id");
 		cr.andGoodsIdEqualTo(goods_id);
 		count=commentmapper.countByExample(ex);
-		if(count == 0)
-		{
-			request.getRequestDispatcher("/select_comment_error.jsp").forward(request, response);
-		}
-		else
+		if(count!=0)
 		{
 			list=commentmapper.selectByExample(ex);
-			request.getRequestDispatcher("/insert_comment_success.jsp").forward(request, response);
 		}
 		return list;
 	}
@@ -285,6 +278,39 @@ public class CommentServicelmpl implements CommentService{
 		cr.andOrderIdEqualTo(order_id);
 		long count = commentmapper.countByExample(ex);
 		return count;
+	}
+
+	@Override
+	public List<TbComment> SelectCommentAll(HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		long count=0;
+		List list = null;
+		TbCommentExample ex = new TbCommentExample();
+		Criteria cr = ex.createCriteria();
+		list=commentmapper.selectByExample(ex);
+		
+		return list;	
+		}
+
+	@Override
+	public int DeleteComment(String goods_id, String username) {
+		long count=0;
+		int comment_type1 = 2;
+		TbCommentExample ex = new TbCommentExample();
+		Criteria cr = ex.createCriteria();
+		cr.andGoodsIdEqualTo(goods_id);
+		cr.andUsernameEqualTo(username);
+		count=commentmapper.countByExample(ex);
+		if(count == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			count=commentmapper.deleteByExample(ex);
+			return (int) count;
+		}
 	}
 
 

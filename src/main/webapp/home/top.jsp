@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %> 
 <%@page import="javax.servlet.*" %>
 <div class="hmtop">
 			<!--顶部导航条 -->
@@ -11,8 +12,14 @@
 							<a href="../home/login.jsp" target="_top" class="h">亲，请登录</a>
 							<a href="../home/register.jsp" target="_top">免费注册</a>
 						<%}else{ %>
-						  <a href="#" target="_top" class="h">已登录：<%=session.getAttribute("username") %></a>
-						<%} %>	
+						  <a target="_top" class="h">已登录：<%=session.getAttribute("username") %></a>
+						 <a href="../log/logout">注销</a>
+						<%} %> 
+						<c:if test="${sessionScope.type==1}">
+						  <a href="../admin/index.jsp">管理中心</a>
+						
+						</c:if>
+					
 						</div>
 					</div>
 				</ul>

@@ -97,7 +97,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
 </header>
 <jsp:include page="../admin/left.jsp"></jsp:include>
-
 <div class=" admin-content">
 	
 		<div class="daohang">
@@ -121,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-flag on"> 增加商品</ul>
+      <ul class="am-icon-flag on"> 商品修改</ul>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
 
@@ -136,18 +135,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="zuo">商品名：</div>
           <div class="you">
             <input type="text" class="am-input-sm" id="goodsName" placeholder="请输入商品名" name="goodsName" value="${TbGoods.goodsName}">
-          </div>
-        </div>
-        <div class="am-form-group am-cf">
-          <div class="zuo">品牌：</div>
-          <div class="you">
-            <input type="text" class="am-input-sm" id="brandName" placeholder="请输入品牌名" name="brandName" value="${TbBrand.brandName }">
+          	<input type="hidden" class="am-input-sm" id="goodsId" name="goodsId" value="${TbGoods.goodsId}">
           </div>
         </div>
         <div class="am-form-group am-cf">
           <div class="zuo">商品描述：</div>
           <div class="you">
-            <textarea class="am-form-group am-cf" rows="2" id="goodsDiscribes" name="goodsDiscribes" value="${TbGoods.goodsDiscribes}"></textarea>
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsDiscribes" name="goodsDiscribes" value="${TbGoods.goodsDiscribes}"></input>
           </div>
         </div>
         
@@ -163,21 +157,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="am-form-group am-cf">
           <div class="zuo">商品价格：</div>
           <div class="you">
-            <textarea class="am-form-group am-cf" rows="1" id="goodsPrice" name="goodsPrice" value="${TbGoods.goodsPrice}"></textarea>
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsPrice" name="goodsPrice" value="${TbGoods.goodsPrice}"></input>
           </div>
         </div>
         
         <div class="am-form-group am-cf">
           <div class="zuo">商品类型：</div>
           <div class="you">
-            <textarea class="am-form-group am-cf" rows="1" id="goodsType" name="goodsType" value="${TbGoods.goodsType}"></textarea>
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsType" name="goodsType" value="${TbGoods.goodsType}"></input>
           </div>
         </div>
         
          <div class="am-form-group am-cf">
           <div class="zuo">商品库存：</div>
           <div class="you">
-            <textarea class="am-form-group am-cf" rows="1" id="goodsFreenum" name="goodsFreenum" value="${TbGoods.goodsFreenum}"></textarea>
+            <input type="text" class="am-form-group am-cf" rows="1" id="goodsFreenum" name="goodsFreenum" value="${TbGoods.goodsFreenum}"></input>
           </div>
         </div>
         
@@ -192,16 +186,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                $.ajax({ 
 	                    type: 'post', 
 	                    data: $('#add_form').serialize(), 
-	                    url: '../admin/addgoods',
+	                    url: '../admin/updategoods',
 	                    cache:false,  
 	                    dataType:'text', 
 	                    success: function (data) {
 	                        if("fail"!=data){
 	                           /* layer.msg('发布成功'); */
-	                           alert("发布成功");
-	                           location.href="../admin/addGoods.jsp";
+	                           alert("修改成功");
+	                           location.href="../admin/listgoods";
 	                        }else{
-	                           alert("发布失败，商品名重复");
+	                           alert("修改失败，商品名重复");
 	                        }
 	                    }   
 	                })

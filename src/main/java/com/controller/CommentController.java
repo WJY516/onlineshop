@@ -95,7 +95,17 @@ public class CommentController {
 			HttpServletResponse response){
 		HttpSession session=request.getSession();
 		String goods_id=request.getParameter("goods_id");
-		int success=commentservice.DeleteCommentByGoods(goods_id);
+		String username=request.getParameter("username");
+		int success=commentservice.DeleteComment(goods_id,username);
+		try {
+			request.getRequestDispatcher("/comment/selectall").forward(request, response);
+		} catch (ServletException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -149,14 +159,43 @@ public class CommentController {
 		List<TbComment> list=commentservice.SelectCommentByOrder(request,response);
 		request.setAttribute("selectbyorder_list", list);
 	}
+	
+	
+	
 	@RequestMapping("/selectbygoods")            //根据货物编号搜索
 	public void selectByGoods(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		List<TbComment> list=commentservice.SelectCommentByGoods(request,response);
-		request.setAttribute("selectbygoods_list", list);
+		String goodsid=(String) request.getAttribute("commentgoodsid");
+		List<TbComment> list=commentservice.SelectCommentByGoods(goodsid);
+		if(list!=null)
+		request.setAttribute("goodsidlist", list);
+		request.getRequestDispatcher("/home/introduction.jsp").forward(request, response);
 	}
+	
+	
 	@RequestMapping("/selectbytype")            //根据类型搜索
 	public void selectByType(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		List<TbComment> list=commentservice.SelectCommentByType(request,response);
 		request.setAttribute("selectbytype_list", list);
 	}
+	
+	
+	
+	
+	@RequestMapping("/selectall")           
+	public void selectall(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<TbComment> list=commentservice.SelectCommentAll(request,response);
+		
+		if(list!=null){
+			try {
+				request.setAttribute("selectalllist", list);
+				request.getRequestDispatcher("/admin/comment.jsp").forward(request, response);
+			} catch (ServletException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+	}
+}
 }

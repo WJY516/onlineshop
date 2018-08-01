@@ -81,4 +81,11 @@ public class TbMemberServiceImpl implements TbMemberService {
 		return false;
 	}
 
+	@Override
+	public List<TbMember> selectAll() {
+		// TODO Auto-generated method stub
+		List<TbMember> list = mapper.selectByExample(null);
+		return list;
+	}
+
 }

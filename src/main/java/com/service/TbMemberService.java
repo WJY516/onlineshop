@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.List;
+
 import com.domain.TbMember;
 
 public interface TbMemberService {
@@ -16,4 +18,5 @@ public interface TbMemberService {
 	 * */
 	public boolean updateMemberByPK(TbMember member);//修改用户信息
 	public boolean updatePasswordByPK(String userName, String oldPassword,String newPassword);
+	public List<TbMember> selectAll();
 }
