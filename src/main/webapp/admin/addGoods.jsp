@@ -151,13 +151,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
         
-        <div class="am-form-group am-cf">
-          <div class="zuo">商品图片：</div>
-          <div class="you" style="height: 45px;">
-            <input type="file" id="doc-ipt-file-1">
-            <p class="am-form-help">请选择要上传的文件...</p>
-          </div>
-        </div>
         
         
         <div class="am-form-group am-cf">

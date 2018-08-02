@@ -1,6 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -98,13 +96,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </ul>
   </div>
 </header>
-
 <jsp:include page="../admin/left.jsp"></jsp:include>
-
 <div class=" admin-content">
 	
 		<div class="daohang">
-			
+			<ul>
+				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页 </li>
+				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">帮助中心<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">奖金管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+				<li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">产品管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+				
+				
+			</ul>
 
        
 
@@ -117,83 +120,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="admin-biaogelist">
 	
     <div class="listbiaoti am-cf">
-      <ul class="am-icon-flag on"> 商品列表</ul>
+      <ul class="am-icon-flag on"> 图片上传</ul>
       
       <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">商品列表</a></dl>
-      
+
       
       
     </div>
 	
-	<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
-  <ul>
-   
-    
-    
-        <li style="margin-left: -10px;">
-    </li>
-  	</ul>
-</div>
+    <div class="fbneirong">
+      <form class="am-form" id="add_form">
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品图片：</div>
+          <div class="you" style="height: 45px;">
+            <input type="file" id="doc-ipt-file-1">
+            <p class="am-form-help">请选择要上传的文件...</p>
+          </div>
+        </div>
+      </form>
+    </div>
 
-
-    <form class="am-form am-g">
-          <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
-            <thead>
-              <tr class="am-success">
-                <th class="table-id">ID</th>
-                <th class="table-title">商品名字</th>
-                <th class="table-type">类别</th>
-                 <th class="table-type">价格</th>
-                  <th class="table-type">库存</th>
-                  <th class="table-type">描述</th>
-                <th width="163px" class="table-set">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${goodsListAll}" var="goods" varStatus="status">
-              <tr>
-                <td>${goods.goodsId}</td>
-                <td>${goods.goodsName}</a></td>
-                <td>${goods.goodsType}</td>
-                <td>${goods.goodsPrice}</td>
-                <td>${goods.goodsFreenum}</td>
-                <td>${goods.goodsDiscribes}</td>
-              <%--   <input type="hidden" name="goodsId" value="${goods.goodsId}"/> --%>
-                <td><div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" onclick="location.href='/onlineshop/admin/jumptoupdategoods?goodsId=${goods.goodsId}'"><span class="am-icon-pencil-square-o"></span></a>
-                      <a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" onclick="location.href='/onlineshop/admin/uppic.jsp?goodsId=${goods.goodsId}'">添加图片</a>
-                      <a class="am-btn am-btn-default am-btn-xs am-text-danger am-round" onclick="location.href='/onlineshop/admin/deletegoodsbyId?goodsId=${goods.goodsId}'"><span class="am-icon-trash-o"></span></a>
-                      
-                    </div>
-                  </div></td>
-              </tr>
-              </c:forEach>
-            </tbody>
-          </table>
-          
-                 <div class="am-btn-group am-btn-group-xs">
-            </div>
-          
-     <!--      <ul class="am-pagination am-fr">
-                <li class="am-disabled"><a href="#">«</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-              </ul> -->
-          
-          
-          
-      
-          <hr />
-          
-        </form>
- 
- 
- 
+  
  
  <div class="foods">
   <ul>
