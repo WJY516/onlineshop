@@ -161,8 +161,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <%--   <input type="hidden" name="goodsId" value="${goods.goodsId}"/> --%>
                 <td><div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" onclick="location.href='../admin/jumptoupdategoods?goodsId=${goods.goodsId}'"><span class="am-icon-pencil-square-o"></span></a>
-                      <a class="am-btn am-btn-default am-btn-xs am-text-danger am-round" onclick="location.href='../admin/deletegoodsbyId?goodsId=${goods.goodsId}'"><span class="am-icon-trash-o"></span></a>
+                      <a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" onclick="location.href='/onlineshop/admin/jumptoupdategoods?goodsId=${goods.goodsId}'"><span class="am-icon-pencil-square-o"></span></a>
+                      <a class="am-btn am-btn-default am-btn-xs am-text-danger am-round" onclick="location.href='/onlineshop//admin/deletegoodsbyId?goodsId=${goods.goodsId}'"><span class="am-icon-trash-o"></span></a>
                     </div>
                   </div></td>
               </tr>
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <![endif]--> 
 
 <!--[if (gte IE 9)|!(IE)]><!--> 
-<script src="assets/js/amazeui.min.js"></script>
+<script src="/onlineshop/admin/assets/js/amazeui.min.js"></script>
 <!--<![endif]-->
 
 

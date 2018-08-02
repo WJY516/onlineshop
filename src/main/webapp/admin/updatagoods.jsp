@@ -183,17 +183,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				 $(document).ready(function() {
            		 //表单异步提交
             	$("#save-goods").on("click",function(){
+            		alert("修改");
 	                $.ajax({ 
 	                    type: 'post', 
 	                    data: $('#add_form').serialize(), 
-	                    url: '../admin/updategoods',
+	                    url: '/onlineshop/admin/updategoods',
 	                    cache:false,  
 	                    dataType:'text', 
 	                    success: function (data) {
 	                        if("fail"!=data){
 	                           /* layer.msg('发布成功'); */
 	                           alert("修改成功");
-	                           location.href="../admin/listgoods";
+	                           location.href="/onlineshop/admin/listgoods";
 	                        }else{
 	                           alert("修改失败，商品名重复");
 	                        }
@@ -239,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <![endif]--> 
 
 <!--[if (gte IE 9)|!(IE)]><!--> 
-<script src="assets/js/amazeui.min.js"></script>
+<script src="/onlineshop/admin/assets/js/amazeui.min.js"></script>
 <!--<![endif]-->
 
 
