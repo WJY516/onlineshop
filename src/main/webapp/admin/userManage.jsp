@@ -23,6 +23,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="assets/css/admin.css">
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/app.js"></script>
+<%
+String result = (String)session.getAttribute("resultOfUserManage_jsp");
+session.removeAttribute("resultOfUserManage_jsp");
+if(result!=null && result.length()>0){         
+%>
+        <script type="text/javascript">
+        alert("<%=result%>");
+        </script>
+<%} %>
 </head>
 <body>
 <!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
@@ -99,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
 </header>
 <jsp:include page="../admin/left.jsp"></jsp:include>
+
 <div class=" admin-content">
 	
 		<div class="daohang">
@@ -331,14 +341,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <td>${member.username }</td>
                 <td>${member.truename }</td>
                 <td>${member.password}</td>
-                <td ${member.tel}</td>
-                <td ${member.email}</td>
+                <td>${member.tel }</td>
+                <td>${member.email}</td>
                 <td>
                 	<div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
 <!--<button class="am-btn am-btn-default am-btn-xs am-text-success am-round"><span class="am-icon-search" title="查看订单详情"></span> </button> -->
-                            <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o"></span></button>
-                            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o" ></span></button>
+<!--                             <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o"></span></button> -->
+                            <a href="/onlineshop/manager/deleteMember?username=${member.username }" class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o" ></span></a>
                         </div>
                     </div>
   	
@@ -348,24 +358,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </tbody>
           </table>
           
-                
-          
-          <ul class="am-pagination am-fr">
-                <li class="am-disabled"><a href="#">«</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-              </ul>
-          
-          
-          
-      
-          <hr />
-          <p>注：.....</p>
-        </form>
+       </form>
  
  
  

@@ -28,5 +28,16 @@ public class UserManageColltroller {
 			mav.setViewName("/admin/userManage.jsp");
 		return mav;
 	}
+	@RequestMapping("/deleteMember")
+	public String deleteMember(String username,HttpSession session){
+		boolean success = memberService.deleteMemberByPK(username);
+		
+		if(success){
+			session.setAttribute("resultOfUserManage_jsp", "修改成功");
+		}else{
+			session.setAttribute("resultOfUserManage_jsp", "修改失败");
+		}
+		return "redirect:/manager/getAllMember";
+	}
 
 }
