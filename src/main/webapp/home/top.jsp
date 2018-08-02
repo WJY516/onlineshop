@@ -16,7 +16,7 @@
 						 <a href="../log/logout">注销</a>
 						<%} %> 
 						<c:if test="${sessionScope.type==1}">
-						  <a href="../admin/index.jsp">管理中心</a>
+						  <a href="/onlineshop/admin/index.jsp">管理中心</a>
 						
 						</c:if>
 					

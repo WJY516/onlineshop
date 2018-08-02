@@ -227,22 +227,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 							<div class="clear"></div>
 							</div>
-							<!--含运费小计 -->
-							<div class="buy-point-discharge ">
-								<p class="price g_price ">
-									合计（含运费） <span>¥</span><em class="pay-sum">244.00</em>
-								</p>
-							</div>
-
+							
 							<!--信息 -->
 							<div class="order-go clearfix">
 								<div class="pay-confirm clearfix">
 									<div class="box">
-										<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
-											<span class="price g_price ">
-                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee"></em>
-											</span>
-										</div>
+										
 
 										<div id="holyshit268" class="pay-address">
 

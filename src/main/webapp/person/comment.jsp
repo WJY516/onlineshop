@@ -78,14 +78,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<td class="td-inner">商品</td>
 													</div>													
 												</div>
-												<c:forEach items="${selectbyuserlist}" var= "comment">
-												<li class="td td-item">
+								<c:forEach items="${selectbyuserlist}" var= "comment">
+												<!-- <li class="td td-item">
 													<div class="item-pic">
 														<a href="#" class="J_MakePoint">
 															<img src="../images/kouhong.jpg_80x80.jpg" class="itempic">
 														</a>
 													</div>
-												</li>
+												</li> -->
 
 												<li class="td td-comment">
 													<div class="item-title">
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</div>
 													</div>
 												</li>
-												</c:forEach>
+					</c:forEach>
 
 											</ul>
 

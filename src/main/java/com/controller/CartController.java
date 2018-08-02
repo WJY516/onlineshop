@@ -48,7 +48,7 @@ public class CartController {
 		String username = (String)session.getAttribute("username");
 		if(null==username){
 			//使用filter??!!!
-			response.sendRedirect("../home/login.jsp");
+			response.sendRedirect("/onlineshop/home/login.jsp");
 		}
 		else{
 			mv = new ModelAndView("/home/shopcart.jsp"); 
@@ -66,8 +66,7 @@ public class CartController {
 	 * 不属于Cart，应该属于商品介绍页
 	 */
 	@RequestMapping(value="/add")
-	@ResponseBody
-	public ServicePackage addToCart(HttpServletRequest request, HttpServletResponse response,
+	public String addToCart(HttpServletRequest request, HttpServletResponse response,
 			String goodsid, String goodsnumber){
 		
 		HttpSession session=request.getSession();
@@ -87,7 +86,8 @@ public class CartController {
 			mv = new ModelAndView("/home/introduction.jsp", "goodspage", spackage);
 		}
 		*/
-		return spackage;
+		return "redirect:/cart";
+		
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)

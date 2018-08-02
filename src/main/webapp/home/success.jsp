@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <div class="user-info">
          <p>联系人${sessionScope.username}</p>
          <p>电  话 ${sessionScope.tel}</p>
-         <p>地  址 ${sessionScope.tel}</p>
+         <p>地  址 ${sessionScope.useraddress}</p>
        </div>
              请认真核对您的收货信息，如有错误请联系客服
                                

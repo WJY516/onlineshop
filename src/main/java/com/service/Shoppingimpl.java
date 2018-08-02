@@ -96,6 +96,7 @@ public class Shoppingimpl implements Shopping{
 		tborder.setUsername(user);
 		tborder.setOrderTime(dateNow);
 		tborder.setAddress(address);
+		session.setAttribute("useraddress",address);
 		tborder.setOrderPrice(orderprice);
 		tborder.setOrderStatus("paying");
 		TbOrderExample orderex2=new TbOrderExample();                 

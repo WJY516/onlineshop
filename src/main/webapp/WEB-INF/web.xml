@@ -55,8 +55,9 @@
 	<filter-mapping>
 		<filter-name>MakesureFilter</filter-name>
 		<url-pattern>/person/*</url-pattern>
+		<url-pattern>/Goods/buy</url-pattern>
 		<url-pattern>/subscribe/*</url-pattern>
-
+		<url-pattern>/cart/*</url-pattern>
 	</filter-mapping>
 
 

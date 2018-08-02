@@ -1,10 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
---%>
+
 <%--
 Enumeration<String> names=session.getAttributeNames();
 System.out.println("session names");
@@ -22,7 +19,6 @@ System.out.println("--"+names.nextElement());
 <html>
 
     <head>
-   
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
@@ -80,7 +76,7 @@ System.out.println("--"+names.nextElement());
 
                                         <div class="s-pic">
                                             <a href="#" class="s-pic-link">
-                                                <img src="../images/-0-saturn_solar.jpg_220x220.jpg" alt="${goods.goodsName}" title="${goods.goodsName}" class="s-pic-img s-guess-item-img">
+                                                <img src="/onlineshop/images/-0-saturn_solar.jpg_220x220.jpg" alt="${goods.goodsName}" title="${goods.goodsName}" class="s-pic-img s-guess-item-img">
 <!--                                             <span class="tip-title">已下架</span> -->
                                             </a>
                                         </div>
@@ -88,7 +84,6 @@ System.out.println("--"+names.nextElement());
                                             <div class="s-title"><a href="#" title="${goods.goodsDiscribes}">${goods.goodsName}</a></div>
                                             <div class="s-price-box">
                                                 <span class="s-price"><em class="s-price-sign">¥</em><em class="s-value">${goods.goodsPrice}</em></span>
-                                                <span class="s-history-price"><em class="s-price-sign">¥</em><em class="s-value">1888.00</em></span>
                                             </div>
                                             <div class="s-extra-box">
                                                 <span class="s-comment">好评: 99.93%</span>

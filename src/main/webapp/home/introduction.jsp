@@ -276,7 +276,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</li>
 							<li>
 								<div class="clearfix tb-btn tb-btn-basket theme-login">
-									<a id="LikBasket" title="加入购物车" href="../cart/add?goodsid=${tbgoodsIntro.goodsId}&number=1"><i> </i>加入购物车</a>
+									<a id="LikBasket" title="加入购物车" href="../cart/add?goodsid=${tbgoodsIntro.goodsId}&goodsnumber=1"><i> </i>加入购物车</a>
 								</div>
 							</li>
 							<li>

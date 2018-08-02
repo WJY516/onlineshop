@@ -47,7 +47,7 @@ public class MakesureFilter implements Filter {
 			if(null == obj || ((String) obj).length() ==0){
 				System.out.println(url);
 				//request.getRequestDispatcher("login.html").forward(request, response);
-				response.sendRedirect("../home/login.jsp");
+				response.sendRedirect("/onlineshop/home/login.jsp");
 				System.out.println(this.getClass()+"拦截了request");
 				//chain.doFilter(req, res);
 				return;

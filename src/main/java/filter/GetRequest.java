@@ -59,7 +59,7 @@ public class GetRequest extends HttpServletRequestWrapper {
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
-        for(int i = 0; i < values.length; i++) {
+        for(int i = 0; values!=null && i < values.length; i++) {
             try {
                 values[i] = new String(values[i].getBytes("ISO-8859-1"), charset);
             } catch (UnsupportedEncodingException e) {
