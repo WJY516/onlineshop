@@ -9,7 +9,7 @@ public class ServicePackage {
 	 * 页面信息用负数表示
 	 * 商品信息用商品id表示
 	 */
-	public static final int GOUWUCHENULL = -1;
+	public static final long GOUWUCHENULL = -1;
 	
 	public enum StateType {
 		/*
@@ -31,7 +31,7 @@ public class ServicePackage {
 	
 	private Object date;
 //	private List<CartPackage> date;
-	private Map<Integer, StateType> state;
+	private Map<Long, StateType> state;
 	
 	public ServicePackage(){
 		super();
@@ -41,16 +41,16 @@ public class ServicePackage {
 //		this.state = state;
 //		this.date = date;
 //	}
-	public ServicePackage(Map<Integer, StateType> state, List<CartPackage> date){
+	public ServicePackage(Map<Long, StateType> state, List<CartPackage> date){
 		super();
 		this.state = state;
 		this.date = date;
 	}
 	
-	public Map<Integer, StateType> getState() {
+	public Map<Long, StateType> getState() {
 		return state;
 	}
-	public void setState(Map<Integer, StateType> state) {
+	public void setState(Map<Long, StateType> state) {
 		this.state = state;
 	}
 	public Object getDate() {
