@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
     <div class="fbneirong">
       <!-- <form class="am-form" method="post" action="../admin/addgoods"> -->
-      <form class="am-form" id="add_form">
+      <form class="am-form" id="add_form"  >
         <div class="am-form-group am-cf">
           <div class="zuo">商品名：</div>
           <div class="you">
@@ -195,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    data: $('#add_form').serialize(), 
 	                    url: '/onlineshop/admin/addgoods',
 	                    cache:false,  
-	                    dataType:'text', 
+	                    dataType:'jason', 
 	                    success: function (data) {
 	                        if("fail"!=data){
 	                           /* layer.msg('发布成功'); */
@@ -213,6 +213,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
       </form>
     </div>
+    
+    
+    
+    <form action="/onlineshop/uppic/pic" method="post" enctype="multipart/form-data">
+    
+     <input type="file" name="pic" />  
+<input type="submit" />
+    
+    </form>
 
   
  
