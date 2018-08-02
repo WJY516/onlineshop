@@ -38,6 +38,7 @@ public class CartController {
 	 * @throws IOException 
 	 * @throws ServletException 
 	 */
+	
 	@RequestMapping()
 	public ModelAndView showCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		ModelAndView mv = null;
@@ -92,7 +93,7 @@ public class CartController {
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ModelAndView deleteFromCart(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam int goodsid){
+			@RequestParam int[] goodsid){
 		HttpSession session=request.getSession();
 		ModelAndView mv = new ModelAndView("/home/shopcart.jsp"); 
 		mv.addObject("goodscart", 

@@ -21,12 +21,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
 		<script type="text/javascript" src="../basic/js/quick_links.js"></script>
 
-		<script type="text/javascript" src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
-		<script type="text/javascript" src="../js/jquery.imagezoom.min.js"></script>
-		<script type="text/javascript" src="../js/jquery.flexslider.js"></script>
 		<script type="text/javascript" src="../js/list.js"></script>
 		<script type="text/javascript">
-			var focusMap = {};
+			function _getCheckedBtn(){
+				var checkboxs = document.getElementsByName("items");
+				var goodsid = new Array();
+				var count = 0;
+				for(var i=0; i<checkboxs.length; i++){
+					if(checkboxs[i].checked==true){
+						goodsid[count] = parseInt(checkboxs[i].value);
+						count++;
+					}
+				}
+				return goodsid;
+			}
 			function add(goodsid, nowgoodsnumber){
 			    var temp = document.createElement("form");
 			    temp.action = "/onlineshop/cart/update";
@@ -67,12 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    temp.submit();
 			    return temp;
 			}
-			function del(goodsid){
+			function del(agoodsid){
 				var temp = document.createElement("form");
 				temp.action = "/onlineshop/cart/delete";
 				temp.method = "post";
 				temp.style.display = "none";
 				
+				var goodsid = new Array();
+				goodsid[0] = agoodsid;
 				var opt = document.createElement("textarea");
 				opt.name = "goodsid";
 				opt.value = goodsid;
@@ -88,15 +98,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    temp.action = "/onlineshop/cart/account";
 			    temp.method = "post";
 			    temp.style.display = "none";
-			    alert(focusMap);
 			    
-				var goodsid = new Array();
-				var i = 0;
-				for(var btnid in focusMap){
-					goodsid[i] = parseInt(focusMap[btnid]);alert(typeof goodsid[i]);
-					i++;
-				}
-				
+			    var goodsid = _getCheckedBtn();
 				if(goodsid===undefined || goodsid.length==0){
 					return;
 				}
@@ -110,46 +113,94 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    temp.submit();
 			    return temp;
 			}
+			function _countNumberAndTotal(){
+				var number = 0;
+				var total = 0;
+				var delname = "J_CheckBox_";
+				var checkboxs = document.getElementsByName("items");
+				for(var i=0; i<checkboxs.length; i++){
+					if(checkboxs[i].checked==true){
+						number++;
+						btnid = checkboxs[i].id;
+						priceid = "price_"+btnid.slice(delname.length);
+						numberid = "number_"+btnid.slice(delname.length);
+						price = document.getElementById(priceid).innerText;
+						number = document.getElementById(numberid).value;
+						total += parseInt(price)*parseInt(number);
+					}
+				}
+				var textNumber = document.getElementById("J_SelectedItemsCount");
+				textNumber.innerText = number;
+				var textTotal = document.getElementById("J_Total");
+				textTotal.innerText = total;
+			}
 			function allfocus(){
 				var flag = document.getElementById("J_SelectAllCbx").checked;
 				var checkboxs = document.getElementsByName("items");
-				if(flag){
-					for(var i=0; i<checkboxs.length; i++){
-						if(checkboxs[i].checked!=flag){
-							checkboxs[i].checked = flag;
-							focusMap[checkboxs[i].id] = checkboxs[i].value;
-							alert(focusMap[checkboxs[i].id]);
-						}
+				for(var i=0; i<checkboxs.length; i++){
+					if(checkboxs[i].checked!=flag){
+						checkboxs[i].checked = flag;
 					}
 				}
-				else{
-					for(var i=0; i<checkboxs.length; i++){
-						if(checkboxs[i].checked!=flag){
-							checkboxs[i].checked = flag;
-							delete focusMap[checkboxs[i].id];	//undefined
-							alert(focusMap[checkboxs[i].id]);
-						}
+				_countNumberAndTotal();
+			}
+			
+			function aselect(){
+				var checkboxs = document.getElementsByName("items");
+				var checknumber = checkboxs.length;
+				var count = 0;
+				for(var i=0; i<checknumber; i++){
+					if(checkboxs[i].checked==true){
+						count++;
 					}
 				}
+				var thatbtn = document.getElementById("J_SelectAllCbx");
+				thatbtn.checked = (count==checknumber)?true:false;
+				_countNumberAndTotal();
 			}
-			function focus(){
-				//var flag = $(this).attr("checked");
-				alert("ss");
-				/*
-				if(flag){
-					$(this).attr("checked", false);
-					alert($(this).attr("checked"));
-					focusMap[$(this).attr("id")] = $(this).attr("value");
-					alert(focusMap[$(this).attr("id")]);
+			function delany(){
+				var temp = document.createElement("form");
+				temp.action = "/onlineshop/cart/delete";
+				temp.method = "post";
+				temp.style.display = "none";
+				var goodsid = _getCheckedBtn();
+				alert(goodsid + " " + typeof goodsid);
+				if(goodsid===undefined || goodsid.length==0){
+					return;
 				}
-				else{
-					$(this).attr("checked", true);
-					alert($(this).attr("checked"));
-					delete focusMap[$(this).attr("id")];
-				}*/
+				alert(goodsid[0]+" "+typeof goodsid[0]);
+				
+				var opt1 = document.createElement("textarea");
+			    opt1.name = "goodsid";
+			    opt1.value = goodsid;
+			    temp.appendChild(opt1);
+			
+			    document.body.appendChild(temp);
+			    temp.submit();
+			    return temp;
 			}
-			//function del(goodsid){}
-			//function account(goodsid){}
+			function subscribeany(){
+				var temp = document.createElement("form");
+				temp.action = "/onlineshop/subscribe/insertAnySubscribe";
+				temp.method = "get";
+				temp.style.display = "none";
+				
+				var goodsId = _getCheckedBtn();
+				if(goodsId===undefined || goodsId.length==0){
+					return;
+				}
+				
+				alert(typeof goodsId[0] + " " + goodsId[0]);
+				alert(typeof goodsId[1] + " " + goodsId[1]);
+				var opt1 = document.createElement("input");
+			    opt1.name = "goodsId";
+			    opt1.value = goodsId;
+			    temp.appendChild(opt1);
+			
+			    document.body.appendChild(temp);
+			    temp.submit();
+			    return temp;
+			}
 	</script>
 
 	</head>
@@ -212,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<!-- *按钮没有处理， 不是唯一的-->
 										<li class="td td-chk">
 											<div class="cart-checkbox ">
-												<input class="acheck" id="J_CheckBox_${id.index}" name="items" value="${agoods.goods.goodsId}" type="checkbox" onclick="focus()"/>
+												<input class="acheck" id="J_CheckBox_${id.index}" name="items" value="${agoods.goods.goodsId}" type="checkbox" onclick="aselect.call(this)"/>
 												<label for="J_CheckBox_${id.index}"></label>
 											</div>
 										</li>
@@ -245,7 +296,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<em class="price-original">${agoods.goods.goodsPrice}</em>
 													</div>
 													<div class="price-line">
-														<em class="J_Price price-now" tabindex="0">${agoods.goods.goodsPrice}</em>
+														<em class="J_Price price-now" id="price_${id.index}" tabindex="0">${agoods.goods.goodsPrice}</em>
 													</div>
 												</div>
 											</div>
@@ -262,6 +313,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																onclick="sub('${agoods.goods.goodsId}', '${agoods.goods.goodsFreenum}')" />
 														<!--这里要onclick-->
 														<input class="text_box text-input" 
+																id="number_${id.index}"
 																name="goodsnumber" 
 																type="text" 
 																value="${agoods.goods.goodsFreenum}" 
@@ -285,7 +337,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<!-- *收藏与删除-->
 										<li class="td td-op">
 											<div class="td-inner">
-												<a title="移入收藏夹" class="btn-fav" href="#"> 移入收藏夹</a>
+												<a title="移入收藏夹" class="btn-fav" href="/onlineshop/subscribe/insertSubscribe?goodsId=${agoods.goods.goodsId}"> 移入收藏夹</a>
 												<a href="javascript:void(0)" data-point-url="#" class="delete" onclick="del('${agoods.goods.goodsId}');return false;"> 删除</a>
 											</div>
 										</li>
@@ -313,8 +365,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span>全选</span>
 					</div>
 					<div class="operations">
-						<a href="#" hidefocus="true" class="deleteAll">删除</a>
-						<a href="#" hidefocus="true" class="J_BatchFav">移入收藏夹</a>
+						<a href="javascript:void(0)" hidefocus="true" class="deleteAll" onclick="delany()">删除</a>
+						<a href="javascript:void(0)" hidefocus="true" class="J_BatchFav" onclick="subscribeany()">移入收藏夹</a>
 					</div>
 					<div class="float-bar-right">
 						<div class="amount-sum">

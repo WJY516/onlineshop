@@ -116,12 +116,14 @@ public class CartServiceImpl implements CartService{
 	 * 删除商品，位于购物车界面，业务：更新Cart
 	 */
 	@Override
-	public ServicePackage deleteGoodsFromCart(String username, int goodsid) {
+	public ServicePackage deleteGoodsFromCart(String username, int[] goodsid) {
 		/*
 		 * 直接查TbCart查到就删
 		 */
 		ServicePackage retn = new ServicePackage();
-		deleteGoods(username, goodsid);
+		for(int i : goodsid){
+			deleteGoods(username, i);
+		}
 		return reFreshCart(username, retn);
 	}
 

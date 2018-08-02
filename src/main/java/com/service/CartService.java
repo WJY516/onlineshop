@@ -11,7 +11,7 @@ public interface CartService {
 	//增加商品
 	public ServicePackage addGoodsToCart(String username, int goodsid, int goodsnumber);
 	//删除商品
-	public ServicePackage deleteGoodsFromCart(String username, int goodsid);
+	public ServicePackage deleteGoodsFromCart(String username, int[] goodsid);
 	//修改数量
 	public ServicePackage updateNumOfGoodsCart(String username, int goodsid, int goodsnumber);
 	//结算商品

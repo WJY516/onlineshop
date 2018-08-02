@@ -42,6 +42,19 @@ public class SubscribeController {
 		subscribeService.insertSubscribe(subscribe);
 		return "redirect:/subscribe/getSubscribe";	
 	}
+	@RequestMapping("/insertAnySubscribe")
+	//http://127.0.0.1/onlineshop/subscribe/subscribe?username=111&goodsId=001
+	public String subanyscribe(HttpSession session,@RequestParam("goodsId")int[] goodsId){
+		TbSubscribeKey subscribe = new TbSubscribeKey();
+		
+		for(int goodsid : goodsId){
+			subscribe.setGoodsId(goodsid);
+			subscribe.setUsername((String) session.getAttribute("username"));
+			subscribeService.insertSubscribe(subscribe);
+		}
+		
+		return "redirect:/subscribe/getSubscribe";
+	}
 	@RequestMapping("/deleteSubscribe")
 	public String deleteSubscribe(@RequestParam int goodsId,HttpSession session){
 		String userName = (String) session.getAttribute("username");
