@@ -57,6 +57,7 @@ public class AdminController {
 		 * 这个需求之后再做了
 		 */
 		int in_flag = -2;
+		System.out.println("addgoods");
 		try{
 			in_flag += goodsService.insertGoods(tbgoods);
 		}catch (Exception e){

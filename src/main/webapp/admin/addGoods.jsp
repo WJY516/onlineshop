@@ -19,8 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
 <link rel="stylesheet" href="assets/css/admin.css">
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="/onlineshop/admin/assets/js/jquery.min.js"></script>
+<script src="/onlineshop/admin/assets/js/app.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
@@ -189,17 +189,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				 $(document).ready(function() {
            		 //表单异步提交
             	$("#save-goods").on("click",function(){
+            		alert("发布");
 	                $.ajax({ 
 	                    type: 'post', 
 	                    data: $('#add_form').serialize(), 
-	                    url: '../admin/addgoods',
+	                    url: '/onlineshop/admin/addgoods',
 	                    cache:false,  
 	                    dataType:'text', 
 	                    success: function (data) {
 	                        if("fail"!=data){
 	                           /* layer.msg('发布成功'); */
 	                           alert("发布成功");
-	                           location.href="../admin/addGoods.jsp";
+	                           location.href="/onlineshop/admin/addGoods.jsp";
 	                        }else{
 	                           alert("发布失败，商品名重复");
 	                        }
@@ -245,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <![endif]--> 
 
 <!--[if (gte IE 9)|!(IE)]><!--> 
-<script src="assets/js/amazeui.min.js"></script>
+<script src="/onlineshop/admin/assets/js/amazeui.min.js"></script>
 <!--<![endif]-->
 
 
