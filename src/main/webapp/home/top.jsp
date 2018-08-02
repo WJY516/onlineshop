@@ -13,7 +13,7 @@
 							<a href="../home/register.jsp" target="_top">免费注册</a>
 						<%}else{ %>
 						  <a target="_top" class="h">已登录：<%=session.getAttribute("username") %></a>
-						 <a href="../log/logout">注销</a>
+						 <a href="/onlineshop/log/logout">注销</a>
 						<%} %> 
 						<c:if test="${sessionScope.type==1}">
 						  <a href="/onlineshop/admin/index.jsp">管理中心</a>
@@ -48,7 +48,7 @@
 
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
-						<form action="../Goods/queryname">
+						<form action="/onlineshop/Goods/queryname">
 							<input id="searchInput" name="goodsname" type="text" placeholder="搜索" autocomplete="off">
 							<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
 						</form>
