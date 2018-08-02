@@ -36,9 +36,11 @@ public class CartServiceImpl implements CartService{
 	 */
 	@Override
 	public ServicePackage accountGoodsInCart(String username, int[] goodsid) {
-		ServicePackage retn = new ServicePackage(new HashMap<Integer, StateType>(), new ArrayList<CartPackage>());
+		ServicePackage retn = new ServicePackage();
+		retn.setDate(new ArrayList<CartPackage>());
+		retn.setState(new HashMap<Integer, StateType>());
 		for(int id : goodsid){
-			findGoodsForAccount(username, id, retn);
+			retn = findGoodsForAccount(username, id, retn);
 		}
 		return retn;
 	}
@@ -71,10 +73,9 @@ public class CartServiceImpl implements CartService{
 			retn.setState(retnmap);
 			return retn;
 		}
-		
 		TbBrand abrand = brandmapper.selectByPrimaryKey(goodsingoods.getGoodsId());
 		CartPackage temppackage = new CartPackage(goodsingoods, abrand);
-		
+		retn.setDate(temppackage);
 		List<TbCart> listcart = selectCart(username);
 		int goodsfreenum = Integer.parseInt(goodsingoods.getGoodsFreenum());
 		if(!(null==listcart || listcart.size()==0)){
@@ -107,7 +108,6 @@ public class CartServiceImpl implements CartService{
 		else{
 			addGoods(username, goodsid, goodsnumber);
 		}
-		retn.setDate(temppackage);
 		return retn;
 	}
 
@@ -303,7 +303,7 @@ public class CartServiceImpl implements CartService{
 	 * 从cart中查找商品， 并返回其ServicePackage
 	 */
 	private ServicePackage findGoodsForAccount(String username, int goodsid, ServicePackage spackage){
-		List<CartPackage> date = (List<CartPackage>)spackage.getDate();
+		List<CartPackage> data = (List<CartPackage>)spackage.getDate();
 		Map<Integer, StateType> state = spackage.getState();
 		
 		TbCartExample ex = new TbCartExample();
@@ -311,7 +311,7 @@ public class CartServiceImpl implements CartService{
 		cr.andUserNameEqualTo(username);
 		cr.andGoodsIdEqualTo(goodsid);
 		List<TbCart> cart = cartmapper.selectByExample(ex);
-		if(null==cart || cart.size()!=0){
+		if(null==cart || cart.size()==0){
 			/*
 			 * 购物车内无商品
 			 */
@@ -341,8 +341,8 @@ public class CartServiceImpl implements CartService{
 		CartPackage temppackage = new CartPackage();
 		temppackage.setGoods(agoods);
 		temppackage.setBrand(abrand);
-		date.add(temppackage);
-		spackage.setDate(date);
+		data.add(temppackage);
+		spackage.setDate(data);
 		return spackage;
 	}
 	/**

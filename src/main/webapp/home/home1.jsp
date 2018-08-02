@@ -31,10 +31,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <!--轮播 -->
 						<div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
 							<ul class="am-slides">
-								<li class="banner1"><a href="introduction.html"><img src="../images/ad1.jpg" /></a></li>
-								<li class="banner2"><a><img src="../images/ad2.jpg" /></a></li>
-								<li class="banner3"><a><img src="../images/ad3.jpg" /></a></li>
-								<li class="banner4"><a><img src="../images/ad4.jpg" /></a></li>
+								<li class="banner1"><a href="../Goods/queryname?goodsname=化妆品"><img src="../images/ad1.jpg" /></a></li>
+								<li class="banner2"><a href="../Goods/queryname?goodsname=吃货"><img src="../images/ad2.jpg" /></a></li>
+								<li class="banner3"><a href="../Goods/queryname?goodsname=鲜货"><img src="../images/ad3.jpg" /></a></li>
+							
 
 							</ul>
 						</div>
@@ -119,6 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<p>今日<br>推荐</p>
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
+						<a href="../Goods/queryname?goodsname=零食">
 							<div class="info ">
 								<h3>真的有鱼</h3>
 								<h4>开年福利篇</h4>
@@ -126,8 +127,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="recommendationMain one">
 								<img src="../images/tj.png "></img>
 							</div>
+						</a>
 						</div>						
 						<div class="am-u-sm-4 am-u-lg-3 ">
+						<a href="../Goods/queryname?goodsname=家居">
 							<div class="info ">
 								<h3>囤货过冬</h3>
 								<h4>让爱早回家</h4>
@@ -135,8 +138,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="recommendationMain two">
 								<img src="../images/tj1.png "></img>
 							</div>
+						</a>
 						</div>
 						<div class="am-u-sm-4 am-u-lg-3 ">
+						<a href="../Goods/queryname?goodsname=礼物">
 							<div class="info ">
 								<h3>浪漫情人节</h3>
 								<h4>甜甜蜜蜜</h4>
@@ -144,6 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="recommendationMain three ">
 								<img src="../images/tj2.png "></img>
 							</div>
+						</a>
 						</div>
 
 					</div>
@@ -248,8 +254,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--引导-->
 		<div class="navCir">
 			<li class="active"><a href="home1.html"><i class="am-icon-home "></i>首页</a></li>
-			<li><a href="sort.html"><i class="am-icon-list"></i>分类</a></li>
-			<li><a href="shopcart.html"><i class="am-icon-shopping-basket"></i>购物车</a></li>	
+			<li><a><i class="am-icon-list"></i>分类</a></li>
+			<li><a href="../cart"><i class="am-icon-shopping-basket"></i>购物车</a></li>	
 			<li><a href="../person/index.html"><i class="am-icon-user"></i>我的</a></li>					
 		</div>
 

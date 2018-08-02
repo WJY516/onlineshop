@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="nav-navicon admin-main admin-sidebar">
     
     
-    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员</div>
+    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：${sessionScope.username}</div>
     <div class="sideMenu">
       <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
       <ul>
@@ -48,7 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <ul>
         <li><a href="/onlineshop/comment/selectall">评论列表 </li>
       </ul>
-      
+      <h3 class="am-icon-users"><em></em> <a href="../home/home1.jsp">查看商城</a></h3>
+       <ul>
+        <li><a href="/onlineshop/home/home1.jsp">返回商城 </li>
+      </ul>
     </div>
     <!-- sideMenu End --> 
     
