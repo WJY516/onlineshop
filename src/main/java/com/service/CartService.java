@@ -16,5 +16,7 @@ public interface CartService {
 	public ServicePackage updateNumOfGoodsCart(String username, int goodsid, int goodsnumber);
 	//结算商品
 	public ServicePackage accountGoodsInCart(String username, int[] goodsid);
+	//查询购物车商品数
+	public long selectCountInCart(String username);
 	
 }

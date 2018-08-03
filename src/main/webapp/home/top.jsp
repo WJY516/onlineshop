@@ -1,6 +1,25 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %> 
 <%@page import="javax.servlet.*" %>
+<script type="text/javascript" src="/onlineshop/js/jquery.js"></script>
+<script type="text/javascript">
+		$(function(){
+			$.ajax({
+                url: "/onlineshop/cart/getcount", 
+                type: "POST",
+                dataType: "json",
+                async: false, 
+                contentType: "application/json; charset=utf-8", 
+                data: {},
+                success: function (value) {
+                	$("#J_MiniCartNum").text(value);
+                },
+                error: function () {
+                    alert("出错处理");
+                }
+             });
+        });
+</script>
 <div class="hmtop">
 			<!--顶部导航条 -->
 			
@@ -32,7 +51,7 @@
 						<div class="menu-hd MyShangcheng"><a href="/onlineshop/member/userCenter" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
 					</div>
 					<div class="topMessage mini-cart">
-						<div class="menu-hd"><a id="mc-menu-hd" href="/onlineshop/cart" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
+						<div class="menu-hd"><a id="mc-menu-hd" href="/onlineshop/cart" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h"></strong></a></div>
 					</div>
 					<div class="topMessage favorite">
 						<div class="menu-hd"><a href="/onlineshop/subscribe/getSubscribe" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>

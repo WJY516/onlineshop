@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -95,7 +94,7 @@ public class CartController {
 	public ModelAndView deleteFromCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int[] goodsid){
 		HttpSession session=request.getSession();
-		ModelAndView mv = new ModelAndView("/home/shopcart.jsp"); 
+		ModelAndView mv = new ModelAndView("/home/mainpage.jsp"); 
 		mv.addObject("goodscart", 
 				cartService.deleteGoodsFromCart((String)session.getAttribute("username"), goodsid));
 		/*
@@ -114,7 +113,7 @@ public class CartController {
 	public ModelAndView updateNumCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam int goodsid, @RequestParam int goodsnumber){
 		HttpSession session=request.getSession();
-		ModelAndView mv = new ModelAndView("/home/shopcart.jsp");
+		ModelAndView mv = new ModelAndView("/home/mainpage.jsp");
 		mv.addObject("goodscart", 
 				cartService.updateNumOfGoodsCart((String)session.getAttribute("username"), goodsid, goodsnumber));
 		/*
@@ -124,6 +123,8 @@ public class CartController {
 		
 		return mv;
 	}
+	
+
 	
 	/**
 	 * @param goodsnumber 传入更改后的数目
@@ -164,5 +165,21 @@ public class CartController {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		};
+	}
+	
+	/**
+	 * 
+	 * 查询购物车内商品数
+	 */
+	@RequestMapping("/getcount")
+	@ResponseBody
+	public String getCount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session=request.getSession();
+		
+		String username = (String)session.getAttribute("username");
+		//Long to String可能有错
+		long count = cartService.selectCountInCart(username);
+		String value = String.valueOf(count);
+		return value;
 	}
 }

@@ -18,10 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="/onlineshop/css/cartstyle.css" rel="stylesheet" type="text/css" />
 		<link href="/onlineshop/css/optstyle.css" rel="stylesheet" type="text/css" />
 		
-		<script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
-		<script type="text/javascript" src="../basic/js/quick_links.js"></script>
-
-		<script type="text/javascript" src="../js/list.js"></script>
+		<script type="text/javascript" src="/onlineshop/js/jquery.js"></script>
 		<script type="text/javascript">
 			function _getCheckedBtn(){
 				var checkboxs = document.getElementsByName("items");
@@ -34,84 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				}
 				return goodsid;
-			}
-			function add(goodsid, nowgoodsnumber){
-			    var temp = document.createElement("form");
-			    temp.action = "/onlineshop/cart/update";
-			    temp.method = "post";
-			    temp.style.display = "none";
-				
-			    var opt1 = document.createElement("textarea");
-			    opt1.name = "goodsid";
-			    opt1.value = goodsid;
-			    temp.appendChild(opt1);
-	
-			    var opt2 = document.createElement("textarea");
-			    opt2.name = "goodsnumber";
-			    opt2.value = parseInt(nowgoodsnumber)+1;
-			    temp.appendChild(opt2);
-			
-			    document.body.appendChild(temp);
-			    temp.submit();
-			    return temp;
-			}
-			function sub(goodsid, nowgoodsnumber) {
-			    var temp = document.createElement("form");
-			    temp.action = "/onlineshop/cart/update";
-			    temp.method = "post";
-			    temp.style.display = "none";
-				
-			    var opt1 = document.createElement("textarea");
-			    opt1.name = "goodsid";
-			    opt1.value = goodsid;
-			    temp.appendChild(opt1);
-	
-			    var opt2 = document.createElement("textarea");
-			    opt2.name = "goodsnumber";
-			    opt2.value = parseInt(nowgoodsnumber)-1;
-			    temp.appendChild(opt2);
-			
-			    document.body.appendChild(temp);
-			    temp.submit();
-			    return temp;
-			}
-			function del(agoodsid){
-				var temp = document.createElement("form");
-				temp.action = "/onlineshop/cart/delete";
-				temp.method = "post";
-				temp.style.display = "none";
-				
-				var goodsid = new Array();
-				goodsid[0] = agoodsid;
-				var opt = document.createElement("textarea");
-				opt.name = "goodsid";
-				opt.value = goodsid;
-				temp.appendChild(opt);
-			
-			    document.body.appendChild(temp);
-			    temp.submit();
-			    return temp;
-			}
-			function account(){
-				alert("11");
-			    var temp = document.createElement("form");
-			    temp.action = "/onlineshop/cart/account";
-			    temp.method = "post";
-			    temp.style.display = "none";
-			    
-			    var goodsid = _getCheckedBtn();
-				if(goodsid===undefined || goodsid.length==0){
-					return;
-				}
-				
-			    var opt1 = document.createElement("input");
-			    opt1.name = "goodsid";
-			    opt1.value = goodsid;
-			    temp.appendChild(opt1);
-			
-			    document.body.appendChild(temp);
-			    temp.submit();
-			    return temp;
 			}
 			function _countNumberAndTotal(){
 				var number = 0;
@@ -144,7 +63,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				_countNumberAndTotal();
 			}
-			
 			function aselect(){
 				var checkboxs = document.getElementsByName("items");
 				var checknumber = checkboxs.length;
@@ -157,27 +75,123 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var thatbtn = document.getElementById("J_SelectAllCbx");
 				thatbtn.checked = (count==checknumber)?true:false;
 				_countNumberAndTotal();
+			}			
+			
+			function add(goodsid, nowgoodsnumber){
+			    var goodsnumber = parseInt(nowgoodsnumber)+1;
+			    $.ajax({
+				    url: "/onlineshop/cart/update?goodsid="+goodsid+"&goodsnumber="+goodsnumber,  
+				    type: "POST",
+				    dataType: "html",
+				    async: false, 
+				    contentType: "application/json; charset=utf-8", 
+				    data: {},
+				    success: function (page) {
+				        $("#mainpageshell").html(page);
+				    },
+				    error: function () {
+				        alert("出错处理");
+				    }
+			    });
+			}
+			function sub(goodsid, nowgoodsnumber) {
+			    var goodsnumber = parseInt(nowgoodsnumber)-1;
+			    $.ajax({
+				    url: "/onlineshop/cart/update?goodsid="+goodsid+"&goodsnumber="+goodsnumber,  
+				    type: "POST",
+				    dataType: "html",
+				    async: false, 
+				    contentType: "application/json; charset=utf-8", 
+				    data: {},
+				    success: function (page) {
+				        $("#mainpageshell").html(page);
+				    },
+				    error: function () {
+				        alert("出错处理");
+				    }
+			    });
+			}
+			function inputupdata(event){
+					if(event.keyCode==13){
+						var delname = "number_";
+						var textid = $(this).attr("id");
+						var btnid = "J_CheckBox_"+textid.slice(delname.length);
+						var goodsidstring = $("#"+btnid).val();
+   						var goodsnumberstring = $(this).val();
+   						var goodsid = parseInt(goodsidstring);
+   						var goodsnumber = parseInt(goodsnumberstring);
+       					$.ajax({
+				                url: "/onlineshop/cart/update?goodsid="+goodsid+"&goodsnumber="+goodsnumber,  
+				                type: "POST",
+				                dataType: "html",
+				                async: false, 
+				                contentType: "application/json; charset=utf-8", 
+				                data: {},
+				                success: function (page) {
+				                	$("#mainpageshell").html(page);
+				                },
+				                error: function () {
+				                    alert("出错处理");
+				                }
+			             });
+       				}
+				}
+			function del(agoodsid){
+				var goodsid = new Array();
+				goodsid[0] = agoodsid;
+			    $.ajax({
+				    url: "/onlineshop/cart/delete?goodsid="+goodsid,  
+				    type: "POST",
+				    dataType: "html",
+				    async: false, 
+				    contentType: "application/json; charset=utf-8", 
+				    data: {},
+				    success: function (page) {
+				        $("#mainpageshell").html(page);
+				    },
+				    error: function () {
+				        alert("出错处理");
+				    }
+			    });
 			}
 			function delany(){
-				var temp = document.createElement("form");
-				temp.action = "/onlineshop/cart/delete";
-				temp.method = "post";
-				temp.style.display = "none";
 				var goodsid = _getCheckedBtn();
-				alert(goodsid + " " + typeof goodsid);
 				if(goodsid===undefined || goodsid.length==0){
 					return;
 				}
-				alert(goodsid[0]+" "+typeof goodsid[0]);
+			    $.ajax({
+				    url: "/onlineshop/cart/delete?goodsid="+goodsid,  
+				    type: "POST",
+				    dataType: "html",
+				    async: false, 
+				    contentType: "application/json; charset=utf-8", 
+				    data: {},
+				    success: function (page) {
+				        $("#mainpageshell").html(page);
+				    },
+				    error: function () {
+				        alert("出错处理");
+				    }
+			    });
+			}
+			function account(){
+			    var temp = document.createElement("form");
+			    temp.action = "/onlineshop/cart/account";
+			    temp.method = "post";
+			    temp.style.display = "none";
+			    
+			    var goodsid = _getCheckedBtn();
+				if(goodsid===undefined || goodsid.length==0){
+					return;
+				}
 				
-				var opt1 = document.createElement("textarea");
+			    var opt1 = document.createElement("input");
 			    opt1.name = "goodsid";
 			    opt1.value = goodsid;
 			    temp.appendChild(opt1);
 			
 			    document.body.appendChild(temp);
 			    temp.submit();
-			    return temp;
 			}
 			function subscribeany(){
 				var temp = document.createElement("form");
@@ -201,6 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    temp.submit();
 			    return temp;
 			}
+		
 	</script>
 
 	</head>
@@ -239,9 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="clear"></div>
 					
-					
-					
-					<div>
+					<div id="mainpageshell"><div id="mainpage">
 					<c:forEach  items="${goodscart.date}"  var="agoods" varStatus="id">
 						<tr class="item-list">
 							<div class="bundle  bundle-last ">
@@ -317,6 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																name="goodsnumber" 
 																type="text" 
 																value="${agoods.goods.goodsFreenum}" 
+																onkeydown="inputupdata.call(this,event)"
 																style="width:30px;" />
 														<input class="add am-btn" 
 																name="" 
@@ -324,7 +338,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																value="+"
 																onclick="add('${agoods.goods.goodsId}', '${agoods.goods.goodsFreenum}')" />
 													</div>
-													<!--在这里加c:if-->
+													<c:forEach items="${goodscart.state}" var="astate">
+														<c:if test="${astate.key == agoods.goods.goodsId}">
+															<c:if test="${astate.value eq 'CARD_CART_KUCUNJINZHANG'}">
+																<font size="" color="#FF9900">库存紧张</font>	
+															</c:if>
+															<c:if test="${astate.value eq 'CARD_CART_NUMBERMIN'}">
+																<font size="2" color="#FF9900">最少选购1件</font>	
+															</c:if>
+														</c:if>
+													</c:forEach>
 												</div>
 											</div>
 										</li>
@@ -347,7 +370,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 						<div class="clear"></div>
 					</c:forEach>
-					</div>
+					</div></div>
 					
 					
 					
@@ -355,7 +378,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				</div>
 				<div class="clear"></div>
-
+				<c:if test="${not empty goodscart.date}">
 				<div class="float-bar-wrapper">
 					<div id="J_SelectAll2" class="select-all J_SelectAll">
 						<div class="cart-checkbox">
@@ -388,6 +411,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 
 				</div>
+				</c:if>
 
 				<div class="footer">
 					<div class="footer-hd">

@@ -29,6 +29,18 @@ public class CartServiceImpl implements CartService{
 	@Autowired
 	TbBrandMapper brandmapper;
 	
+
+	/**
+	 * 获得购物车商品数
+	 */
+	@Override
+	public long selectCountInCart(String username) {
+		long count = 0;
+		TbCartExample ex = new TbCartExample();
+		count = cartmapper.countByExample(ex);
+		return count;
+	}
+	
 	/**
 	 * 商品结算
 	 * 前台传回的goodsid将其装填ServicePackage传回
@@ -38,7 +50,7 @@ public class CartServiceImpl implements CartService{
 	public ServicePackage accountGoodsInCart(String username, int[] goodsid) {
 		ServicePackage retn = new ServicePackage();
 		retn.setDate(new ArrayList<CartPackage>());
-		retn.setState(new HashMap<Integer, StateType>());
+		retn.setState(new HashMap<Long, StateType>());
 		for(int id : goodsid){
 			retn = findGoodsForAccount(username, id, retn);
 		}
@@ -64,12 +76,12 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public ServicePackage addGoodsToCart(String username, int goodsid, int goodsnumber) {
 		ServicePackage retn = new ServicePackage();
-		Map<Integer, StateType> retnmap = new HashMap<Integer, StateType>();
+		Map<Long, StateType> retnmap = new HashMap<Long, StateType>();
 		
 		TbGoods goodsingoods = isGoodsExist(goodsid);
 		if(null==goodsingoods){
 			//商品不存在，定向到商品不存在界面
-			retnmap.put(goodsid, StateType.PAGE_SHOP_SHANGPINBUCUNZAI);
+			retnmap.put(new Long((long)goodsid), StateType.PAGE_SHOP_SHANGPINBUCUNZAI);
 			retn.setState(retnmap);
 			return retn;
 		}
@@ -87,10 +99,10 @@ public class CartServiceImpl implements CartService{
 						/*
 						 * 提示库存紧张，添加失败
 						 */
-						retnmap.put(goodsid, StateType.CARD_SHOP_KUCUNJINZHANG);
+						retnmap.put(new Long((long)goodsid), StateType.CARD_SHOP_KUCUNJINZHANG);
 					}
 					else{
-						retnmap.put(goodsid, StateType.CARD_SHOP_SUCCESS);
+						retnmap.put(new Long((long)goodsid), StateType.CARD_SHOP_SUCCESS);
 						updateGoodsNumber(goodsincart.getId(), goodsnumber);
 					}
 					retn.setState(retnmap);
@@ -103,7 +115,7 @@ public class CartServiceImpl implements CartService{
 			/*
 			 * 提示库存紧张，添加失败
 			 */
-			retnmap.put(goodsid, StateType.CARD_SHOP_KUCUNJINZHANG);
+			retnmap.put(new Long((long)goodsid), StateType.CARD_SHOP_KUCUNJINZHANG);
 		}
 		else{
 			addGoods(username, goodsid, goodsnumber);
@@ -135,7 +147,7 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public ServicePackage updateNumOfGoodsCart(String username, int goodsid, int goodsnumber) {
 		ServicePackage retn = new ServicePackage();
-		Map<Integer, StateType> retnmap = new HashMap<Integer, StateType>();
+		Map<Long, StateType> retnmap = new HashMap<Long, StateType>();
 		
 		TbCartExample ex = new TbCartExample();
 		Criteria cr = ex.createCriteria();
@@ -157,7 +169,7 @@ public class CartServiceImpl implements CartService{
 				 */
 				deleteGoods(username, goodsid);
 				//提示商品已下架
-				retnmap.put(goodsid, StateType.CARD_CART_SHANGPINBUCUNZAI);
+				retnmap.put(new Long((long)goodsid), StateType.CARD_CART_SHANGPINBUCUNZAI);
 			} 
 			else{
 				int maxnum = Integer.parseInt(goodsingoods.getGoodsFreenum());
@@ -167,7 +179,7 @@ public class CartServiceImpl implements CartService{
 					 */
 					updateGoodsNumber(goodsincart.getId(), maxnum);
 					//提示库存紧张
-					retnmap.put(goodsid, StateType.CARD_CART_KUCUNJINZHANG);
+					retnmap.put(new Long((long)goodsid), StateType.CARD_CART_KUCUNJINZHANG);
 				}
 				else if(goodsnumber < 1){
 					/*
@@ -178,7 +190,7 @@ public class CartServiceImpl implements CartService{
 					}
 					
 					//提示最小值为1
-					retnmap.put(goodsid, StateType.CARD_CART_NUMBERMIN);
+					retnmap.put(new Long((long)goodsid), StateType.CARD_CART_NUMBERMIN);
 				}
 				else{
 					/*
@@ -214,9 +226,9 @@ public class CartServiceImpl implements CartService{
 		}
 
 		List<CartPackage> listpackage = new ArrayList<CartPackage>();
-		Map<Integer, StateType> retnmap = spackage.getState();
+		Map<Long, StateType> retnmap = spackage.getState();
 		if(null==retnmap || retnmap.size()==0){
-			retnmap = new HashMap<Integer, StateType>();
+			retnmap = new HashMap<Long, StateType>();
 		}
 
 		int goodsid, goodsnumber;
@@ -232,7 +244,7 @@ public class CartServiceImpl implements CartService{
 				 */
 				deleteGoods(username, goodsid);
 				//TODO: 提示商品已下架，要存在cookie里
-				retnmap.put(goodsid, StateType.CARD_CART_SHANGPINBUCUNZAI);
+				retnmap.put(new Long((long)goodsid), StateType.CARD_CART_SHANGPINBUCUNZAI);
 				continue;
 			}
 
@@ -242,7 +254,7 @@ public class CartServiceImpl implements CartService{
 				 * 将购物车商品数量以最大值显示，更新TbCart，并提醒库存紧张，contiune
 				 */
 				updateGoodsNumber(goodsincart.getId(), maxnum);
-				retnmap.put(goodsid, StateType.CARD_CART_KUCUNJINZHANG);
+				retnmap.put(new Long((long)goodsid), StateType.CARD_CART_KUCUNJINZHANG);
 			}
 			goodsingoods.setGoodsFreenum(String.valueOf(goodsincart.getGoodsNumber()));
 			
@@ -306,7 +318,7 @@ public class CartServiceImpl implements CartService{
 	 */
 	private ServicePackage findGoodsForAccount(String username, int goodsid, ServicePackage spackage){
 		List<CartPackage> data = (List<CartPackage>)spackage.getDate();
-		Map<Integer, StateType> state = spackage.getState();
+		Map<Long, StateType> state = spackage.getState();
 		
 		TbCartExample ex = new TbCartExample();
 		Criteria cr = ex.createCriteria();
@@ -333,7 +345,7 @@ public class CartServiceImpl implements CartService{
 			/*
 			 * 商品下架
 			 */
-			state.put(cart.get(0).getGoodsId(), StateType.MESSAGE_CART_COUNT_GOUWUCHENULL);
+			state.put(new Long((long)cart.get(0).getGoodsId()), StateType.MESSAGE_CART_COUNT_GOUWUCHENULL);
 			spackage.setState(state);
 			return spackage;
 		}
