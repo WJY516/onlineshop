@@ -19,8 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
 <link rel="stylesheet" href="assets/css/admin.css">
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="/onlineshop/admin/assets/js/jquery.min.js"></script>
+<script src="/onlineshop/admin/assets/js/app.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
@@ -129,14 +129,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 	
     <div class="fbneirong">
-      <form class="am-form" id="add_form">
+     <%
+        	String goodsId = request.getParameter("goodsId");
+         %> 
+          <%-- <script type="text/javascript">
+         	var goodsId='<%=goodsId%>';
+         	document.getElementById("test").value="goodsId";
+         </script> --%>
+      <form class="am-form" id="add_form" action="/onlineshop/uppic/pic?goodsId='<%=goodsId%>'" method="post" enctype="multipart/form-data">
         <div class="am-form-group am-cf">
           <div class="zuo">商品图片：</div>
           <div class="you" style="height: 45px;">
-            <input type="file" id="doc-ipt-file-1">
+            <input type="file" id="oc-ipt-file-1z" name="pic">
             <p class="am-form-help">请选择要上传的文件...</p>
           </div>
         </div>
+       
+
+<!--         <input type="text" id="goodsId" name="goodsid"> -->
+
+ 
+        <input type="submit" >
+        
       </form>
     </div>
 
@@ -166,9 +180,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/polyfill/rem.min.js"></script>
-<script src="assets/js/polyfill/respond.min.js"></script>
-<script src="assets/js/amazeui.legacy.js"></script>
+<script src="/onlineshop/admin/assets/js/polyfill/rem.min.js"></script>
+<script src="/onlineshop/admin/assets/js/polyfill/respond.min.js"></script>
+<script src="/onlineshop/admin/assets/js/amazeui.legacy.js"></script>
 <![endif]--> 
 
 <!--[if (gte IE 9)|!(IE)]><!--> 

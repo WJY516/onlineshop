@@ -32,7 +32,7 @@ public class PicServiceImpl implements PicService{
 		String goodsid1=String.valueOf(goodsid);
 		cr.andGoodsIdEqualTo(goodsid1);
 		cr.andPictureEqualTo(pic);
-		Picture picture = null;
+		Picture picture = new Picture();
 		picture.setGoodsId(goodsid1);
 		picture.setPicture(pic);
 		int count = picturemapper.insert(picture);

@@ -27,9 +27,9 @@ public class Uppic {
 	PicService picservice;
 	
 	
-	String path_or="C:\\Users\\50134\\Workspaces\\MyEclipse 2015\\project\\onlineshop\\src\\main\\webapp\\images\\"; //根据自己的电脑路径设置
+	String path_or="/Users/wujiayi/onlineshop/src/main/webapp/images"; //根据自己的电脑路径设置
 	@RequestMapping("/pic") 
-	public String uploadPic(MultipartFile pic,int goodsid) throws IllegalStateException, IOException{
+	public String uploadPic(MultipartFile pic,String goodsid) throws IllegalStateException, IOException{
 		String rndFileName = UUID.randomUUID().toString();
 		String originalFilename = pic.getOriginalFilename();
 		String ext =originalFilename.substring(originalFilename.lastIndexOf("."),originalFilename.length());
@@ -38,7 +38,11 @@ public class Uppic {
 		pic.transferTo(dest);
 		System.out.println("图片于"+path);
 				//System.out.println(pic.getOriginalFilename());
-		picservice.add(path,goodsid);
+		int flag = picservice.add(path,Integer.valueOf(goodsid));
+		if(flag == 1){
+			return "redirect:../admin/listgoods";
+		}
+		return "";
 	}
 	
 	
